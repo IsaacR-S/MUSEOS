@@ -62,7 +62,16 @@ INSERT INTO museo (nombre, mision, fecha_fundacion, id_lugar) VALUES
 INSERT INTO resumen_hist (ano, hechos_hist, id_museo) VALUES
 ();
 
-INSERT INTO
+INSERT INTO HORARIO (id_museo, dia, hora_apertura, hora_cierre) VALUES
+(1,1,'09:00','18:00'),
+(1,2,'09:00','18:00'),
+(1,3,'09:00','18:00'),
+(1,4,'09:00','18:00'),
+(1,5,'09:00','20:00'),
+(1,6,'10:00','20:00'),
+(1,7,'10:00','18:00');
+
+INSERT INTO EVENTO (id_museo, fecha_inicio, fecha_fin, nombre evento, institucion_educativa, cantidad_asistentes, lugar_exposicion, costo_persona, )
 
 
 -----------------------------------------------------JAC------------------------------------------------------------
