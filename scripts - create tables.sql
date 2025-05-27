@@ -1,4 +1,4 @@
-
+-------------------------------------------------------------------ISAAC-----------------------------------------------------------------
 CREATE TABLE LUGAR(
   id_lugar NUMERIC primary key,
   nombre_lugar varchar(50) NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE IDIOMA(
 id_idioma NUMERIC PRIMARY KEY,
 nombre varchar(50) NOT NULL
 );
-
+------------------------------------------------------------------JAC-----------------------------------------------------------------
 CREATE TABLE EMP_IDI(
     id_idioma NUMERIC NOT NULL,
     id_empleado_prof NUMERIC NOT NULL,
