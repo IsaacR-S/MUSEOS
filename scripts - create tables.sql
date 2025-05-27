@@ -25,8 +25,8 @@ CREATE TABLE OBRA(
 CREATE SEQUENCE seq_artista START WITH 1 INCREMENT BY 1;
 CREATE TABLE ARTISTA(
     id_artista NUMERIC primary key,
-    nombre_artista VARCHAR(30),
-    apellido_artista VARCHAR(30),
+    nombre_artista VARCHAR(60),
+    apellido_artista VARCHAR(60),
     fecha_nacimiento DATE, 
     apodo_artista varchar(60), 
     fecha_muerte date,
