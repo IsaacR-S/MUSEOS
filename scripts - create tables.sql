@@ -1,4 +1,6 @@
 -------------------------------------------------------------------ISAAC-----------------------------------------------------------------
+CREATE SEQUENCE seq_lugar START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE LUGAR(
   id_lugar NUMERIC primary key,
   nombre_lugar varchar(50) NOT NULL,
@@ -8,6 +10,7 @@ CREATE TABLE LUGAR(
   CONSTRAINT fk_jerarquia FOREIGN KEY(id_jerarquia) REFERENCES LUGAR(id_lugar)
 );
 
+CREATE SEQUENCE seq_obra START WITH 1 INCREMENT BY 1;
 CREATE TABLE OBRA(
     id_obra NUMERIC PRIMARY KEY,
     nombre_obra varchar(250) NOT NULL, 
@@ -19,6 +22,7 @@ CREATE TABLE OBRA(
     CONSTRAINT ch_tipo_obra CHECK (tipo_obra IN('pintura', 'escultura'))
 );
 
+CREATE SEQUENCE seq_artista START WITH 1 INCREMENT BY 1;
 CREATE TABLE ARTISTA(
     id_artista NUMERIC primary key,
     nombre_artista VARCHAR(30),
@@ -37,7 +41,7 @@ CREATE TABLE ART_OBRA(
     PRIMARY KEY(id_artista, id_obra)
 );
 
-
+CREATE SEQUENCE seq_museo START WITH 1 INCREMENT BY 1;
 CREATE TABLE MUSEO(
   id_museo NUMERIC primary key,
   nombre varchar(50) NOT NULL,
@@ -66,6 +70,7 @@ CREATE TABLE TIPO_TICKET_HISTORICO(
     PRIMARY KEY(fecha_inicio, id_museo)
 );
 
+CREATE SEQUENCE seq_evento START WITH 1 INCREMENT BY 1;
 CREATE TABLE EVENTO(
     id_museo NUMERIC NOT NULL,
     id_evento NUMERIC NOT NULL,
@@ -80,6 +85,7 @@ CREATE TABLE EVENTO(
     PRIMARY KEY(id_evento, id_museo)
 );
 
+CREATE SEQUENCE seq_ticket START WITH 1 INCREMENT BY 1;
 CREATE TABLE TICKET(
     id_ticket NUMERIC NOT NULL,
     precio NUMERIC NOT NULL,
@@ -91,6 +97,7 @@ CREATE TABLE TICKET(
     PRIMARY KEY(id_museo, id_ticket)
 );
 
+
 CREATE TABLE HORARIO(
   id_museo NUMERIC NOT NULL,
   dia NUMERIC NOT NULL,
@@ -101,7 +108,7 @@ CREATE TABLE HORARIO(
   CONSTRAINT rang_dia  CHECK(dia between 1 and 7)
 );
 
-
+CREATE SEQUENCE seq_empleado_prof START WITH 1 INCREMENT BY 1;
 CREATE TABLE EMPLEADO_PROFESIONAL(
     id_empleado_prof NUMERIC primary key,
     primer_nombre VARCHAR(20) NOT NULL,
@@ -113,6 +120,7 @@ CREATE TABLE EMPLEADO_PROFESIONAL(
     segundo_nombre varchar(20)
 );
 
+CREATE SEQUENCE seq_formacion START WITH 1 INCREMENT BY 1;
 CREATE TABLE FORMACION_PROFESIONA(
     id_formacion NUMERIC NOT NULL,
     id_empleado_prof NUMERIC NOT NULL,
@@ -123,6 +131,7 @@ CREATE TABLE FORMACION_PROFESIONA(
     PRIMARY KEY(id_formacion, id_empleado_prof)
 );
 
+CREATE SEQUENCE seq_idioma START WITH 1 INCREMENT BY 1;
 CREATE TABLE IDIOMA(
 id_idioma NUMERIC PRIMARY KEY,
 nombre varchar(50) NOT NULL
@@ -136,6 +145,7 @@ CREATE TABLE EMP_IDI(
     PRIMARY KEY(id_idioma, id_empleado_prof)
 );
 
+CREATE SEQUENCE seq_estructura_org START WITH 1 INCREMENT BY 1;
 CREATE TABLE ESTRUCTURA_ORGANIZACIONAL(
     id_estructura_org NUMERIC NOT NULL, 
     id_museo NUMERIC NOT NULL,
@@ -150,6 +160,7 @@ CREATE TABLE ESTRUCTURA_ORGANIZACIONAL(
     PRIMARY KEY(id_estructura_org, id_museo)
 ); 
 
+CREATE SEQUENCE seq_coleccion START WITH 1 INCREMENT BY 1;
 CREATE TABLE COLECCION_PERMANENTE(
     id_coleccion NUMERIC NOT NULL,
     id_estructura_org NUMERIC NOT NULL,
@@ -161,6 +172,8 @@ CREATE TABLE COLECCION_PERMANENTE(
     CONSTRAINT fk_estructura_org FOREIGN KEY(id_estructura_org, id_museo) REFERENCES ESTRUCTURA_ORGANIZACIONAL(id_estructura_org, id_museo),
     PRIMARY KEY(id_coleccion, id_estructura_org, id_museo)
 );
+
+CREATE SEQUENCE seq_estructura_fisica START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE ESTRUCTURA_FISICA(
     id_estructura_fisica NUMERIC NOT NULL,
@@ -174,6 +187,7 @@ CREATE TABLE ESTRUCTURA_FISICA(
     PRIMARY KEY(id_museo, id_estructura_fisica) 
 );
 
+CREATE SEQUENCE seq_sala START WITH 1 INCREMENT BY 1;
 CREATE TABLE SALA_EXPOSICION(
     id_sala NUMERIC NOT NULL, 
     id_estructura_fisica NUMERIC NOT NULL,
@@ -208,6 +222,7 @@ CREATE TABLE HIST_CIERRE(
     PRIMARY KEY(id_museo, id_estructura_fisica, id_sala)
 );
 
+CREATE SEQUENCE seq_empleado_mv START WITH 1 INCREMENT BY 1;
 CREATE TABLE EMPLEADO_MANTENIMIENTO_VIGILANCIA(
     id_empleado_mantenimiento_vigilancia NUMERIC primary key,
     primer_nombre VARCHAR(20) NOT NULL,
@@ -243,7 +258,7 @@ CREATE TABLE HISTORICO_EMPLEADO(
 );
 
 
-
+CREATE SEQUENCE seq_mantenimiento_obra START WITH 1 INCREMENT BY 1;
 CREATE TABLE HISTORICO_OBRA_MOVIMIENTO(
     id_historico_obra_movimiento NUMERIC NOT NULL,
     fecha_inicio date NOT NULL,
@@ -283,6 +298,8 @@ CREATE TABLE MANTENIMIENTO_OBRA(
     CONSTRAINT fk_historico_obra_movimiento FOREIGN KEY(id_obra, id_historico_obra_movimiento) REFERENCES HISTORICO_OBRA_MOVIMIENTO(id_obra, id_historico_obra_movimiento),
     PRIMARY KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra)
 );
+
+CREATE SEQUENCE seq_historico_mant_re START WITH 1 INCREMENT BY 1;
 CREATE TABLE HISTORICO_MANTENIMIENTO_REALIZADO(
     id_historico_mant_re NUMERIC NOT NULL, 
     fecha_inicio date NOT NULL, 
