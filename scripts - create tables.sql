@@ -56,8 +56,8 @@ CREATE TABLE RESUMEN_HIST(
 );
 
 CREATE TABLE TIPO_TICKET_HISTORICO(
-    fecha_inicio DATE NOT NULL,
     id_museo NUMERIC NOT NULL,
+    fecha_inicio DATE NOT NULL,
     precio NUMERIC NOT NULL, 
     tipo_ticket VARCHAR(15) NOT NULL,
     fecha_fin DATE,
@@ -67,6 +67,7 @@ CREATE TABLE TIPO_TICKET_HISTORICO(
 );
 
 CREATE TABLE EVENTO(
+    id_museo NUMERIC NOT NULL,
     id_evento NUMERIC NOT NULL,
     fecha_inicio_evento date,
     fecha_fin_evento date NOT NULL, 
@@ -74,8 +75,7 @@ CREATE TABLE EVENTO(
     institucion_educativa VARCHAR(150) NOT NULL, 
     cantidad_asistentes NUMERIC,
     lugar_exposicion VARCHAR(100),
-    costo_persona NUMERIC, 
-    id_museo NUMERIC NOT NULL, 
+    costo_persona NUMERIC,  
     CONSTRAINT fk_museo FOREIGN KEY(id_museo) REFERENCES MUSEO(id_museo),
     PRIMARY KEY(id_evento, id_museo)
 );
