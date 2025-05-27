@@ -88,7 +88,7 @@ CREATE SEQUENCE seq_ticket START WITH 1 INCREMENT BY 1;
 CREATE TABLE TICKET(
     id_ticket NUMERIC DEFAULT nextval('seq_ticket') NOT NULL,
     precio NUMERIC NOT NULL,
-    tipo_ticket varchar(10) NOT NULL,
+    tipo_ticket varchar(20) NOT NULL,
     fecha_hora_ticket date NOT NULL,
     id_museo NUMERIC,
     CONSTRAINT ch_tipo_ticket CHECK (tipo_ticket IN('niño', 'adulto', 'tercera edad')),
