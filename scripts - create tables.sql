@@ -311,3 +311,5 @@ CREATE TABLE HISTORICO_MANTENIMIENTO_REALIZADO(
     CONSTRAINT fk_mantenimiento_obra FOREIGN KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra) REFERENCES MANTENIMIENTO_OBRA(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra),
     PRIMARY KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, id_historico_mant_re)
 );
+
+SET datestyle = 'ISO, MDY';
