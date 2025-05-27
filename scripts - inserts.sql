@@ -1,3 +1,5 @@
+------------------------------------------------------------------ISAAC---------------------------------------------------------
+
 INSERT INTO lugar (nombre_lugar, tipo, id_jerarquia) VALUES
 ('canada','pais', NULL),
 ('mexico', 'pais', NULL),
@@ -25,16 +27,28 @@ INSERT INTO obra (nombre_obra, fecha_periodo, tipo_obra, dimensiones, estilo_des
 
 
 INSERT INTO artista (nombre_artista, apellido_artista, fecha_nacimiento, apodo_artista, fecha_muerte, descripcion_estilo_tecnicas) VALUES
-('michelangelo','buonarroti','fecha','miguel angel'), --david
-('françois auguste rene','rodin','fecha','auguste rodin'), --el pensador
-(NULL,NULL,'fecha','alejandro de antioquia'), --venus de milo
-(NULL,NULL,'fecha','miron de eleuteras'),--discobolo
-('Leonardo di ser Piero da Vinci'),--mona lisa
-('diego','rodrigo de silva y velazques','fecha','diego velazquez'),--las meninas
-('salvador','domingo','fecha','salvador dali'),--la pertenecia de la memoria
-('edvard','munch','fecha',NULL),--el grito
-('pablo','ruiz','fecha','pablo picasso');--guernica
-  
+('michelangelo','buonarroti','1475-03-06','miguel angel','1564-02-18','renacimiento, escultura, pintura, arquitectura'), --david
+('françois auguste rene','rodin','1840-11-12','auguste rodin','1917-11-17','escultura moderna, simbolismo'), --el pensador
+(NULL,NULL,NULL,'alejandro de antioquia',NULL,'escultura helenística'), --venus de milo
+(NULL,NULL,NULL,'miron de eleuteras',NULL,'escultura clásica, bronce'),--discobolo
+('leonardo', 'di ser piero da vinci', '1452-04-15', NULL, '1519-05-02','renacimiento, pintura, ingeniería, anatomía'),--mona lisa
+('diego','rodrigo de silva y velazques','1599-06-06','diego velazquez','1660-08-06','barroco, pintura'),--las meninas
+('salvador','domingo felipe jacinto dali i domenech','1904-05-11','salvador dali','1989-01-23','surrealismo,pintura,escultura'),--la pertenecia de la memoria
+('edvard','munch','1863-12-12',NULL,'1944-01-23','expresionismo, simbolismo'),--el grito
+('pablo','ruiz','1881-10-25','pablo picasso','1973-04-08','cubismo, surrealismo, pintura, escultura');--guernica
+
+INSERT INTO art_obra (id_artista, id_obra) VALUES
+(1,1),
+(2,2),
+(3,3),
+(4,4),
+(5,5),
+(6,6),
+(7,7),
+(8,8),
+(9,9);
+
+--REVISAR LOS ID DE LUGAR, PUSE LOS DE PAIS, SUPONGO QUE SON LOS DE CIUDAD PERO NO ESTOY SEGURO
 INSERT INTO museo (nombre, mision, fecha_fundacion, id_lugar) VALUES
 ('Museo de Arte de Vancouvert','Fomentar el arte de la costa oeste de Canada','1931','1'),
 ('Museo de Arte de Montreal','Preservar y compartir arte de todas las epocas','04-23-1860','1'),
@@ -44,5 +58,13 @@ INSERT INTO museo (nombre, mision, fecha_fundacion, id_lugar) VALUES
 ('Museo de Guangdong','Difundir la cultura y arte de Guangdong','1959','3'),
 ('Museo Nacional de Australia','Explorar la historia australiana'.'03-11-2001','4'),
 ('Galería Nacional de Victoria','Ser un epicentro de la creatividad y la innovación artística','1861','4');
+
+INSERT INTO resumen_hist (ano, hechos_hist, id_museo) VALUES
+();
+
+INSERT INTO
+
+
+-----------------------------------------------------JAC------------------------------------------------------------
 
 
