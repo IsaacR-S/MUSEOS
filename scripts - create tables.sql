@@ -101,8 +101,8 @@ CREATE TABLE TICKET(
 CREATE TABLE HORARIO(
   id_museo NUMERIC NOT NULL,
   dia NUMERIC NOT NULL,
-  hora_apertura date NOT NULL, 
-  hora_cierre date NOT NULL,
+  hora_apertura TIME NOT NULL, 
+  hora_cierre TIME NOT NULL,
   CONSTRAINT id_museo FOREIGN KEY(id_museo) REFERENCES MUSEO(id_museo),
   PRIMARY KEY (id_museo, dia),
   CONSTRAINT rang_dia  CHECK(dia between 1 and 7)
