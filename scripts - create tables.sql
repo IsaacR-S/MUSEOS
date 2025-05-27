@@ -66,7 +66,7 @@ CREATE TABLE TIPO_TICKET_HISTORICO(
     tipo_ticket VARCHAR(15) NOT NULL,
     fecha_fin DATE,
     CONSTRAINT fk_museo FOREIGN KEY(id_museo) REFERENCES MUSEO(id_museo),
-    CONSTRAINT ch_tipo_ticket CHECK (tipo_ticket IN('nino', 'adulto', 'tercera edad')),
+    CONSTRAINT ch_tipo_ticket CHECK (tipo_ticket IN('niño', 'adulto', 'tercera edad')),
     PRIMARY KEY(fecha_inicio, id_museo)
 );
 
@@ -92,7 +92,7 @@ CREATE TABLE TICKET(
     tipo_ticket varchar(10) NOT NULL,
     fecha_hora_ticket date NOT NULL,
     id_museo NUMERIC,
-    CONSTRAINT ch_tipo_ticket CHECK (tipo_ticket IN('nino', 'adulto', 'tercera edad')),
+    CONSTRAINT ch_tipo_ticket CHECK (tipo_ticket IN('niño', 'adulto', 'tercera edad')),
     CONSTRAINT fk_museo FOREIGN KEY(id_museo) REFERENCES MUSEO(id_museo),
     PRIMARY KEY(id_museo, id_ticket)
 );
