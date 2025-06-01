@@ -844,3 +844,103 @@ insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descrip
 insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (158, 'Conservación de Arte Sonoro', '07/10/2017', 'Técnicas de preservación y documentación de obras de arte sonoro');
 insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (159, 'Gestión de Colecciones de Cine', '07/09/2013', 'Administración de colecciones cinematográficas y audiovisuales en museos');
 insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (160, 'Museos y Arte de Inteligencia Artificial', '01/31/2021', 'Exhibición y conservación de obras creadas con inteligencia artificial');
+
+
+INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarquia_estructura, id_jerarquia_museo) VALUES
+(1, 'Dirección General del Museo de Arte Moderno', 'Nivel 1', 'direccion', NULL, NULL),
+(2, 'Dirección General del Museo Nacional de Bellas Artes', 'Nivel 1', 'direccion', NULL, NULL),
+(3, 'Dirección de la Galería de Arte Contemporáneo', 'Nivel 1', 'direccion', NULL, NULL),
+(4, 'Dirección Ejecutiva del Centro de Arte Digital', 'Nivel 1', 'direccion', NULL, NULL),
+(5, 'Dirección del Museo de Arte Clásico', 'Nivel 1', 'direccion', NULL, NULL),
+(6, 'Dirección General del Museo de Arte Latinoamericano', 'Nivel 1', 'direccion', NULL, NULL),
+(7, 'Dirección del Museo de Arte Abstracto', 'Nivel 1', 'direccion', NULL, NULL),
+(8, 'Dirección del Museo de Arte Oriental', 'Nivel 1', 'direccion', NULL, NULL);
+
+
+INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarquia_estructura, id_jerarquia_museo)
+SELECT
+    departamento_data.id_museo,
+    departamento_data.nombre_departamento,
+    'Nivel 2',
+    'departamento',
+    direccion.id_estructura_org, -- Aquí obtenemos el id_estructura_org real de la dirección
+    direccion.id_museo
+FROM (VALUES
+    (1, 'Departamento de Curaduría', 'Dirección General del Museo de Arte Moderno'),
+    (1, 'Departamento de Educación y Programas', 'Dirección General del Museo de Arte Moderno'),
+    (1, 'Departamento de Conservación y Restauración', 'Dirección General del Museo de Arte Moderno'),
+    (2, 'Departamento de Colecciones', 'Dirección General del Museo Nacional de Bellas Artes'),
+    (2, 'Departamento de Investigación y Publicaciones', 'Dirección General del Museo Nacional de Bellas Artes'),
+    (2, 'Departamento de Marketing y Comunicación', 'Dirección General del Museo Nacional de Bellas Artes'),
+    (3, 'Departamento de Exposiciones', 'Dirección de la Galería de Arte Contemporáneo'),
+    (3, 'Departamento de Desarrollo y Patrocinios', 'Dirección de la Galería de Arte Contemporáneo'),
+    (4, 'Departamento de Innovación Tecnológica', 'Dirección Ejecutiva del Centro de Arte Digital'),
+    (4, 'Departamento de Experiencias Interactivas', 'Dirección Ejecutiva del Centro de Arte Digital'),
+    (5, 'Departamento de Antigüedades', 'Dirección del Museo de Arte Clásico'),
+    (5, 'Departamento de Arte Romano', 'Dirección del Museo de Arte Clásico'),
+    (6, 'Departamento de Arte Moderno Latinoamericano', 'Dirección General del Museo de Arte Latinoamericano'),
+    (6, 'Departamento de Arte Colonial', 'Dirección General del Museo de Arte Latinoamericano'),
+    (6, 'Departamento de Programas Comunitarios', 'Dirección General del Museo de Arte Latinoamericano'),
+    (7, 'Departamento de Geometría Abstracta', 'Dirección del Museo de Arte Abstracto'),
+    (7, 'Departamento de Expresionismo Abstracto', 'Dirección del Museo de Arte Abstracto'),
+    (8, 'Departamento de Arte Japonés', 'Dirección del Museo de Arte Oriental'),
+    (8, 'Departamento de Arte Chino', 'Dirección del Museo de Arte Oriental')
+) AS departamento_data(id_museo, nombre_departamento, nombre_direccion_padre)
+JOIN estructura_organizacional AS direccion ON departamento_data.id_museo = direccion.id_museo
+                                          AND departamento_data.nombre_direccion_padre = direccion.nombre
+                                          AND direccion.tipo = 'direccion';
+
+INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarquia_estructura, id_jerarquia_museo)
+SELECT
+    sub_data.id_museo,
+    sub_data.nombre_sub_unit,
+    'Nivel 3',
+    sub_data.tipo_sub_unit,
+    departamento.id_estructura_org, -- Aquí obtenemos el id_estructura_org real del departamento
+    departamento.id_museo
+FROM (VALUES
+    (1, 'Sección de Arte Contemporáneo', 'seccion', 'Departamento de Curaduría'),
+    (1, 'Subdepartamento de Talleres Infantiles', 'subdepartamento', 'Departamento de Educación y Programas'),
+    (2, 'Sección de Pintura Europea', 'seccion', 'Departamento de Colecciones'),
+    (2, 'Subdepartamento de Biblioteca y Archivo', 'subdepartamento', 'Departamento de Investigación y Publicaciones'),
+    (3, 'Sección de Nuevos Medios', 'seccion', 'Departamento de Exposiciones'),
+    (3, 'Subdepartamento de Eventos Especiales', 'subdepartamento', 'Departamento de Desarrollo y Patrocinios'),
+    (4, 'Sección de Realidad Virtual', 'seccion', 'Departamento de Innovación Tecnológica'),
+    (4, 'Subdepartamento de Diseño de Interfaces', 'subdepartamento', 'Departamento de Experiencias Interactivas'),
+    (5, 'Sección de Escultura Griega', 'seccion', 'Departamento de Antigüedades'),
+    (5, 'Subdepartamento de Numismática', 'subdepartamento', 'Departamento de Antigüedades'),
+    (6, 'Sección de Muralismo', 'seccion', 'Departamento de Arte Moderno Latinoamericano'),
+    (6, 'Subdepartamento de Proyectos Educativos Rurales', 'subdepartamento', 'Departamento de Programas Comunitarios'),
+    (7, 'Sección de Arte Minimalista', 'seccion', 'Departamento de Geometría Abstracta'),
+    (7, 'Subdepartamento de Arte Óptico', 'subdepartamento', 'Departamento de Geometría Abstracta'),
+    (8, 'Sección de Cerámica y Porcelana', 'seccion', 'Departamento de Arte Japonés'),
+    (8, 'Subdepartamento de Caligrafía y Pintura', 'subdepartamento', 'Departamento de Arte Chino')
+) AS sub_data(id_museo, nombre_sub_unit, tipo_sub_unit, nombre_departamento_padre)
+JOIN estructura_organizacional AS departamento ON sub_data.id_museo = departamento.id_museo
+                                              AND sub_data.nombre_departamento_padre = departamento.nombre
+                                              AND departamento.tipo = 'departamento';
+
+
+
+INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarquia_estructura, id_jerarquia_museo)
+SELECT
+    subseccion_data.id_museo,
+    subseccion_data.nombre_subseccion,
+    'Nivel 4',
+    'subseccion',
+    padre.id_estructura_org, -- Aquí obtenemos el id_estructura_org real de la sección/subdepartamento padre
+    padre.id_museo
+FROM (VALUES
+    (1, 'Subsección de Exposiciones Itinerantes', 'Sección de Arte Contemporáneo'),
+    (2, 'Subsección de Manuscritos Antiguos', 'Subdepartamento de Biblioteca y Archivo'),
+    (3, 'Subsección de Proyectos Digitales', 'Sección de Nuevos Medios'),
+    (4, 'Subsección de Desarrollo de Contenido VR', 'Sección de Realidad Virtual'),
+    (5, 'Subsección de Cerámica Clásica', 'Sección de Escultura Griega'),
+    (6, 'Subsección de Arte Indígena Contemporáneo', 'Sección de Muralismo'),
+    (7, 'Subsección de Instalaciones Luminosas', 'Sección de Arte Minimalista'),
+    (8, 'Subsección de Textiles Antiguos', 'Sección de Cerámica y Porcelana')
+) AS subseccion_data(id_museo, nombre_subseccion, nombre_padre_nivel3)
+JOIN estructura_organizacional AS padre ON subseccion_data.id_museo = padre.id_museo
+                                       AND subseccion_data.nombre_padre_nivel3 = padre.nombre
+                                       AND (padre.tipo = 'seccion' OR padre.tipo = 'subdepartamento');
+
