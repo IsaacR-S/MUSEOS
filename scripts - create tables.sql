@@ -13,7 +13,7 @@ CREATE SEQUENCE seq_obra START WITH 1 INCREMENT BY 1;
 CREATE TABLE obra(
     id_obra NUMERIC DEFAULT nextval('seq_obra') PRIMARY KEY,
     nombre_obra VARCHAR(250) NOT NULL, 
-    fecha_periodo DATE NOT NULL,
+    fecha_periodo VARCHAR(100) NOT NULL,
     tipo_obra VARCHAR(9) NOT NULL,
     dimensiones VARCHAR(16) NOT NULL,
     estilo_descripcion VARCHAR(80) NOT NULL, 
