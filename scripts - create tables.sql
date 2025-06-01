@@ -15,7 +15,7 @@ CREATE TABLE obra(
     nombre_obra VARCHAR(250) NOT NULL, 
     fecha_periodo VARCHAR(100) NOT NULL,
     tipo_obra VARCHAR(9) NOT NULL,
-    dimensiones VARCHAR(16) NOT NULL,
+    dimensiones VARCHAR(80) NOT NULL,
     estilo_descripcion VARCHAR(80) NOT NULL, 
     descripcion_materiales_tecnicas VARCHAR(300) NOT NULL,
     CONSTRAINT ch_tipo_obra CHECK (tipo_obra IN('pintura', 'escultura'))
