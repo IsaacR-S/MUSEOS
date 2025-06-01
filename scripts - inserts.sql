@@ -1272,3 +1272,94 @@ INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion,
 INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
 (8, 43, 'Cerámica y Porcelana Japonesa', 'Ejemplos exquisitos de la cerámica y porcelana japonesa, desde periodos antiguos hasta modernos.', 'japonés', 2);
 
+-- Inserciones para la tabla col_sal (Colecciones en Salas de Exposición)
+
+-- Museo de Arte Moderno (id_museo: 1)
+-- Sala: Galería Principal (1, 32, 1)
+-- Colección: Colección de Arte Contemporáneo (1, 11, 1)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(1, 32, 1, 1, 11, 1, 1);
+
+-- Sala: Sala de Esculturas (1, 33, 2)
+-- Colección: Arte del Siglo XX (1, 29, 2)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(1, 33, 2, 1, 29, 2, 2);
+
+-- Museo Nacional de Bellas Artes (id_museo: 2)
+-- Sala: Sala Renacimiento (2, 35, 3)
+-- Colección: Maestros Europeos (2, 14, 3)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 35, 3, 2, 14, 3, 1);
+
+-- Sala: Sala Impresionista (2, 36, 4)
+-- Colección: Pintura Latinoamericana (2, 31, 4)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 36, 4, 2, 31, 4, 2);
+
+-- Galería de Arte Contemporáneo (id_museo: 3)
+-- Sala: Sala de Orígenes (3, 38, 6)
+-- Colección: Nuevos Medios y Digital (3, 16, 5)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(3, 38, 6, 3, 16, 5, 1);
+
+-- Sala: Sala Virreinal (3, 39, 7)
+-- Colección: Arte Urbano y Grafitis (3, 33, 6)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(3, 39, 7, 3, 33, 6, 2);
+
+-- Centro de Arte Digital (id_museo: 4)
+-- Sala: Galería Norte (4, 41, 8)
+-- Colección: Realidad Virtual y Aumentada (4, 18, 7)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(4, 41, 8, 4, 18, 7, 1);
+
+-- Sala: Galería Sur (4, 42, 9)
+-- Colección: Net Art y Arte Generativo (4, 35, 8)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(4, 42, 9, 4, 35, 8, 2);
+
+-- Museo de Arte Clásico (id_museo: 5)
+-- Sala: Sala de Caligrafía (5, 43, 10)
+-- Colección: Escultura Romana (5, 19, 9)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 43, 10, 5, 19, 9, 1);
+
+-- Sala: Sala de Cerámica (5, 44, 11)
+-- Colección: Cerámica Griega (5, 36, 10)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 44, 11, 5, 36, 10, 2);
+
+-- Museo de Guangdong (id_museo: 6)
+-- Sala: Sala de Arte Cantonés (6, 46, 13)
+-- Colección: Arte Moderno Latinoamericano (6, 23, 11)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 46, 13, 6, 23, 11, 1);
+
+-- Sala: Sala de Cultura Ancestral (6, 47, 14)
+-- Colección: Muralismo Mexicano (6, 39, 12)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 47, 14, 6, 39, 12, 2);
+
+-- Museo Nacional de Australia (id_museo: 7)
+-- Sala: Galería Aborigen (7, 49, 16)
+-- Colección: Expresionismo Abstracto (7, 24, 13)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(7, 49, 16, 7, 24, 13, 1);
+
+-- Sala: Sala de la Federación (7, 50, 17)
+-- Colección: Minimalismo y Arte Conceptual (7, 40, 14)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(7, 50, 17, 7, 40, 14, 2);
+
+-- Galería Nacional de Victoria (id_museo: 8)
+-- Sala: Gran Salón (8, 52, 18)
+-- Colección: Pintura y Caligrafía China (8, 26, 15)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 52, 18, 8, 26, 15, 1);
+
+-- Sala: Galería Europea (8, 53, 19)
+-- Colección: Cerámica y Porcelana Japonesa (8, 43, 16)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 53, 19, 8, 43, 16, 2);
+
+
