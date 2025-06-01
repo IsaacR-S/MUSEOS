@@ -291,7 +291,7 @@ CREATE TABLE historico_obra_movimiento(
     primary key(id_obra, id_historico_obra_movimiento)
 );
 
-CREATE TABLE mantenimineto_obra(
+CREATE TABLE mantenimiento_obra(
     id_obra NUMERIC NOT NULL,
     id_historico_obra_movimiento NUMERIC NOT NULL,
     id_mantenimiento_obra NUMERIC NOT NULL, 
@@ -317,7 +317,7 @@ CREATE TABLE historico_mantenimiento_realizado(
     fecha_inicio_hist_empleado DATE NOT NULL,
     fecha_fin DATE, 
     CONSTRAINT fk_historico_empleado FOREIGN KEY(id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado) REFERENCES historico_empleado(id_empleado, id_museo, id_estructura_org, fecha_inicio),
-    CONSTRAINT fk_mantenimiento_obra FOREIGN KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra) REFERENCES mantenimineto_obra(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra),
+    CONSTRAINT fk_mantenimiento_obra FOREIGN KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra) REFERENCES mantenimiento_obra(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra),
     PRIMARY KEY(id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, id_historico_mant_re)
 );
 
