@@ -1221,3 +1221,54 @@ INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fec
 INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (7, 50, 17, '2024-01-01', '2024-01-07');
 INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (8, 52, 18, '2022-10-01', '2022-10-03');
 INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (8, 53, 19, '2023-06-10', '2023-06-15');
+
+-- Inserciones para la tabla coleccion_permanente
+
+-- Museo de Arte Moderno (id_museo: 1)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(1, 11, 'Colección de Arte Contemporáneo', 'Obras representativas del arte global desde 1960 hasta la actualidad.', 'contemporáneo', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(1, 29, 'Arte del Siglo XX', 'Pinturas y esculturas clave del siglo XX, incluyendo movimientos como el cubismo y el surrealismo.', 'siglo XX', 2);
+
+-- Museo Nacional de Bellas Artes (id_museo: 2)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(2, 14, 'Maestros Europeos', 'Colección de obras de grandes maestros de la pintura europea desde el Renacimiento hasta el siglo XIX.', 'europeo', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(2, 31, 'Pintura Latinoamericana', 'Panorama de la pintura latinoamericana, desde el periodo colonial hasta las vanguardias del siglo XX.', 'latinoamericano', 2);
+
+-- Galería de Arte Contemporáneo (id_museo: 3)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(3, 16, 'Nuevos Medios y Digital', 'Obras que exploran la intersección del arte con la tecnología, incluyendo videoarte e instalaciones digitales.', 'digital', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(3, 33, 'Arte Urbano y Grafitis', 'Colección dedicada al arte callejero y las expresiones urbanas contemporáneas.', 'urbano', 2);
+
+-- Centro de Arte Digital (id_museo: 4)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(4, 18, 'Realidad Virtual y Aumentada', 'Experiencias inmersivas y obras de arte creadas con tecnologías de realidad virtual y aumentada.', 'VR', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(4, 35, 'Net Art y Arte Generativo', 'Obras de arte digital que utilizan algoritmos y la web como medio principal.', 'net art', 2);
+
+-- Museo de Arte Clásico (id_museo: 5)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(5, 19, 'Escultura Romana', 'Colección de esculturas romanas, incluyendo retratos y relieves históricos.', 'romano', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(5, 36, 'Cerámica Griega', 'Vasijas y fragmentos de cerámica griega que ilustran la mitología y la vida cotidiana.', 'griego', 2);
+
+-- Museo de Arte Latinoamericano (id_museo: 6)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(6, 23, 'Arte Moderno Latinoamericano', 'Obras de artistas latinoamericanos que definieron los movimientos modernos del siglo XX.', 'moderno', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(6, 39, 'Muralismo Mexicano', 'Fragmentos y estudios de murales icónicos del movimiento muralista mexicano.', 'muralismo', 2);
+
+-- Museo de Arte Abstracto (id_museo: 7)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(7, 24, 'Expresionismo Abstracto', 'Pinturas de gran formato que representan la expresión emocional a través del color y la forma.', 'expresionismo', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(7, 40, 'Minimalismo y Arte Conceptual', 'Obras que exploran la reducción a lo esencial y la primacía de la idea sobre la forma.', 'minimalismo', 2);
+
+-- Museo de Arte Oriental (id_museo: 8)
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(8, 26, 'Pintura y Caligrafía China', 'Rollos, álbumes y obras de caligrafía que muestran la rica tradición artística china.', 'chino', 1);
+INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
+(8, 43, 'Cerámica y Porcelana Japonesa', 'Ejemplos exquisitos de la cerámica y porcelana japonesa, desde periodos antiguos hasta modernos.', 'japonés', 2);
+
