@@ -1362,4 +1362,95 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (8, 53, 19, 8, 43, 16, 2);
 
+-- Inserciones para la tabla historico_obra_movimiento
+
+-- Movimiento de la obra "david" (id_obra: 1)
+-- Ubicada en Sala Renacimiento (2, 35, 3)
+-- Perteneciente a Colección Escultura Romana (5, 19, 9)
+-- A cargo del curador (2, 14, 6, '2023-04-10')
+INSERT INTO historico_obra_movimiento (
+    id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
+    id_museo_sala, id_estructura_fisica, id_sala,
+    id_museo_coleccion, id_estructura_org_coleccion, id_coleccion,
+    id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado,
+    fecha_fin, valor_obra, orden_recomendado
+) VALUES (
+    1, nextval('seq_mantenimiento_obra'), '2023-05-01', 'donado', 'si',
+    2, 35, 3,
+    5, 19, 9,
+    2, 14, 6, '2023-04-10',
+    NULL, 1500000.00, 1
+);
+
+-- Movimiento de la obra "monalisa" (id_obra: 5)
+-- Ubicada en Galería Europea (8, 53, 19)
+-- Perteneciente a Colección Maestros Europeos (2, 14, 3)
+-- A cargo del curador (7, 25, 26, '2023-09-01')
+INSERT INTO historico_obra_movimiento (
+    id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
+    id_museo_sala, id_estructura_fisica, id_sala,
+    id_museo_coleccion, id_estructura_org_coleccion, id_coleccion,
+    id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado,
+    fecha_fin, valor_obra, orden_recomendado
+) VALUES (
+    5, nextval('seq_mantenimiento_obra'), '2024-01-20', 'comprado', 'si',
+    8, 53, 19,
+    2, 14, 3,
+    7, 25, 26, '2023-09-01',
+    NULL, 8000000.00, 2
+);
+
+-- Movimiento de la obra "guernica" (id_obra: 9)
+-- Ubicada en Galería Principal (1, 32, 1)
+-- Perteneciente a Colección Arte del Siglo XX (1, 29, 2)
+-- A cargo del curador (1, 11, 2, '2023-03-01')
+INSERT INTO historico_obra_movimiento (
+    id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
+    id_museo_sala, id_estructura_fisica, id_sala,
+    id_museo_coleccion, id_estructura_org_coleccion, id_coleccion,
+    id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado,
+    fecha_fin, valor_obra, orden_recomendado
+) VALUES (
+    9, nextval('seq_mantenimiento_obra'), '2023-08-10', 'comprado a otro museo', 'si',
+    1, 32, 1,
+    1, 29, 2,
+    1, 11, 2, '2023-03-01',
+    NULL, 12000000.00, 3
+);
+
+-- Movimiento de la obra "venus de milo" (id_obra: 3)
+-- Ubicada en Sala de Esculturas (1, 33, 2)
+-- Perteneciente a Colección Escultura Romana (5, 19, 9)
+-- A cargo del curador (7, 25, 26, '2023-09-01')
+INSERT INTO historico_obra_movimiento (
+    id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
+    id_museo_sala, id_estructura_fisica, id_sala,
+    id_museo_coleccion, id_estructura_org_coleccion, id_coleccion,
+    id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado,
+    fecha_fin, valor_obra, orden_recomendado
+) VALUES (
+    3, nextval('seq_mantenimiento_obra'), '2023-06-15', 'donado de otro museo', 'no',
+    1, 33, 2,
+    5, 19, 9,
+    7, 25, 26, '2023-09-01',
+    '2024-03-30', 2000000.00, 4
+);
+
+-- Movimiento de la obra "la pertenecia de la memoria" (id_obra: 7)
+-- Ubicada en Sala de Arte Contemporáneo (2, 37, 5)
+-- Perteneciente a Colección Arte del Siglo XX (1, 29, 2)
+-- A cargo del curador (3, 16, 10, '2023-05-01')
+INSERT INTO historico_obra_movimiento (
+    id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
+    id_museo_sala, id_estructura_fisica, id_sala,
+    id_museo_coleccion, id_estructura_org_coleccion, id_coleccion,
+    id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado,
+    fecha_fin, valor_obra, orden_recomendado
+) VALUES (
+    7, nextval('seq_mantenimiento_obra'), '2024-02-01', 'comprado', 'no',
+    2, 37, 5,
+    1, 29, 2,
+    3, 16, 10, '2023-05-01',
+    NULL, 3000000.00, 5
+);
 
