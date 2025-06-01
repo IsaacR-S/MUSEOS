@@ -32,7 +32,7 @@ CREATE TABLE artista(
     descripcion_estilo_tecnicas VARCHAR(300) NOT NULL
 );
 
-CREATE TABLE ART_OBRA(
+CREATE TABLE art_obra(
     id_artista NUMERIC NOT NULL,
     id_obra NUMERIC NOT NULL,
     CONSTRAINT fk_artista FOREIGN KEY(id_artista) REFERENCES artista(id_artista),
@@ -231,7 +231,7 @@ CREATE TABLE empleado_mantenimiento_vigilancia(
     CONSTRAINT ch_tipo CHECK(tipo IN('vigilancia', 'mantenimiento'))
 );
 
-CREATE TABLE ASIGNACION_MENSUAL(
+CREATE TABLE asignacion_mensual(
     id_museo NUMERIC NOT NULL,
     id_estructura_fisica NUMERIC NOT NULL, 
     id_empleado_mantenimiento_vigilancia NUMERIC NOT NULL,
