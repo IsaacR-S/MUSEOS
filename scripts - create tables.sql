@@ -41,7 +41,7 @@ CREATE TABLE ART_OBRA(
 );
 
 CREATE SEQUENCE seq_museo START WITH 1 INCREMENT BY 1;
-CREATE TABLE mueso(
+CREATE TABLE museo(
   id_museo NUMERIC DEFAULT nextval('seq_museo') primary key,
   nombre VARCHAR(50) NOT NULL,
   mision VARCHAR(350),
