@@ -1182,3 +1182,42 @@ INSERT INTO asignacion_mensual (id_museo, id_estructura_fisica, id_empleado_mant
 (8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Galería Europea' AND tipo_estructura = 'area seccion' LIMIT 1), 30, '2025-05-01', 'nocturno'),
 (8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 31, '2025-04-01', 'matutino'),
 (8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 32, '2025-04-01', 'vesperino');
+
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (1, 32, 'Galería Principal', 'Sala principal para obras destacadas.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (1, 33, 'Sala de Esculturas', 'Espacio dedicado a exhibir esculturas modernas.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (2, 35, 'Sala Renacimiento', 'Galería de arte del período Renacentista.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (2, 36, 'Sala Impresionista', 'Galería dedicada a obras impresionistas.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (2, 37, 'Sala de Arte Contemporáneo', 'Espacio para la exhibición de arte actual.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (3, 38, 'Sala de Orígenes', 'Exhibición sobre la fundación de la ciudad.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (3, 39, 'Sala Virreinal', 'Colección de arte del período virreinal.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (4, 41, 'Galería Norte', 'Galería de arte contemporáneo en la sección norte.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (4, 42, 'Galería Sur', 'Galería para exposiciones temporales en la sección sur.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (5, 43, 'Sala de Caligrafía', 'Exhibición de caligrafía y pintura tradicional china.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (5, 44, 'Sala de Cerámica', 'Colección de cerámica histórica de China.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (5, 45, 'Sala de Arte Moderno', 'Galería de arte moderno chino.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (6, 46, 'Sala de Arte Cantonés', 'Exhibición de arte de la región de Cantón.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (6, 47, 'Sala de Cultura Ancestral', 'Colección de artefactos antiguos y culturales.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (6, 48, 'Sala de Exposiciones Temporales', 'Espacio dedicado a muestras y exhibiciones rotativas.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (7, 49, 'Galería Aborigen', 'Exhibición de arte y cultura aborigen australiana.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (7, 50, 'Sala de la Federación', 'Exhibición sobre la historia de la federación australiana.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (8, 52, 'Gran Salón', 'Espacio principal de exhibición de la galería.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (8, 53, 'Galería Europea', 'Colección de arte europeo de diversas épocas.');
+INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (8, 54, 'Sala de Fotografía', 'Galería dedicada a la exhibición de fotografía.');
+
+
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (1, 32, 1, '2023-01-10', '2023-01-20');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (1, 33, 2, '2024-05-01', NULL);
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (2, 35, 3, '2022-11-15', '2022-11-30'); 
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (2, 36, 4, '2023-09-01', '2023-09-10'); 
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (3, 38, 6, '2023-03-01', '2023-03-05');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (3, 39, 7, '2024-01-15', NULL);
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (4, 41, 8, '2022-07-01', '2022-07-10');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (4, 42, 9, '2023-04-20', '2023-04-25');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (5, 43, 10, '2023-10-01', '2023-10-15'); 
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (5, 44, 11, '2024-03-10', NULL);
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (6, 46, 13, '2022-05-01', '2022-05-07'); 
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (6, 47, 14, '2023-08-01', '2023-08-05');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (7, 49, 16, '2023-02-01', '2023-02-14');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (7, 50, 17, '2024-01-01', '2024-01-07');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (8, 52, 18, '2022-10-01', '2022-10-03');
+INSERT INTO hist_cierre (id_museo, id_estructura_fisica, id_sala, fecha_ini, fecha_fin) VALUES (8, 53, 19, '2023-06-10', '2023-06-15');
