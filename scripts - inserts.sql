@@ -944,3 +944,71 @@ JOIN estructura_organizacional AS padre ON subseccion_data.id_museo = padre.id_m
                                        AND subseccion_data.nombre_padre_nivel3 = padre.nombre
                                        AND (padre.tipo = 'seccion' OR padre.tipo = 'subdepartamento');
 
+SELECT CURRENT_DATE AS fecha_actual;
+
+
+SELECT CURRENT_DATE - INTERVAL '1 month' AS fecha_hace_un_mes;
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(1, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND tipo = 'direccion' LIMIT 1), '2023-01-15', 'director', NULL), 
+(2, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Curaduría%' LIMIT 1), '2023-03-01', 'curador', NULL),
+(3, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Educación%' LIMIT 1), '2023-05-10', 'administrativo', NULL),
+(4, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Conservación%' LIMIT 1), '2022-02-20', 'restaurador', '2024-02-28'); 
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(5, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND tipo = 'direccion' LIMIT 1), '2023-02-01', 'director', NULL),
+(6, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Colecciones%' LIMIT 1), '2023-04-10', 'curador', NULL),
+(7, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Marketing%' LIMIT 1), '2023-06-20', 'administrativo', NULL),
+(8, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Investigación%' LIMIT 1), '2022-03-05', 'curador', '2023-04-15');
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(9, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND tipo = 'direccion' LIMIT 1), '2023-03-10', 'director', NULL),
+(10, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Departamento de Exposiciones%' LIMIT 1), '2023-05-01', 'curador', NULL),
+(11, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Departamento de Desarrollo%' LIMIT 1), '2023-07-01', 'administrativo', NULL),
+(12, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Sección de Nuevos Medios%' LIMIT 1), '2022-04-15', 'curador', '2023-07-30');
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(13, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND tipo = 'direccion' LIMIT 1), '2023-04-01', 'director', NULL),
+(14, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Innovación%' LIMIT 1), '2023-06-05', 'curador', NULL),
+(15, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Experiencias%' LIMIT 1), '2023-08-15', 'administrativo', NULL),
+(16, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Sección de Realidad Virtual%' LIMIT 1), '2022-05-20', 'curador', '2023-06-31');
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(17, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND tipo = 'direccion' LIMIT 1), '2023-05-01', 'director', NULL),
+(18, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Departamento de Antigüedades%' LIMIT 1), '2023-07-10', 'restaurador', NULL),
+(19, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Departamento de Arte Romano%' LIMIT 1), '2023-09-01', 'administrativo', NULL),
+(20, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Sección de Escultura Griega%' LIMIT 1), '2022-06-01', 'curador', '2023-09-15');
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(21, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND tipo = 'direccion' LIMIT 1), '2023-06-01', 'director', NULL),
+(22, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Arte Moderno Latinoamericano%' LIMIT 1), '2023-08-05', 'curador', NULL),
+(23, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Programas Comunitarios%' LIMIT 1), '2023-10-10', 'administrativo', NULL),
+(24, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Arte Colonial%' LIMIT 1), '2022-07-20', 'curador', '2023-12-31');
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(25, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND tipo = 'direccion' LIMIT 1), '2023-07-01', 'director', NULL),
+(26, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Departamento de Geometría Abstracta%' LIMIT 1), '2023-09-01', 'curador', NULL),
+(27, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Departamento de Expresionismo Abstracto%' LIMIT 1), '2023-11-05', 'administrativo', NULL),
+(28, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Sección de Arte Minimalista%' LIMIT 1), '2022-08-10', 'curador', '2023-11-25');
+
+
+
+INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
+(29, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND tipo = 'direccion' LIMIT 1), '2023-08-01', 'director', NULL),
+(30, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Departamento de Arte Japonés%' LIMIT 1), '2023-10-15', 'restaurador', NULL),
+(31, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Departamento de Arte Chino%' LIMIT 1), '2023-12-01', 'administrativo', NULL),
+(32, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Sección de Cerámica y Porcelana%' LIMIT 1), '2022-09-01', 'curador', '2023-10-30');
+
