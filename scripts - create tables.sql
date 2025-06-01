@@ -181,7 +181,7 @@ CREATE TABLE ESTRUCTURA_FISICA(
     direccion VARCHAR(250),
     id_jerarquia_museo NUMERIC,
     id_jerarquia_estructura NUMERIC,
-    CONSTRAINT fk_jerarquia_estructura FOREIGN KEY(id_jerarquia_museo, id_jerarquia_estructura) REFERENCES ESTRUCTURA_FISICA(id_museo, id_estructura_fisica)
+    CONSTRAINT fk_jerarquia_estructura FOREIGN KEY(id_jerarquia_museo, id_jerarquia_estructura) REFERENCES ESTRUCTURA_FISICA(id_museo, id_estructura_fisica),
     CONSTRAINT fk_museo FOREIGN KEY(id_museo) REFERENCES MUSEO(id_museo),
     CONSTRAINT ch_tipo_estructura CHECK(tipo_estructura IN('edificio', 'piso', 'area seccion')),
     PRIMARY KEY(id_museo, id_estructura_fisica) 
