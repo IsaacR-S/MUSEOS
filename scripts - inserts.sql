@@ -1454,3 +1454,173 @@ INSERT INTO historico_obra_movimiento (
     NULL, 3000000.00, 5
 );
 
+-- Inserciones para la tabla mantenimiento_obra
+
+-- Mantenimiento para la obra "david" (id_obra: 1, id_historico_obra_movimiento: 1)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(1, 1, 1, 'Limpieza superficial de la escultura', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(1, 1, 2, 'Revisión de anclajes y estabilidad', 6, 'otro');
+
+-- Mantenimiento para la obra "monalisa" (id_obra: 5, id_historico_obra_movimiento: 2)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(5, 2, 1, 'Control de humedad y temperatura de la sala', 1, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(5, 2, 2, 'Inspección detallada de pigmentos y barniz', 3, 'restaurador');
+
+-- Mantenimiento para la obra "guernica" (id_obra: 9, id_historico_obra_movimiento: 3)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(9, 3, 1, 'Revisión del bastidor y tensión del lienzo', 6, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(9, 3, 2, 'Limpieza profunda y consolidación de la pintura', 24, 'restaurador');
+
+-- Mantenimiento para la obra "venus de milo" (id_obra: 3, id_historico_obra_movimiento: 4)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(3, 4, 1, 'Pulido y tratamiento de superficie de mármol', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(3, 4, 2, 'Evaluación de posibles fisuras o daños estructurales', 6, 'otro');
+
+-- Mantenimiento para la obra "la pertenecia de la memoria" (id_obra: 7, id_historico_obra_movimiento: 5)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(7, 5, 1, 'Verificación del estado del marco y cristal', 3, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
+(7, 5, 2, 'Análisis de conservación y retoques menores', 6, 'restaurador');
+
+
+-- Sentencias INSERT para la tabla historico_mantenimiento_realizado
+-- Cada entrada hace referencia a un empleado (restaurador o curador) según el tipo de mantenimiento.
+-- Todas las entradas tienen una fecha de fin, indicando que el mantenimiento ha sido completado.
+
+INSERT INTO historico_mantenimiento_realizado (
+    id_obra,
+    id_historico_obra_movimiento,
+    id_mantenimiento_obra,
+    fecha_inicio,
+    observaciones,
+    id_empleado,
+    id_museo,
+    id_estructura_org,
+    fecha_inicio_hist_empleado,
+    fecha_fin
+) VALUES
+(
+    1, -- id_obra
+    1, -- id_historico_obra_movimiento
+    1, -- id_mantenimiento_obra (Limpieza superficial de la escultura - restaurador)
+    '2023-08-01', -- fecha_inicio del mantenimiento
+    'Limpieza superficial de la escultura completada con éxito. Se utilizaron materiales no abrasivos.', -- observaciones
+    18, -- id_empleado (restaurador)
+    5, -- id_museo del empleado
+    20, -- id_estructura_org del empleado
+    '2023-07-10', -- fecha_inicio_hist_empleado
+    '2023-08-05' -- fecha_fin del mantenimiento
+),
+(
+    1, -- id_obra
+    1, -- id_historico_obra_movimiento
+    2, -- id_mantenimiento_obra (Revisión de anclajes y estabilidad - otro -> curador)
+    '2023-04-01', -- fecha_inicio del mantenimiento
+    'Anclajes revisados y estabilidad confirmada. No se detectaron problemas.', -- observaciones
+    2, -- id_empleado (curador)
+    1, -- id_museo del empleado
+    11, -- id_estructura_org del empleado
+    '2023-03-01', -- fecha_inicio_hist_empleado
+    '2023-04-02' -- fecha_fin del mantenimiento
+),
+(
+    3, -- id_obra
+    4, -- id_historico_obra_movimiento
+    1, -- id_mantenimiento_obra (Pulido y tratamiento de superficie de mármol - restaurador)
+    '2023-11-01', -- fecha_inicio del mantenimiento
+    'Superficie de mármol pulida y tratada. Se aplicó una capa protectora.', -- observaciones
+    30, -- id_empleado (restaurador)
+    8, -- id_museo del empleado
+    27, -- id_estructura_org del empleado
+    '2023-10-15', -- fecha_inicio_hist_empleado
+    '2023-11-03' -- fecha_fin del mantenimiento
+),
+(
+    3, -- id_obra
+    4, -- id_historico_obra_movimiento
+    2, -- id_mantenimiento_obra (Evaluación de posibles fisuras o daños estructurales - otro -> curador)
+    '2023-05-01', -- fecha_inicio del mantenimiento
+    'Evaluación completa. No se encontraron fisuras ni daños estructurales significativos.', -- observaciones
+    6, -- id_empleado (curador)
+    2, -- id_museo del empleado
+    14, -- id_estructura_org del empleado
+    '2023-04-10', -- fecha_inicio_hist_empleado
+    '2023-05-02' -- fecha_fin del mantenimiento
+),
+(
+    5, -- id_obra
+    2, -- id_historico_obra_movimiento
+    1, -- id_mantenimiento_obra (Control de humedad y temperatura de la sala - curador)
+    '2023-06-01', -- fecha_inicio del mantenimiento
+    'Control diario de humedad y temperatura. Parámetros dentro de los rangos óptimos.', -- observaciones
+    10, -- id_empleado (curador)
+    3, -- id_museo del empleado
+    16, -- id_estructura_org del empleado
+    '2023-05-01', -- fecha_inicio_hist_empleado
+    '2023-06-01' -- fecha_fin del mantenimiento
+),
+(
+    5, -- id_obra
+    2, -- id_historico_obra_movimiento
+    2, -- id_mantenimiento_obra (Inspección detallada de pigmentos y barniz - restaurador)
+    '2023-08-10', -- fecha_inicio del mantenimiento
+    'Inspección minuciosa de pigmentos y barniz. Se observó buen estado general.', -- observaciones
+    18, -- id_empleado (restaurador)
+    5, -- id_museo del empleado
+    20, -- id_estructura_org del empleado
+    '2023-07-10', -- fecha_inicio_hist_empleado
+    '2023-08-12' -- fecha_fin del mantenimiento
+),
+(
+    7, -- id_obra
+    5, -- id_historico_obra_movimiento
+    1, -- id_mantenimiento_obra (Verificación del estado del marco y cristal - curador)
+    '2023-07-01', -- fecha_inicio del mantenimiento
+    'Marco y cristal verificados. No se encontraron daños ni desajustes.', -- observaciones
+    14, -- id_empleado (curador)
+    4, -- id_museo del empleado
+    18, -- id_estructura_org del empleado
+    '2023-06-05', -- fecha_inicio_hist_empleado
+    '2023-07-01' -- fecha_fin del mantenimiento
+),
+(
+    7, -- id_obra
+    5, -- id_historico_obra_movimiento
+    2, -- id_mantenimiento_obra (Análisis de conservación y retoques menores - restaurador)
+    '2023-11-10', -- fecha_inicio del mantenimiento
+    'Análisis de conservación realizado. Se efectuaron retoques menores en áreas específicas.', -- observaciones
+    30, -- id_empleado (restaurador)
+    8, -- id_museo del empleado
+    27, -- id_estructura_org del empleado
+    '2023-10-15', -- fecha_inicio_hist_empleado
+    '2023-11-15' -- fecha_fin del mantenimiento
+),
+(
+    9, -- id_obra
+    3, -- id_historico_obra_movimiento
+    1, -- id_mantenimiento_obra (Revisión del bastidor y tensión del lienzo - restaurador)
+    '2023-09-01', -- fecha_inicio del mantenimiento
+    'Bastidor revisado y tensión del lienzo ajustada para una estabilidad óptima.', -- observaciones
+    18, -- id_empleado (restaurador)
+    5, -- id_museo del empleado
+    20, -- id_estructura_org del empleado
+    '2023-07-10', -- fecha_inicio_hist_empleado
+    '2023-09-02' -- fecha_fin del mantenimiento
+),
+(
+    9, -- id_obra
+    3, -- id_historico_obra_movimiento
+    2, -- id_mantenimiento_obra (Limpieza profunda y consolidación de la pintura - restaurador)
+    '2023-12-01', -- fecha_inicio del mantenimiento
+    'Limpieza profunda y consolidación de la pintura completadas. Mejora visible en la obra.', -- observaciones
+    30, -- id_empleado (restaurador)
+    8, -- id_museo del empleado
+    27, -- id_estructura_org del empleado
+    '2023-10-15', -- fecha_inicio_hist_empleado
+    '2023-12-05' -- fecha_fin del mantenimiento
+);
+
