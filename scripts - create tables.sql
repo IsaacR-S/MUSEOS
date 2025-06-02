@@ -149,7 +149,7 @@ CREATE TABLE estructura_organizacional(
     id_estructura_org NUMERIC DEFAULT nextval('seq_estructura_org') NOT NULL, 
     nombre VARCHAR(100) NOT NULL,
     nivel VARCHAR(50) NOT NULL, 
-    tipo VARCHAR(20) NOT NULL,
+    tipo NUMERIC NOT NULL,
     id_jerarquia_estructura NUMERIC,
     id_jerarquia_museo NUMERIC,
     CONSTRAINT ch_tipo CHECK(tipo IN('direccion', 'departamento', 'seccion', 'subdepartamento', 'subseccion')),
