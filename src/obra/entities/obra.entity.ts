@@ -1,35 +1,29 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Artista } from './artista.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ArtObra } from './art-obra.entity';
 
-@Entity('OBRA')
+@Entity('obra')
 export class Obra {
-  @PrimaryGeneratedColumn({ name: 'id_obra' })
-  idObra: number;
+    @PrimaryGeneratedColumn({ name: 'id_obra' })
+    idObra: number;
 
-  @Column({ name: 'nombre_obra', length: 250 })
-  nombreObra: string;
+    @Column({ name: 'nombre_obra', length: 100 })
+    nombreObra: string;
 
-  @Column({ name: 'fecha_periodo', type: 'date' })
-  fechaPeriodo: Date;
+    @Column({ name: 'fecha_periodo', type: 'date' })
+    fechaPeriodo: Date;
 
-  @Column({ name: 'tipo_obra', length: 9 })
-  tipoObra: 'pintura' | 'escultura';
+    @Column({ name: 'tipo_obra', length: 50 })
+    tipoObra: string;
 
-  @Column({ name: 'dimensiones', length: 16 })
-  dimensiones: string;
+    @Column({ length: 50 })
+    dimensiones: string;
 
-  @Column({ name: 'estilo_descripcion', length: 80 })
-  estiloDescripcion: string;
+    @Column({ name: 'estilo_descripcion', length: 100 })
+    estiloDescripcion: string;
 
-  @Column({ name: 'descripcion_materiales_tecnicas', length: 300 })
-  descripcionMaterialesTecnicas: string;
+    @Column({ name: 'descripcion_materiales_tecnicas', type: 'text' })
+    descripcionMaterialesTecnicas: string;
 
-  @ManyToMany(() => Artista)
-  @JoinTable({
-    name: 'ART_OBRA',
-    joinColumn: { name: 'id_obra', referencedColumnName: 'idObra' },
-    inverseJoinColumn: { name: 'id_artista', referencedColumnName: 'idArtista' },
-  })
-  artistas: Artista[];
+    @OneToMany(() => ArtObra, artObra => artObra.obra)
+    artistas: ArtObra[];
 } 

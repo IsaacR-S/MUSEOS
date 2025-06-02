@@ -1,29 +1,28 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
-import { Obra } from './obra.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { ArtObra } from './art-obra.entity';
 
-@Entity('ARTISTA')
+@Entity('artista')
 export class Artista {
   @PrimaryGeneratedColumn({ name: 'id_artista' })
   idArtista: number;
 
-  @Column({ name: 'nombre_artista', length: 60, nullable: true })
+  @Column({ name: 'nombre_artista', length: 100 })
   nombreArtista: string;
-
-  @Column({ name: 'apellido_artista', length: 60, nullable: true })
-  apellidoArtista: string;
 
   @Column({ name: 'fecha_nacimiento', type: 'date', nullable: true })
   fechaNacimiento: Date;
 
-  @Column({ name: 'apodo_artista', length: 60, nullable: true })
-  apodoArtista: string;
+  @Column({ name: 'fecha_fallecimiento', type: 'date', nullable: true })
+  fechaFallecimiento: Date;
 
-  @Column({ name: 'fecha_muerte', type: 'date', nullable: true })
-  fechaMuerte: Date;
+  @Column({ name: 'nacionalidad', length: 50 })
+  nacionalidad: string;
 
-  @Column({ name: 'descripcion_estilo_tecnicas', length: 300 })
-  descripcionEstiloTecnicas: string;
+  @Column({ name: 'biografia', type: 'text', nullable: true })
+  biografia: string;
 
-  @ManyToMany(() => Obra, obra => obra.artistas)
-  obras: Obra[];
+  @OneToMany(() => ArtObra, artObra => artObra.artista, {
+    cascade: true
+  })
+  obras: ArtObra[];
 } 

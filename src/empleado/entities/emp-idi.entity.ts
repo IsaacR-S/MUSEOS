@@ -2,12 +2,12 @@ import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { EmpleadoProfesional } from './empleado-profesional.entity';
 import { Idioma } from './idioma.entity';
 
-@Entity('EMP_IDI')
+@Entity('emp_idi')
 export class EmpIdi {
-  @PrimaryColumn({ name: 'id_idioma' })
+  @PrimaryColumn({ name: 'id_idioma', type: 'numeric' })
   idIdioma: number;
 
-  @PrimaryColumn({ name: 'id_empleado_prof' })
+  @PrimaryColumn({ name: 'id_empleado_prof', type: 'numeric' })
   idEmpleadoProf: number;
 
   @ManyToOne(() => Idioma)
@@ -16,5 +16,5 @@ export class EmpIdi {
 
   @ManyToOne(() => EmpleadoProfesional, empleado => empleado.idiomas)
   @JoinColumn({ name: 'id_empleado_prof' })
-  empleado: EmpleadoProfesional;
+  empleadoProfesional: EmpleadoProfesional;
 } 

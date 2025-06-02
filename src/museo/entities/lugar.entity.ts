@@ -1,22 +1,22 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 
-@Entity('LUGAR')
+@Entity('lugar')
 export class Lugar {
-  @PrimaryGeneratedColumn({ name: 'id_lugar' })
+  @PrimaryGeneratedColumn({ name: 'id_lugar', type: 'numeric' })
   idLugar: number;
 
-  @Column({ name: 'nombre_lugar', length: 50 })
+  @Column({ name: 'nombre_lugar', type: 'varchar', length: 50 })
   nombreLugar: string;
 
-  @Column({ name: 'tipo', length: 20 })
+  @Column({ type: 'varchar', length: 20 })
   tipo: 'ciudad' | 'pais';
 
-  @Column({ name: 'id_jerarquia', nullable: true })
-  idJerarquia: number;
+  @Column({ name: 'id_jerarquia', type: 'numeric', nullable: true })
+  idJerarquia: number | null;
 
-  @ManyToOne(() => Lugar)
+  @ManyToOne(() => Lugar, { nullable: true })
   @JoinColumn({ name: 'id_jerarquia' })
-  jerarquia: Lugar;
+  jerarquia: Lugar | null;
 
   @OneToMany(() => Lugar, lugar => lugar.jerarquia)
   lugaresHijos: Lugar[];

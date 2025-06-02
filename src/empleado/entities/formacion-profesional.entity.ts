@@ -1,24 +1,24 @@
-import { Entity, Column, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { EmpleadoProfesional } from './empleado-profesional.entity';
 
-@Entity('FORMACION_PROFESIONAL')
+@Entity('formacion_profesional')
 export class FormacionProfesional {
-  @PrimaryColumn({ name: 'id_empleado_prof' })
+  @Column({ name: 'id_empleado_prof', type: 'numeric' })
   idEmpleadoProf: number;
 
-  @PrimaryColumn({ name: 'id_formacion' })
+  @PrimaryGeneratedColumn({ name: 'id_formacion', type: 'numeric' })
   idFormacion: number;
 
-  @Column({ name: 'nombre_titulo', length: 100 })
+  @Column({ name: 'nombre_titulo', type: 'varchar', length: 100 })
   nombreTitulo: string;
 
   @Column({ name: 'ano', type: 'date' })
   ano: Date;
 
-  @Column({ name: 'descripcion_especialidad', length: 200 })
+  @Column({ name: 'descripcion_especialidad', type: 'varchar', length: 200 })
   descripcionEspecialidad: string;
 
   @ManyToOne(() => EmpleadoProfesional, empleado => empleado.formaciones)
   @JoinColumn({ name: 'id_empleado_prof' })
-  empleado: EmpleadoProfesional;
+  empleadoProfesional: EmpleadoProfesional;
 } 
