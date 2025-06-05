@@ -5,6 +5,11 @@ export interface FormacionProfesional {
   descripcion_especialidad: string;
 }
 
+export interface Idioma {
+  id_idioma: number;
+  nombre: string;
+}
+
 export interface EmpleadoProfesional {
   id_empleado_prof?: number;
   primer_nombre: string;
@@ -15,6 +20,7 @@ export interface EmpleadoProfesional {
   doc_identidad: number;
   dato_contacto?: string;
   formaciones?: FormacionProfesional[];
+  idiomas?: Idioma[];
 }
 
 export interface EmpleadoProfesionalFormData {

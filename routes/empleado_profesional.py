@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
-from models.database_models import EmpleadoProfesional, FormacionProfesional
+from models.database_models import EmpleadoProfesional, FormacionProfesional, EmpleadoIdioma, Idioma
 from schemas.empleado_profesional import EmpleadoProfesionalCreate, EmpleadoProfesionalResponse
 from schemas.formacion_profesional import FormacionProfesionalCreate, FormacionProfesionalResponse
 
@@ -35,6 +35,15 @@ def create_empleado(empleado: EmpleadoProfesionalCreate, db: Session = Depends(g
                 )
                 db.add(db_formacion)
 
+        # Crear las relaciones con idiomas
+        if empleado.idiomas:
+            for id_idioma in empleado.idiomas:
+                db_emp_idi = EmpleadoIdioma(
+                    id_empleado_prof=db_empleado.id_empleado_prof,
+                    id_idioma=id_idioma
+                )
+                db.add(db_emp_idi)
+
         db.commit()
         db.refresh(db_empleado)
         return db_empleado
@@ -60,7 +69,7 @@ def update_empleado(id_empleado: int, empleado_update: EmpleadoProfesionalCreate
     if empleado is None:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
     
-    for key, value in empleado_update.dict(exclude={'formaciones'}).items():
+    for key, value in empleado_update.dict(exclude={'formaciones', 'idiomas'}).items():
         setattr(empleado, key, value)
     
     try:
@@ -80,6 +89,21 @@ def update_empleado(id_empleado: int, empleado_update: EmpleadoProfesionalCreate
                     descripcion_especialidad=formacion.descripcion_especialidad
                 )
                 db.add(db_formacion)
+
+        # Actualizar idiomas
+        if empleado_update.idiomas is not None:
+            # Eliminar relaciones existentes
+            db.query(EmpleadoIdioma).filter(
+                EmpleadoIdioma.id_empleado_prof == id_empleado
+            ).delete()
+
+            # Crear nuevas relaciones
+            for id_idioma in empleado_update.idiomas:
+                db_emp_idi = EmpleadoIdioma(
+                    id_empleado_prof=id_empleado,
+                    id_idioma=id_idioma
+                )
+                db.add(db_emp_idi)
 
         db.commit()
         db.refresh(empleado)

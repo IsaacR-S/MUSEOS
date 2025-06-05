@@ -27,6 +27,7 @@ class EmpleadoProfesional(Base):
 
     # Relationships
     formaciones = relationship("FormacionProfesional", back_populates="empleado", cascade="all, delete-orphan")
+    idiomas = relationship("Idioma", secondary="emp_idi", back_populates="empleados")
 
 class FormacionProfesional(Base):
     __tablename__ = "formacion_profesional"
@@ -40,6 +41,23 @@ class FormacionProfesional(Base):
 
     # Relationships
     empleado = relationship("EmpleadoProfesional", back_populates="formaciones")
+
+class Idioma(Base):
+    __tablename__ = "idioma"
+    __table_args__ = {'extend_existing': True}
+
+    id_idioma = Column(Numeric, primary_key=True)
+    nombre = Column(String(50), nullable=False)
+
+    # Relationships
+    empleados = relationship("EmpleadoProfesional", secondary="emp_idi", back_populates="idiomas")
+
+class EmpleadoIdioma(Base):
+    __tablename__ = "emp_idi"
+    __table_args__ = {'extend_existing': True}
+
+    id_idioma = Column(Numeric, ForeignKey('idioma.id_idioma'), primary_key=True)
+    id_empleado_prof = Column(Numeric, ForeignKey('empleado_profesional.id_empleado_prof'), primary_key=True)
 
 class Artista(Base):
     __tablename__ = "artista"

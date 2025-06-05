@@ -116,7 +116,7 @@ const EmpleadoProfesionalTable: React.FC<Props> = ({ onEdit, onDelete, refreshTr
                     <div className="pl-10">
                       <h4 className="text-[#2C3639] font-medium mb-3">Formación Profesional</h4>
                       {empleado.formaciones && empleado.formaciones.length > 0 ? (
-                        <div className="grid gap-4">
+                        <div className="grid gap-4 mb-6">
                           {empleado.formaciones.map((formacion, index) => (
                             <div key={index} className="bg-white p-3 rounded-lg shadow-sm">
                               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -139,7 +139,23 @@ const EmpleadoProfesionalTable: React.FC<Props> = ({ onEdit, onDelete, refreshTr
                           ))}
                         </div>
                       ) : (
-                        <p className="text-gray-500 italic">No hay formaciones registradas</p>
+                        <p className="text-gray-500 italic mb-6">No hay formaciones registradas</p>
+                      )}
+
+                      <h4 className="text-[#2C3639] font-medium mb-3">Idiomas</h4>
+                      {empleado.idiomas && empleado.idiomas.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {empleado.idiomas.map((idioma) => (
+                            <span
+                              key={idioma.id_idioma}
+                              className="bg-[#A27B5C] text-white px-3 py-1 rounded-full text-sm"
+                            >
+                              {idioma.nombre}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-gray-500 italic">No hay idiomas registrados</p>
                       )}
                     </div>
                   </td>

@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import date
 from typing import Optional, List
 from .formacion_profesional import FormacionProfesionalCreate, FormacionProfesionalResponse
+from .idioma import IdiomaResponse
 
 class EmpleadoProfesionalBase(BaseModel):
     primer_nombre: str
@@ -14,10 +15,12 @@ class EmpleadoProfesionalBase(BaseModel):
 
 class EmpleadoProfesionalCreate(EmpleadoProfesionalBase):
     formaciones: Optional[List[FormacionProfesionalCreate]] = None
+    idiomas: Optional[List[int]] = None  # Lista de IDs de idiomas
 
 class EmpleadoProfesionalResponse(EmpleadoProfesionalBase):
     id_empleado_prof: int
     formaciones: List[FormacionProfesionalResponse] = []
+    idiomas: List[IdiomaResponse] = []
 
     class Config:
         from_attributes = True 

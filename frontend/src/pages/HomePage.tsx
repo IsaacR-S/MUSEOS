@@ -31,13 +31,6 @@ const modules: ModuleCard[] = [
     available: true
   },
   {
-    title: "Gestión de Artistas",
-    description: "Administra información sobre los artistas y sus obras.",
-    path: "/artistas",
-    icon: "👨‍🎨",
-    available: false
-  },
-  {
     title: "Gestión de Personal",
     description: "Administra empleados profesionales y de mantenimiento.",
     path: "/empleados",
@@ -45,38 +38,17 @@ const modules: ModuleCard[] = [
     available: true
   },
   {
+    title: "Gestión de Idiomas",
+    description: "Administra los idiomas que manejan los empleados profesionales.",
+    path: "/idiomas",
+    icon: "🌐",
+    available: true
+  },
+  {
     title: "Estructura Organizacional",
     description: "Gestiona la estructura y jerarquía de los museos.",
     path: "/estructura",
     icon: "📊",
-    available: false
-  },
-  {
-    title: "Colecciones",
-    description: "Administra las colecciones permanentes y su ubicación.",
-    path: "/colecciones",
-    icon: "🖼️",
-    available: false
-  },
-  {
-    title: "Estructura Física",
-    description: "Gestiona edificios, pisos, áreas y salas de exposición.",
-    path: "/estructura-fisica",
-    icon: "🏗️",
-    available: false
-  },
-  {
-    title: "Eventos",
-    description: "Gestiona eventos y exposiciones temporales.",
-    path: "/eventos",
-    icon: "📅",
-    available: false
-  },
-  {
-    title: "Tickets y Horarios",
-    description: "Administra tickets, precios y horarios de apertura.",
-    path: "/tickets",
-    icon: "🎟️",
     available: false
   }
 ];

@@ -7,6 +7,7 @@ import LugaresPage from './pages/LugaresPage';
 import MuseosPage from './pages/MuseosPage';
 import EmpleadosPage from './pages/EmpleadosPage';
 import ObrasPage from './pages/ObrasPage';
+import IdiomasPage from './pages/IdiomasPage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/museos" element={<MuseosPage />} />
             <Route path="/empleados" element={<EmpleadosPage />} />
             <Route path="/obras" element={<ObrasPage />} />
+            <Route path="/idiomas" element={<IdiomasPage />} />
           </Routes>
         </main>
       </div>
