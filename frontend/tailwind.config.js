@@ -6,7 +6,18 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'playfair': ['"Playfair Display"', 'serif'],
+        'crimson': ['"Crimson Text"', 'serif'],
+      },
       colors: {
+        'museum': {
+          primary: '#2C3639',
+          secondary: '#3F4E4F',
+          accent: '#A27B5C',
+          light: '#DCD7C9',
+          gold: '#BF9742',
+        },
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',

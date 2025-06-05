@@ -1,10 +1,18 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import type { Lugar, LugarFormData } from './types';
+import type { Lugar } from './types/lugar';
+
+interface LugarFormData {
+  nombre_lugar: string;
+  tipo: "pais" | "ciudad";
+  id_jerarquia: string;
+}
+
 import LugarForm from './components/LugarForm';
 import LugarTable from './components/LugarTable';
 import DeleteModal from './components/DeleteModal';
+import Layout from './components/Layout';
 
 const API_URL = 'http://localhost:8000';
 
@@ -13,6 +21,8 @@ export default function App() {
   const [selectedLugar, setSelectedLugar] = useState<Lugar | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [lugarToDelete, setLugarToDelete] = useState<number | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [shouldRefresh, setShouldRefresh] = useState(0);
 
   useEffect(() => {
     fetchLugares();
@@ -27,8 +37,14 @@ export default function App() {
     }
   };
 
-  const handleSubmit = async (data: LugarFormData) => {
+  const handleSubmit = async (formData: LugarFormData) => {
     try {
+      // Convertir id_jerarquia a número o null
+      const data = {
+        ...formData,
+        id_jerarquia: formData.id_jerarquia ? parseInt(formData.id_jerarquia) : null
+      };
+
       if (selectedLugar) {
         await axios.put(`${API_URL}/lugares/${selectedLugar.id_lugar}`, data);
         toast.success('Lugar actualizado exitosamente');
@@ -47,13 +63,17 @@ export default function App() {
     }
   };
 
-  const handleEdit = (lugar: Lugar) => {
-    setSelectedLugar(lugar);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const refreshTable = () => {
+    setShouldRefresh(prev => prev + 1);
   };
 
-  const handleDelete = (id: number) => {
-    setLugarToDelete(id);
+  const handleEdit = (lugar: Lugar) => {
+    setSelectedLugar(lugar);
+    setIsEditing(true);
+  };
+
+  const handleDelete = (lugar: Lugar) => {
+    setSelectedLugar(lugar);
     setIsDeleteModalOpen(true);
   };
 
@@ -75,43 +95,43 @@ export default function App() {
     }
   };
 
+  const handleCancelEdit = () => {
+    setSelectedLugar(null);
+    setIsEditing(false);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Gestión de Lugares</h1>
-            <p className="mt-2 text-sm text-gray-500">
-              Administre los lugares disponibles en el sistema
-            </p>
-          </div>
-
+    <Layout>
+      <div className="space-y-8">
+        <div className="museum-border p-6 rounded-lg">
+          <h2 className="museum-header">Gestión de Lugares</h2>
           <LugarForm
-            onSubmit={handleSubmit}
-            lugares={lugares}
-            initialData={
-              selectedLugar
-                ? {
-                    nombre_lugar: selectedLugar.nombre_lugar,
-                    tipo: selectedLugar.tipo,
-                    id_jerarquia: selectedLugar.id_jerarquia?.toString() || '',
-                  }
-                : undefined
-            }
-            isEdit={!!selectedLugar}
+            lugar={isEditing ? selectedLugar : null}
+            onCancel={handleCancelEdit}
+            onSuccess={refreshTable}
+            refreshTrigger={shouldRefresh}
           />
-
-          <LugarTable lugares={lugares} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
+
+        <div className="museum-border p-6 rounded-lg bg-white/80 backdrop-blur-sm">
+          <h3 className="text-2xl font-playfair mb-6 text-center text-[#2C3639]">
+            Lugares Registrados
+          </h3>
+          <LugarTable
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            refreshTrigger={shouldRefresh}
+          />
+        </div>
+
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          lugar={selectedLugar}
+          onSuccess={refreshTable}
+        />
       </div>
-
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        onConfirm={confirmDelete}
-      />
-
       <Toaster position="top-right" />
-    </div>
+    </Layout>
   );
 }

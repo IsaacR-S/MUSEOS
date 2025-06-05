@@ -1,98 +1,96 @@
-import { PencilIcon, TrashIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
-import type { Lugar } from '../types';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import type { Lugar } from '../types/lugar';
 
 interface Props {
-  lugares: Lugar[];
   onEdit: (lugar: Lugar) => void;
-  onDelete: (id: number) => void;
+  onDelete: (lugar: Lugar) => void;
+  refreshTrigger: number;
 }
 
-export default function LugarTable({ lugares, onEdit, onDelete }: Props) {
+const LugarTable: React.FC<Props> = ({ onEdit, onDelete, refreshTrigger }) => {
+  const [lugares, setLugares] = useState<Lugar[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchLugares();
+  }, [refreshTrigger]);
+
+  const fetchLugares = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/lugares/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Error al cargar lugares');
+      }
+      const data = await response.json();
+      setLugares(data);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Error al cargar lugares');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8">
+        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#A27B5C] border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (lugares.length === 0) {
+    return (
+      <div className="text-center py-8 text-gray-500">
+        No hay lugares registrados
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center">
-          <div className="bg-primary-100 rounded-lg p-3 mr-4">
-            <BuildingOfficeIcon className="w-6 h-6 text-primary-600" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-800">Lugares Registrados</h2>
-        </div>
-      </div>
-      
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nombre
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Tipo
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Jerarquía
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {lugares.map((lugar) => (
-              <tr key={lugar.id_lugar} className="hover:bg-gray-50 transition-colors duration-200">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {lugar.id_lugar}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{lugar.nombre_lugar}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span
-                    className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      lugar.tipo === 'pais'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-green-100 text-green-800'
-                    }`}
+    <div className="overflow-x-auto">
+      <table className="museum-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Jerarquía</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {lugares.map((lugar) => (
+            <tr key={lugar.id_lugar}>
+              <td className="font-medium">{lugar.nombre_lugar}</td>
+              <td>{lugar.tipo === 'pais' ? 'País' : 'Ciudad'}</td>
+              <td>{lugar.jerarquia_nombre || '-'}</td>
+              <td>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => onEdit(lugar)}
+                    className="museum-button px-3 py-1 text-sm"
                   >
-                    {lugar.tipo === 'pais' ? 'País' : 'Ciudad'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {lugar.jerarquia_nombre ? (
-                    <div className="flex items-center">
-                      <BuildingOfficeIcon className="w-4 h-4 mr-2 text-gray-400" />
-                      {lugar.jerarquia_nombre}
-                    </div>
-                  ) : (
-                    <span className="text-gray-400">N/A</span>
-                  )}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div className="flex space-x-3">
-                    <button
-                      onClick={() => onEdit(lugar)}
-                      className="text-primary-600 hover:text-primary-900 flex items-center"
-                    >
-                      <PencilIcon className="w-4 h-4 mr-1" />
-                      Editar
-                    </button>
-                    <button
-                      onClick={() => onDelete(lugar.id_lugar)}
-                      className="text-red-600 hover:text-red-900 flex items-center"
-                    >
-                      <TrashIcon className="w-4 h-4 mr-1" />
-                      Eliminar
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => onDelete(lugar)}
+                    className="museum-button bg-red-600 hover:bg-red-700 px-3 py-1 text-sm"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-} 
+};
+
+export default LugarTable; 

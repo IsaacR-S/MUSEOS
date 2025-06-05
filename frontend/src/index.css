@@ -2,29 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-museum-primary: #2C3639;
+  --color-museum-secondary: #3F4E4F;
+  --color-museum-accent: #A27B5C;
+  --color-museum-light: #DCD7C9;
+  --color-museum-gold: #BF9742;
+  --color-museum-text: #2C3639;
+}
+
 @layer base {
   body {
-    @apply bg-gray-50;
+    @apply bg-[#DCD7C9] min-h-screen;
+    color: var(--color-museum-text);
+    font-family: 'Crimson Text', serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    @apply font-semibold;
   }
 }
 
 @layer components {
-  .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2;
+  .museum-card {
+    @apply bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300;
+    background: linear-gradient(to bottom right, white, var(--color-museum-light));
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
-  .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+
+  .museum-button {
+    @apply px-4 py-2 rounded-md transition-all duration-300 font-medium;
+    background-color: var(--color-museum-primary);
+    color: white;
   }
-  .btn-secondary {
-    @apply btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50;
+
+  .museum-button:hover {
+    background-color: var(--color-museum-accent);
+    transform: translateY(-1px);
   }
-  .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+
+  .museum-input {
+    @apply border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#A27B5C] focus:border-transparent;
+    background-color: rgba(255, 255, 255, 0.9);
   }
-  .input-field {
-    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500;
+
+  .museum-table {
+    @apply w-full border-collapse bg-white rounded-lg overflow-hidden shadow-lg;
   }
-  .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+
+  .museum-table th {
+    @apply bg-[#2C3639] text-white px-6 py-3 text-left;
   }
+
+  .museum-table td {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+
+  .museum-table tr:hover {
+    @apply bg-[#DCD7C9] bg-opacity-30;
+  }
+}
+
+/* Decorative elements */
+.museum-border {
+  @apply relative;
+  border: 2px solid var(--color-museum-gold);
+  box-shadow: 0 0 15px rgba(191, 151, 66, 0.2);
+}
+
+.museum-header {
+  @apply text-4xl mb-8 text-center font-bold;
+  color: var(--color-museum-primary);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }

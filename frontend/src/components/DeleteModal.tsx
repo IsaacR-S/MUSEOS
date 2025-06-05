@@ -1,25 +1,40 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import type { Lugar } from '../types/lugar';
+import { toast } from 'react-hot-toast';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
-  title?: string;
-  message?: string;
+  lugar: Lugar | null;
+  onSuccess: () => void;
 }
 
-export default function DeleteModal({
-  isOpen,
-  onClose,
-  onConfirm,
-  title = '¿Eliminar lugar?',
-  message = 'Esta acción no se puede deshacer. ¿Está seguro que desea eliminar este lugar?',
-}: Props) {
+const DeleteModal: React.FC<Props> = ({ isOpen, onClose, lugar, onSuccess }) => {
+  const handleDelete = async () => {
+    if (!lugar) return;
+
+    try {
+      const response = await fetch(`http://localhost:8000/lugares/${lugar.id_lugar}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Error al eliminar el lugar');
+      }
+
+      toast.success('Lugar eliminado exitosamente');
+      onClose();
+      onSuccess();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Error al eliminar el lugar');
+    }
+  };
+
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -29,48 +44,47 @@ export default function DeleteModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
               leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <ExclamationTriangleIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
-                  </div>
-                  <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                      {title}
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">{message}</p>
-                    </div>
-                  </div>
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-playfair font-medium leading-6 text-[#2C3639]"
+                >
+                  Confirmar Eliminación
+                </Dialog.Title>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-500">
+                    ¿Está seguro que desea eliminar el lugar "{lugar?.nombre_lugar}"? Esta acción no se puede deshacer.
+                  </p>
                 </div>
-                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+
+                <div className="mt-6 flex justify-end space-x-4">
                   <button
                     type="button"
-                    className="btn-danger sm:ml-3 sm:w-auto"
-                    onClick={onConfirm}
-                  >
-                    Eliminar
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-secondary mt-3 sm:mt-0 sm:w-auto"
+                    className="museum-button bg-[#3F4E4F]"
                     onClick={onClose}
                   >
                     Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="museum-button bg-red-600 hover:bg-red-700"
+                    onClick={handleDelete}
+                  >
+                    Eliminar
                   </button>
                 </div>
               </Dialog.Panel>
@@ -78,6 +92,8 @@ export default function DeleteModal({
           </div>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
-} 
+};
+
+export default DeleteModal; 
