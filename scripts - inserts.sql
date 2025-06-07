@@ -4,7 +4,9 @@ INSERT INTO lugar (nombre_lugar, tipo, id_jerarquia) VALUES
 ('canada', 'pais', NULL),
 ('mexico', 'pais', NULL),
 ('china', 'pais', NULL),
-('australia', 'pais', NULL),
+('australia', 'pais', NULL);
+
+INSERT INTO lugar (nombre_lugar, tipo, id_jerarquia) VALUES
 ('vancouver', 'ciudad', 1),
 ('montreal', 'ciudad', 1),
 ('ciudad de mexico', 'ciudad', 2),
@@ -1366,7 +1368,7 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 
 -- Movimiento de la obra "david" (id_obra: 1)
 -- Ubicada en Sala Renacimiento (2, 35, 3)
--- Perteneciente a Colección Escultura Romana (5, 19, 9)
+-- Perteneciente a Colección Escultura Romana (5, 19, 9
 -- A cargo del curador (2, 14, 6, '2023-04-10')
 INSERT INTO historico_obra_movimiento (
     id_obra, id_historico_obra_movimiento, fecha_inicio, tipo_obtencion, destacada,
