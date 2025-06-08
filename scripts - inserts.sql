@@ -981,7 +981,7 @@ INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_
 (13, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND tipo = 'direccion' LIMIT 1), '2023-04-01', 'director', NULL),
 (14, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Innovación%' LIMIT 1), '2023-06-05', 'curador', NULL),
 (15, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Experiencias%' LIMIT 1), '2023-08-15', 'administrativo', NULL),
-(16, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Sección de Realidad Virtual%' LIMIT 1), '2022-05-20', 'curador', '2023-06-31');
+(16, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Sección de Realidad Virtual%' LIMIT 1), '2022-05-20', 'curador', '2023-06-30');
 
 
 
