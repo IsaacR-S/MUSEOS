@@ -16,38 +16,110 @@ INSERT INTO lugar (nombre_lugar, tipo, id_jerarquia) VALUES
 ('canberra', 'ciudad', 4),
 ('melbourne', 'ciudad', 4);
 
-INSERT INTO obra (nombre_obra, fecha_periodo, tipo_obra, dimensiones, estilo_descripcion, descripcion_materiales_tecnicas) VALUES
-('david', '1501-1503 renacimiento', 'escultura', '517cm', 'clasico renacentista con anatomía idealizada', 'marmol de carrara y talla directa'),
-('el pensador', '1880-1904 modernismo', 'escultura', '70cm x 58cm x 40cm', 'expresivo y realista', 'bronce, fundicion'),
-('venus de milo', '130-100 a.c helenismo', 'escultura', '211cm', 'clasico griego con proporciones armoniosas', 'marmol, talla directa'),
-('discobolo', '455 a.c grecia', 'escultura', '155cm', 'clasico con enfasis en el moviminto', 'marmol, talla directa'),
-('monalisa', '1503-1519', 'pintura', '77cm x 53cm', 'retrato renacentista con sfumato', 'oleo sobre tabla de alamo'),
-('las meninas', '1656 barroco', 'pintura', '318cm x 276xcm', 'retrato cortesano con perspectica compleja', 'oleao sobre lienzo'),
-('la pertenecia de la memoria', '1931 surrealismo', 'pintura', '24cm x 33cm', 'surrealista con elementos oniricos', 'oleo sobre lienzo'),
-('el grito', '1893 expresionismo', 'pintura', '91cm x 73cm', 'expresionista con colores vibrantes', 'oleo, temple y pastel sobre carton'),
-('guernica', '1937 cubismo', 'pintura', '349cm x 776cm', 'cubista con mensajes politicos', 'oleo sobre lienzo');
-
+-- Sentencias INSERT para la tabla artista
 INSERT INTO artista (nombre_artista, apellido_artista, fecha_nacimiento, apodo_artista, fecha_muerte, descripcion_estilo_tecnicas) VALUES
-('michelangelo', 'buonarroti', '1475-03-06', 'miguel angel', '1564-02-18', 'renacimiento, escultura, pintura, arquitectura'),
-('françois auguste rene', 'rodin', '1840-11-12', 'auguste rodin', '1917-11-17', 'escultura moderna, simbolismo'),
-(NULL, NULL, NULL, 'alejandro de antioquia', NULL, 'escultura helenística'),
-(NULL, NULL, NULL, 'miron de eleuteras', NULL, 'escultura clásica, bronce'),
-('leonardo', 'di ser piero da vinci', '1452-04-15', NULL, '1519-05-02', 'renacimiento, pintura, ingeniería, anatomía'),
-('diego', 'rodrigo de silva y velazques', '1599-06-06', 'diego velazquez', '1660-08-06', 'barroco, pintura'),
-('salvador', 'domingo felipe jacinto dali i domenech', '1904-05-11', 'salvador dali', '1989-01-23', 'surrealismo,pintura,escultura'),
-('edvard', 'munch', '1863-12-12', NULL, '1944-01-23', 'expresionismo, simbolismo'),
-('pablo', 'ruiz', '1881-10-25', 'pablo picasso', '1973-04-08', 'cubismo, surrealismo, pintura, escultura');
+('Emily', 'Carr', '1871-12-13', NULL, '1945-03-02', 'Pintora canadiense conocida por sus paisajes del noroeste del Pacífico y sus representaciones de la cultura indígena.'),
+('Vincent', 'van Gogh', '1853-03-30', NULL, '1890-07-29', 'Pintor neerlandés, una de las figuras más influyentes en la historia del arte occidental, precursor del expresionismo.'),
+('Henri', 'Matisse', '1869-12-31', NULL, '1954-11-03', 'Pintor francés, líder del movimiento fauvista, conocido por su uso del color y el dibujo fluido.'),
+('Amedeo', 'Modigliani', '1884-07-12', NULL, '1920-01-24', 'Pintor y escultor italiano, conocido por sus retratos y desnudos con caras alargadas y figuras estilizadas.'),
+('José María', 'Velasco', '1840-07-06', NULL, '1912-02-17', 'Pintor paisajista mexicano, considerado uno de los artistas más destacados del siglo XIX en México, maestro del paisaje académico.'),
+('Raúl', 'Anguiano', '1915-02-26', NULL, '2006-01-13', 'Pintor y muralista mexicano, figura clave de la segunda generación de la Escuela Mexicana de Pintura, con fuerte compromiso social.'),
+('Ricardo', 'Mazal', '1963-02-17', NULL, NULL, 'Pintor mexicano contemporáneo conocido por sus grandes lienzos abstractos y el uso de la cera, explorando la espiritualidad y la naturaleza.'),
+('Manuel', 'Felguérez', '1928-12-12', NULL, '2020-06-08', 'Escultor y pintor abstracto mexicano, pionero del arte abstracto en México, integrante de la Generación de la Ruptura.'),
+('Gabriel', 'Orozco', '1962-04-27', NULL, NULL, 'Artista conceptual mexicano conocido por sus instalaciones, fotografía, escultura y dibujo, a menudo utilizando objetos cotidianos y la intervención del espacio.'),
+('Fan', 'Zeng', '1938-07-05', NULL, NULL, 'Pintor y calígrafo chino, conocido por sus figuras y su estilo tradicional con un toque moderno, maestro de la pintura de personajes.'),
+('Wu', 'Guanzhong', '1919-08-29', NULL, '2010-06-25', 'Uno de los pintores más importantes de China del siglo XX, conocido por sus paisajes que combinan la técnica china con la occidental y su estilo impresionista.'),
+('Xu', 'Bing', '1955-02-08', NULL, NULL, 'Artista conceptual chino conocido por sus trabajos que exploran el lenguaje, la caligrafía y la relación entre culturas, con un enfoque en la palabra escrita.'),
+('Gao', 'Jianfu', '1879-10-12', NULL, '1951-06-22', 'Fundador de la Escuela Lingnan de pintura, que buscaba modernizar la pintura china fusionándola con influencias occidentales.'),
+('Chen', 'Shuren', '1884-03-03', NULL, '1962-04-10', 'Cofundador de la Escuela Lingnan, conocido por sus paisajes y representaciones de animales y plantas, con un estilo innovador y vibrante.'),
+('Arthur', 'Streeton', '1867-04-08', NULL, '1943-09-01', 'Pintor impresionista australiano, figura clave de la Escuela de Heidelberg, famoso por sus paisajes soleados y escenas rurales.'),
+('Jean-Baptiste-Camille', 'Corot', '1796-07-17', NULL, '1875-02-22', 'Pintor paisajista francés, figura clave de la Escuela de Barbizon, conocido por sus atmósferas poéticas y el uso sutil de la luz.'),
+('Mark', 'Rothko', '1903-09-25', NULL, '1970-02-25', 'Pintor estadounidense de origen letón, pionero del Expresionismo Abstracto y la Pintura de Campos de Color, famoso por sus grandes campos de color que evocan emociones.');
 
+
+-- Sentencias INSERT para la tabla obra
+INSERT INTO obra (nombre_obra, fecha_periodo, tipo_obra, dimensiones, estilo_descripcion, descripcion_materiales_tecnicas) VALUES
+-- Museo de Arte de Vancouver
+('The Crazy One', '1937', 'pintura', '112.4 x 69.8 cm', 'Modernismo Canadiense, Post-Impresionismo', 'Óleo sobre papel pegado a tablero'),
+('Forest, British Columbia', '1932', 'pintura', '108 x 68 cm', 'Modernismo Canadiense, Expresionismo', 'Óleo sobre lienzo'),
+('Indian Church', '1929', 'pintura', '109 x 68 cm', 'Modernismo Canadiense', 'Óleo sobre lienzo'),
+
+-- Museo de Arte de Montreal
+('Vase of Sunflowers', '1888', 'pintura', '92.1 x 73 cm', 'Post-Impresionismo', 'Óleo sobre lienzo'),
+('The Reading', '1905-1906', 'pintura', '65.4 x 80.6 cm', 'Fauvismo', 'Óleo sobre lienzo'),
+('Nude with Raised Arms', '1918', 'pintura', '92 x 60 cm', 'Modernismo, Expresionismo', 'Óleo sobre lienzo'),
+
+-- Museo de la Ciudad de México
+('Visión de la Ciudad de México', '1877', 'pintura', 'Mural, 300 x 500 cm', 'Paisajismo Mexicano, Academicismo', 'Óleo sobre muro'),
+('Murales del Patio Central', '1961', 'pintura', 'Mural, variable', 'Muralismo Mexicano', 'Fresco sobre muro'),
+('Maqueta de la antigua Tenochtitlán', 'Siglo XX', 'escultura', '500 x 300 cm', 'Realismo, Reconstrucción histórica', 'Plástico, madera, pigmentos'), -- Autor desconocido
+
+-- Museo De Arte Contemporáneo De Monterrey (MARCO)
+('Cabeza Vaca', '2000', 'pintura', '200 x 200 cm', 'Abstracción Lírica', 'Óleo y cera sobre lienzo'),
+('Paisaje con nubes', '1970', 'pintura', '150 x 180 cm', 'Abstracción geométrica', 'Óleo sobre lienzo'),
+('Sin Título (Serie Columnas)', '1995', 'escultura', '250 x 50 x 50 cm', 'Arte Conceptual, Escultura Minimalista', 'Acero, madera reciclada'),
+
+-- Jiangsu Art Museum
+('Montañas y Ríos de Nanjing', '2010', 'pintura', '180 x 90 cm', 'Pintura tradicional china, paisajismo contemporáneo', 'Tinta y color sobre papel de arroz'),
+('El Jardín Secreto', '1985', 'pintura', '120 x 120 cm', 'Modernismo chino, fusión de tradición y abstracción', 'Óleo sobre lienzo'),
+('Armonía Urbana', '2005', 'escultura', '300 x 100 x 100 cm', 'Arte conceptual, instalación contemporánea', 'Instalación de elementos reciclados y luz'),
+
+-- Museo de Guangdong
+('Pintura de Flor y Pájaro (Estilo Lingnan)', '1930', 'pintura', '90 x 45 cm', 'Escuela Lingnan, Tinta y color', 'Tinta y color sobre papel de arroz'),
+('Paisaje con Cascada', '1925', 'pintura', '110 x 55 cm', 'Escuela Lingnan, Realismo', 'Tinta y color sobre seda'),
+('Jarrón de Cerámica de Guangdong', 'Dinastía Qing (Siglo XVIII)', 'escultura', '40 cm de alto, 20 cm de diámetro', 'Cerámica de Shiwan, Estilo clásico', 'Cerámica esmaltada'), -- Autor desconocido
+
+-- Museo Nacional de Australia
+('Canoa de corteza indígena', 'Siglo XIX', 'escultura', '500 x 80 x 60 cm', 'Arte indígena australiano, funcional', 'Corteza de árbol, pigmentos naturales'), -- Autor desconocido
+('Wandjina (Pintura Rupestre)', 'Antigüedad a Siglo XX', 'pintura', 'Variable (ej. 150 x 100 cm)', 'Arte indígena australiano, espiritual', 'Pigmentos naturales sobre roca o lienzo'), -- Autor desconocido
+('Boomerang Ceremonial con Grabados', 'Principios del Siglo XX', 'escultura', '80 x 30 x 5 cm', 'Arte aborigen, utilitario y ceremonial', 'Madera tallada y grabada'), -- Autor desconocido
+
+-- Galería Nacional de Victoria
+('The Bridal Party', '1889', 'pintura', '92.1 x 152.4 cm', 'Impresionismo Australiano (Heidelberg School)', 'Óleo sobre lienzo'),
+('The Bath of Diana', '1855', 'pintura', '130.2 x 98.4 cm', 'Realismo, Paisajismo', 'Óleo sobre lienzo'),
+('Untitled (Large Blue)', '1959', 'pintura', '200 x 200 cm', 'Expresionismo Abstracto, Pintura de Campos de Color', 'Óleo sobre lienzo');
+
+
+-- Sentencias INSERT para la tabla art_obra
 INSERT INTO art_obra (id_artista, id_obra) VALUES
-(1,1),
-(2,2),
-(3,3),
-(4,4),
-(5,5),
-(6,6),
-(7,7),
-(8,8),
-(9,9);
+-- Museo de Arte de Vancouver (Emily Carr)
+(1, 1),
+(1, 2),
+(1, 3),
+
+-- Museo de Arte de Montreal
+(2, 4), -- Vincent van Gogh
+(3, 5), -- Henri Matisse
+(4, 6), -- Amedeo Modigliani
+
+-- Museo de la Ciudad de México (Obras con autor conocido)
+(5, 7), -- José María Velasco
+(6, 8), -- Raúl Anguiano
+-- Nota: La obra con id_obra 9 ('Maqueta de la antigua Tenochtitlán') no tiene un autor conocido, por lo tanto no se incluye en art_obra.
+
+-- Museo De Arte Contemporáneo De Monterrey (MARCO)
+(7, 10), -- Ricardo Mazal
+(8, 11), -- Manuel Felguérez
+(9, 12), -- Gabriel Orozco
+
+-- Jiangsu Art Museum
+(10, 13), -- Fan Zeng
+(11, 14), -- Wu Guanzhong
+(12, 15), -- Xu Bing
+
+-- Museo de Guangdong
+(13, 16), -- Gao Jianfu
+(14, 17), -- Chen Shuren
+-- Nota: La obra con id_obra 18 ('Jarrón de Cerámica de Guangdong') no tiene un autor conocido, por lo tanto no se incluye en art_obra.
+
+-- Museo Nacional de Australia
+-- Nota: Las obras con id_obra 19, 20, 21 no tienen autores conocidos, por lo tanto no se incluyen en art_obra.
+
+-- Galería Nacional de Victoria
+(15, 22), -- Arthur Streeton
+(16, 23), -- Jean-Baptiste-Camille Corot
+(17, 24); -- Mark Rothko
+
 
 INSERT INTO museo (nombre, mision, fecha_fundacion, id_lugar) VALUES
 ('Museo de Arte de Vancouvert', 'Fomentar el arte de la costa oeste de Canada', '1931-01-01', 5),
