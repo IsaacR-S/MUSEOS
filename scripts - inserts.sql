@@ -331,593 +331,508 @@ INSERT INTO EMPLEADO_PROFESIONAL (primer_nombre, primer_apellido, segundo_nombre
 ('Peta', 'Rittmeyer', 'Wernher', 'Dibdall', '6/11/1973', 26565035, 'wdibdall4e@t.co'),
 ('Elwyn', 'Klosterman', 'Corrianne', 'Housegoe', '5/31/1969', 66099096, 'chousegoe4f@timesonline.co.uk');
 
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 141);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 14);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 75);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 78);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 157);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 5);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 30);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 99);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 20);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 96);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 99);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 54);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 33);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 143);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 124);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 100);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 103);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 149);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 29);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 107);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 98);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 44);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 139);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 97);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 110);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 62);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 138);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 50);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 3);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 129);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 13);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 124);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 80);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 66);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 113);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 129);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 44);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 60);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 140);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 137);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 77);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 28);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 117);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 14);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 146);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 109);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 130);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 118);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 82);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 10);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 85);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 30);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 23);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 12);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 14);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 83);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 21);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 80);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 25);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 88);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 91);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 97);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 51);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 70);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 26);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 153);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 91);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 8);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 38);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 112);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 106);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 47);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 27);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 12);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 93);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 89);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 84);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 109);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 79);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 107);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 44);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 38);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 82);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 150);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 82);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 24);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 103);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 158);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 145);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 134);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 12);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 68);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 96);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 41);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 70);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 151);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 84);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 157);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 48);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 105);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 159);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 95);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 42);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 119);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 85);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 108);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 14);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 23);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 75);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 21);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 3);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 130);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 139);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 92);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 51);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 94);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 125);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 100);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 34);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 11);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 74);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 142);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 26);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 125);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 3);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 100);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 132);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 78);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 153);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 147);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 147);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 85);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 25);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 71);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 12);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 131);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 26);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 116);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 112);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 81);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 13);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 44);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 3);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 30);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 53);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 150);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 26);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 67);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 76);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 20);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 141);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 62);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 35);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 28);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 141);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 154);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 7);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 77);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 110);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 152);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 146);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 133);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 36);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 89);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 120);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 138);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 158);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 7);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 43);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 103);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 80);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 15);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 59);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 150);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 38);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 90);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 138);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 144);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 1);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 132);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 156);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 74);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 74);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 94);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 90);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 1);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 61);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 158);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 83);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 149);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 85);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 27);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 15);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 24);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 61);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 77);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 113);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 13);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 63);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 136);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 51);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 75);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 53);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 157);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 96);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 32);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 53);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 48);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 159);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 140);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 35);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 131);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 76);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 92);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 26);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 114);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 67);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 132);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 121);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 41);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 125);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 68);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 135);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 10);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 49);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 81);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 69);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 15);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 133);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 136);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 110);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 159);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 106);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 78);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 36);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 143);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 16);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 151);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 11);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (4, 134);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 77);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 102);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 6);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 3);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 128);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 105);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 9);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 65);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 140);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 44);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 121);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 122);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 75);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 43);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 126);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 56);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 64);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 31);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (15, 144);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 45);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 73);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 76);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 121);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 12);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 2);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 122);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 130);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 70);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 74);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (6, 73);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 111);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 93);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 130);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (14, 115);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 149);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 27);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 121);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 22);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 112);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 2);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 60);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 33);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 155);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 128);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (1, 29);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 156);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 53);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (19, 86);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 87);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 112);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 139);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 51);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 29);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 19);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 62);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 48);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 109);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (7, 73);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 143);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 61);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (8, 48);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 137);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 150);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (9, 133);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (16, 54);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 22);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (13, 146);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 77);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (17, 2);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 138);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (3, 153);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (12, 149);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (18, 14);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (10, 42);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (5, 39);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (20, 136);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (11, 140);
-insert into EMP_IDI (id_idioma, id_empleado_prof) values (2, 7);
+insert into EMP_IDI (id_idioma, id_empleado_prof) values 
+(8, 141),
+(6, 14),
+(6, 75),
+(18, 78),
+(18, 157),
+(5, 5),
+(19, 30),
+(11, 99),
+(5, 20),
+(20, 96),
+(14, 99),
+(17, 54),
+(3, 33),
+(19, 143),
+(1, 124),
+(3, 100),
+(9, 103),
+(5, 149),
+(8, 29),
+(12, 107),
+(20, 98),
+(2, 44),
+(13, 139),
+(16, 97),
+(10, 110),
+(14, 62),
+(6, 138),
+(8, 50),
+(17, 3),
+(19, 129),
+(11, 13),
+(16, 124),
+(7, 80),
+(15, 66),
+(1, 113),
+(18, 129),
+(11, 44),
+(13, 60),
+(20, 140),
+(4, 137),
+(20, 77),
+(6, 28),
+(1, 117),
+(2, 14),
+(3, 146),
+(18, 109),
+(2, 130),
+(8, 118),
+(8, 82),
+(18, 10),
+(13, 85),
+(20, 30),
+(20, 23),
+(2, 12),
+(13, 14),
+(13, 83),
+(8, 21),
+(12, 80),
+(1, 25),
+(1, 88),
+(13, 91),
+(3, 97),
+(2, 51),
+(3, 70),
+(20, 26),
+(6, 153),
+(8, 91),
+(7, 8),
+(11, 38),
+(8, 112),
+(10, 106),
+(2, 47),
+(19, 27),
+(12, 12),
+(9, 93),
+(3, 89),
+(3, 84),
+(5, 109),
+(2, 79),
+(20, 107),
+(12, 44),
+(19, 38),
+(11, 82),
+(1, 150),
+(4, 82),
+(20, 24),
+(17, 103),
+(2, 158),
+(13, 145),
+(6, 134),
+(4, 12),
+(5, 68),
+(2, 96),
+(11, 41),
+(17, 70),
+(11, 151),
+(4, 84),
+(14, 157),
+(16, 48),
+(9, 105),
+(7, 159),
+(18, 95),
+(16, 42),
+(6, 119),
+(14, 85),
+(20, 108),
+(14, 14),
+(1, 23),
+(12, 75),
+(10, 21),
+(19, 3),
+(18, 130),
+(15, 139),
+(2, 92),
+(4, 51),
+(17, 94),
+(15, 125),
+(8, 100),
+(15, 34),
+(1, 11),
+(2, 74),
+(14, 142),
+(12, 26),
+(16, 125),
+(8, 3),
+(16, 100),
+(17, 132),
+(3, 78),
+(5, 153),
+(20, 147),
+(1, 147),
+(2, 85),
+(10, 25),
+(7, 71),
+(16, 12),
+(10, 131),
+(9, 26),
+(1, 116),
+(13, 112),
+(2, 81),
+(9, 13),
+(4, 44),
+(7, 3),
+(5, 30),
+(16, 53),
+(13, 150),
+(6, 26),
+(20, 67),
+(10, 76),
+(8, 20),
+(1, 141),
+(5, 62),
+(6, 35),
+(2, 28),
+(4, 141),
+(5, 154),
+(6, 7),
+(4, 77),
+(20, 110),
+(9, 152),
+(8, 146),
+(2, 133),
+(4, 36),
+(18, 89),
+(9, 120),
+(14, 138),
+(3, 158),
+(14, 7),
+(15, 43),
+(7, 103),
+(1, 80),
+(17, 15),
+(10, 59),
+(14, 150),
+(10, 38),
+(7, 90),
+(16, 138),
+(1, 144),
+(20, 1),
+(8, 132),
+(17, 156),
+(12, 74),
+(18, 74),
+(15, 94),
+(6, 90),
+(14, 1),
+(20, 61),
+(5, 158),
+(6, 83),
+(15, 149),
+(6, 85),
+(7, 27),
+(14, 15),
+(18, 24),
+(3, 61),
+(8, 77),
+(14, 113),
+(15, 13),
+(5, 63),
+(16, 136),
+(19, 51),
+(3, 75),
+(7, 53),
+(7, 29),
+(13, 19),
+(18, 62),
+(17, 48),
+(2, 109),
+(7, 73),
+(16, 143),
+(8, 61),
+(8, 48),
+(16, 137),
+(20, 150),
+(9, 133),
+(16, 54),
+(3, 22),
+(13, 146),
+(3, 77),
+(17, 2),
+(10, 138),
+(3, 153),
+(12, 149),
+(18, 14),
+(10, 42),
+(5, 39),
+(20, 136),
+(11, 140),
+(2, 7);
 
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Mira', 'Folder', 51174186, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Auberta', 'Fuchs', 26953561, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Linc', 'Kennet', 1179298, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Farleigh', 'Claydon', 54780476, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Aubrie', 'Dearth', 88501895, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Pascale', 'Ferschke', 62468660, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Tansy', 'Vernay', 83107391, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Edik', 'Hopewell', 3718806, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Alyse', 'Bannerman', 71772853, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Donica', 'McGlew', 20744975, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Nara', 'Point', 76042964, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Duke', 'Sapwell', 23213194, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Nike', 'Fedynski', 45663684, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Rudyard', 'Butson', 67886612, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Sigfried', 'Manneville', 60756094, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Adolf', 'Pautot', 18379753, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Travers', 'Motto', 9123269, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Marley', 'Jeandin', 57427347, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Alastair', 'Rubinfajn', 59739477, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Nan', 'Attarge', 60146158, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Ola', 'Skoyles', 10676993, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Karmen', 'Piddock', 87772909, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Sonni', 'Daleman', 77434190, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Shandeigh', 'Bone', 27240577, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Karalee', 'Vyvyan', 54961264, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Augustine', 'Savell', 80828674, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Kiley', 'Zimmer', 15288606, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Zita', 'Corwood', 22974337, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Gran', 'Bullan', 84710816, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Pail', 'Odd', 33865961, 'vigilancia');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Sabine', 'Venediktov', 2643931, 'mantenimiento');
-insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values ('Darrick', 'Sommerville', 64394613, 'mantenimiento');
+insert into EMPLEADO_MANTENIMIENTO_VIGILANCIA (nombre_empleado_mv, apellido_empleado_mv, doc_identidad, tipo) values 
+('Mira', 'Folder', 51174186, 'vigilancia'),
+('Auberta', 'Fuchs', 26953561, 'mantenimiento'),
+('Linc', 'Kennet', 1179298, 'vigilancia'),
+('Farleigh', 'Claydon', 54780476, 'mantenimiento'),
+('Aubrie', 'Dearth', 88501895, 'vigilancia'),
+('Pascale', 'Ferschke', 62468660, 'mantenimiento'),
+('Tansy', 'Vernay', 83107391, 'mantenimiento'),
+('Edik', 'Hopewell', 3718806, 'vigilancia'),
+('Alyse', 'Bannerman', 71772853, 'vigilancia'),
+('Donica', 'McGlew', 20744975, 'vigilancia'),
+('Nara', 'Point', 76042964, 'mantenimiento'),
+('Duke', 'Sapwell', 23213194, 'vigilancia'),
+('Nike', 'Fedynski', 45663684, 'vigilancia'),
+('Rudyard', 'Butson', 67886612, 'vigilancia'),
+('Sigfried', 'Manneville', 60756094, 'mantenimiento'),
+('Adolf', 'Pautot', 18379753, 'vigilancia'),
+('Travers', 'Motto', 9123269, 'mantenimiento'),
+('Marley', 'Jeandin', 57427347, 'mantenimiento'),
+('Alastair', 'Rubinfajn', 59739477, 'vigilancia'),
+('Nan', 'Attarge', 60146158, 'vigilancia'),
+('Ola', 'Skoyles', 10676993, 'vigilancia'),
+('Karmen', 'Piddock', 87772909, 'vigilancia'),
+('Sonni', 'Daleman', 77434190, 'vigilancia'),
+('Shandeigh', 'Bone', 27240577, 'vigilancia'),
+('Karalee', 'Vyvyan', 54961264, 'mantenimiento'),
+('Augustine', 'Savell', 80828674, 'vigilancia'),
+('Kiley', 'Zimmer', 15288606, 'vigilancia'),
+('Zita', 'Corwood', 22974337, 'mantenimiento'),
+('Gran', 'Bullan', 84710816, 'mantenimiento'),
+('Pail', 'Odd', 33865961, 'vigilancia'),
+('Sabine', 'Venediktov', 2643931, 'mantenimiento'),
+('Darrick', 'Sommerville', 64394613, 'mantenimiento');
 
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2007-02-19 09:15:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2005-02-08 10:30:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2012-01-23 11:45:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2005-08-27 08:20:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2010-09-17 13:10:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2020-10-23 14:25:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '1999-05-18 09:50:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2016-08-07 12:40:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2012-01-24 10:15:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '1999-08-29 08:30:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2009-02-21 13:20:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2021-03-24 11:10:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2009-09-30 14:45:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2016-03-31 09:25:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '1999-03-22 10:50:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2019-12-27 12:15:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2007-12-23 08:40:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2000-09-24 13:30:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2022-06-13 11:55:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2025-03-16 14:10:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2004-07-28 09:35:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2002-05-06 10:00:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2007-07-15 12:25:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2008-04-19 13:50:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2012-08-24 08:15:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2012-01-16 10:40:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2017-08-09 14:05:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '1999-09-09 11:30:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2024-01-13 09:55:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2014-06-21 12:20:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2013-11-03 13:45:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2017-07-25 08:10:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2015-08-14 10:35:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2023-04-18 14:00:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2019-03-18 11:25:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2003-09-30 09:50:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2024-11-17 12:15:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2020-08-27 13:40:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2022-09-22 08:05:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2019-05-07 10:30:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2009-08-18 14:55:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2003-04-16 11:20:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2003-01-20 09:45:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2009-02-13 12:10:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2011-08-14 13:35:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2016-04-14 08:00:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2011-04-19 10:25:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2014-10-26 14:50:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2004-02-03 11:15:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2003-12-09 09:40:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2005-06-06 12:05:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2011-02-10 13:30:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2011-08-15 08:55:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2019-03-17 10:20:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2024-03-12 14:45:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2003-03-07 11:10:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2008-06-16 09:35:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '1999-01-11 12:00:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '1999-03-03 13:25:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2002-12-11 08:50:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2003-09-01 10:15:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2015-06-17 14:40:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2021-03-05 11:05:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2000-05-17 09:30:00', 8);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2001-08-09 12:55:00', 1);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2017-03-12 13:20:00', 2);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2012-06-13 08:45:00', 3);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2014-03-06 10:10:00', 4);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2011-01-17 14:35:00', 5);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (7, 'tercera edad', '2023-04-26 11:00:00', 6);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (15, 'adulto', '2012-03-03 09:25:00', 7);
-insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values (0, 'niño', '2020-02-10 12:50:00', 8);
+insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values 
+(7, 'tercera edad', '2007-02-19 09:15:00', 1),
+(7, 'tercera edad', '2005-02-08 10:30:00', 2),
+(7, 'tercera edad', '2012-01-23 11:45:00', 3),
+(7, 'tercera edad', '2005-08-27 08:20:00', 4),
+(0, 'niño', '2010-09-17 13:10:00', 5),
+(0, 'niño', '2020-10-23 14:25:00', 6),
+(7, 'tercera edad', '1999-05-18 09:50:00', 7),
+(7, 'tercera edad', '2016-08-07 12:40:00', 8),
+(0, 'niño', '2012-01-24 10:15:00', 1),
+(15, 'adulto', '1999-08-29 08:30:00', 2),
+(7, 'tercera edad', '2009-02-21 13:20:00', 3),
+(15, 'adulto', '2021-03-24 11:10:00', 4),
+(0, 'niño', '2009-09-30 14:45:00', 5),
+(0, 'niño', '2016-03-31 09:25:00', 6),
+(7, 'tercera edad', '1999-03-22 10:50:00', 7),
+(7, 'tercera edad', '2019-12-27 12:15:00', 8),
+(0, 'niño', '2007-12-23 08:40:00', 1),
+(7, 'tercera edad', '2000-09-24 13:30:00', 2),
+(0, 'niño', '2022-06-13 11:55:00', 3),
+(15, 'adulto', '2025-03-16 14:10:00', 4),
+(7, 'tercera edad', '2004-07-28 09:35:00', 5),
+(15, 'adulto', '2002-05-06 10:00:00', 6),
+(0, 'niño', '2007-07-15 12:25:00', 7),
+(7, 'tercera edad', '2008-04-19 13:50:00', 8),
+(7, 'tercera edad', '2012-08-24 08:15:00', 1),
+(7, 'tercera edad', '2012-01-16 10:40:00', 2),
+(0, 'niño', '2017-08-09 14:05:00', 3),
+(15, 'adulto', '1999-09-09 11:30:00', 4),
+(0, 'niño', '2024-01-13 09:55:00', 5),
+(0, 'niño', '2014-06-21 12:20:00', 6),
+(0, 'niño', '2013-11-03 13:45:00', 7),
+(7, 'tercera edad', '2017-07-25 08:10:00', 8),
+(15, 'adulto', '2015-08-14 10:35:00', 1),
+(0, 'niño', '2023-04-18 14:00:00', 2),
+(7, 'tercera edad', '2019-03-18 11:25:00', 3),
+(0, 'niño', '2003-09-30 09:50:00', 4),
+(7, 'tercera edad', '2024-11-17 12:15:00', 5),
+(15, 'adulto', '2020-08-27 13:40:00', 6),
+(7, 'tercera edad', '2022-09-22 08:05:00', 7),
+(0, 'niño', '2019-05-07 10:30:00', 8),
+(7, 'tercera edad', '2009-08-18 14:55:00', 1),
+(15, 'adulto', '2003-04-16 11:20:00', 2),
+(15, 'adulto', '2003-01-20 09:45:00', 3),
+(7, 'tercera edad', '2009-02-13 12:10:00', 4),
+(15, 'adulto', '2011-08-14 13:35:00', 5),
+(0, 'niño', '2016-04-14 08:00:00', 6),
+(7, 'tercera edad', '2011-04-19 10:25:00', 7),
+(15, 'adulto', '2014-10-26 14:50:00', 8),
+(15, 'adulto', '2004-02-03 11:15:00', 1),
+(15, 'adulto', '2003-12-09 09:40:00', 2),
+(15, 'adulto', '2005-06-06 12:05:00', 3),
+(7, 'tercera edad', '2011-02-10 13:30:00', 4),
+(7, 'tercera edad', '2011-08-15 08:55:00', 5),
+(0, 'niño', '2019-03-17 10:20:00', 6),
+(7, 'tercera edad', '2024-03-12 14:45:00', 7),
+(15, 'adulto', '2003-03-07 11:10:00', 8),
+(7, 'tercera edad', '2008-06-16 09:35:00', 1),
+(0, 'niño', '1999-01-11 12:00:00', 2),
+(0, 'niño', '1999-03-03 13:25:00', 3),
+(7, 'tercera edad', '2002-12-11 08:50:00', 4),
+(0, 'niño', '2003-09-01 10:15:00', 5),
+(0, 'niño', '2015-06-17 14:40:00', 6),
+(0, 'niño', '2021-03-05 11:05:00', 7),
+(15, 'adulto', '2000-05-17 09:30:00', 8),
+(7, 'tercera edad', '2001-08-09 12:55:00', 1),
+(15, 'adulto', '2017-03-12 13:20:00', 2),
+(0, 'niño', '2012-06-13 08:45:00', 3),
+(0, 'niño', '2014-03-06 10:10:00', 4),
+(7, 'tercera edad', '2011-01-17 14:35:00', 5),
+(7, 'tercera edad', '2023-04-26 11:00:00', 6),
+(15, 'adulto', '2012-03-03 09:25:00', 7),
+(0, 'niño', '2020-02-10 12:50:00', 8);
 
 
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (1, 'Conservación de Obras de Arte', '12/12/2020', 'Especialización en técnicas de conservación y restauración de pinturas al óleo en museos de arte clásico');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (2, 'Gestión de Colecciones Museísticas', '11/02/2013', 'Catalogación y gestión digital de colecciones en museos de historia natural');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (3, 'Curaduría de Arte Contemporáneo', '11/08/2016', 'Desarrollo de exposiciones temporales y gestión de artistas emergentes para museos de arte moderno');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (4, 'Museografía Interactiva', '02/09/2019', 'Diseño de experiencias interactivas y tecnología aplicada a exposiciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (5, 'Arqueología Museística', '05/04/2015', 'Conservación y exhibición de artefactos arqueológicos en museos nacionales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (6, 'Educación en Museos', '08/22/2013', 'Desarrollo de programas educativos para públicos escolares en museos de ciencia');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (7, 'Restauración de Esculturas', '12/29/2013', 'Técnicas avanzadas de restauración de esculturas en mármol y bronce para museos de bellas artes');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (8, 'Diseño de Exposiciones', '09/14/2013', 'Planificación y diseño de espacios expositivos para museos de arte e historia');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (9, 'Conservación Preventiva', '03/08/2016', 'Control de condiciones ambientales para la preservación de colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (10, 'Documentación de Arte', '01/16/2022', 'Catalogación y documentación de obras de arte para archivos museísticos digitales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (11, 'Gestión de Museos Comunitarios', '05/17/2020', 'Desarrollo de estrategias para la participación comunitaria en museos locales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (12, 'Paleontología Museística', '04/12/2012', 'Preparación y exhibición de fósiles para museos de historia natural');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (13, 'Iluminación en Espacios Museísticos', '08/18/2018', 'Diseño de sistemas de iluminación para la exhibición de obras de arte');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (14, 'Conservación de Textiles Históricos', '05/31/2017', 'Técnicas de preservación y restauración de textiles en museos de indumentaria');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (15, 'Digitalización de Colecciones', '11/15/2023', 'Técnicas de fotografía y escaneo 3D para la digitalización de patrimonio museístico');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (16, 'Gestión de Riesgos en Museos', '02/15/2020', 'Planificación de protocolos de emergencia para la protección de colecciones');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (17, 'Curaduría de Fotografía', '05/25/2020', 'Selección y organización de exposiciones fotográficas para museos especializados');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (18, 'Interpretación del Patrimonio', '06/24/2024', 'Desarrollo de contenidos narrativos para exposiciones en museos históricos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (19, 'Restauración de Cerámica Arqueológica', '03/03/2023', 'Técnicas de reconstrucción y conservación de cerámica precolombina');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (20, 'Diseño de Museos Virtuales', '12/21/2020', 'Creación de experiencias museísticas en entornos digitales y realidad aumentada');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (21, 'Gestión de Préstamos Museísticos', '10/17/2021', 'Coordinación de préstamos internacionales de obras de arte entre instituciones');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (22, 'Conservación de Papel y Grabados', '09/28/2021', 'Técnicas de preservación de obras gráficas y documentos históricos en papel');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (23, 'Museología Crítica', '02/05/2010', 'Estudio de teorías contemporáneas sobre la función social de los museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (24, 'Exhibiciones Itinerantes', '09/07/2017', 'Logística y planificación de exposiciones itinerantes para museos regionales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (25, 'Restauración de Mobiliario Histórico', '12/22/2010', 'Conservación y restauración de muebles antiguos para museos de artes decorativas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (26, 'Gestión de Públicos en Museos', '11/06/2015', 'Estrategias para la diversificación y fidelización de audiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (27, 'Curaduría de Arte Digital', '12/03/2013', 'Selección y exhibición de obras de arte generativo y nuevas tecnologías');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (28, 'Conservación de Metales', '10/16/2011', 'Técnicas para prevenir la corrosión en objetos metálicos de colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (29, 'Diseño de Museos para Niños', '08/05/2012', 'Creación de espacios interactivos y educativos para museos infantiles');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (30, 'Gestión de Fondos Museísticos', '03/03/2016', 'Administración de recursos económicos y financieros para instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (31, 'Restauración de Pintura Mural', '08/19/2017', 'Técnicas especializadas para la conservación de murales en museos al aire libre');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (32, 'Realidad Virtual en Museos', '02/08/2021', 'Desarrollo de experiencias inmersivas para la interpretación del patrimonio');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (33, 'Curaduría de Arte Precolombino', '06/11/2010', 'Estudio y exhibición de colecciones de arte indígena americano');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (34, 'Conservación de Materiales Orgánicos', '07/22/2010', 'Técnicas para la preservación de objetos en madera, cuero y fibras naturales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (35, 'Diseño de Señalética Museística', '12/18/2018', 'Creación de sistemas de orientación y comunicación visual para museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (36, 'Gestión de Voluntariado Cultural', '07/31/2014', 'Coordinación de programas de voluntariado en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (37, 'Restauración de Vidrieras Históricas', '08/14/2024', 'Técnicas de conservación de vitrales para museos y edificios patrimoniales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (38, 'Curaduría de Arte Africano', '12/19/2018', 'Estudio y exhibición de colecciones de arte tradicional africano');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (39, 'Conservación de Fotografía Antigua', '05/30/2016', 'Técnicas para la preservación de daguerrotipos y primeros procesos fotográficos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (40, 'Museos y Accesibilidad', '09/17/2018', 'Diseño de programas y espacios inclusivos para públicos con discapacidad');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (41, 'Gestión de Exposiciones Temporales', '05/29/2020', 'Planificación y ejecución de muestras temporales en museos de arte');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (42, 'Restauración de Instrumentos Musicales', '05/08/2013', 'Conservación de instrumentos históricos para museos de música');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (43, 'Curaduría de Arte Asiático', '04/09/2011', 'Estudio y exhibición de colecciones de arte oriental en museos especializados');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (44, 'Diseño de Almacenes Museísticos', '02/20/2024', 'Planificación de espacios de reserva para colecciones no exhibidas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (45, 'Conservación de Materiales Contemporáneos', '09/01/2021', 'Desafíos en la preservación de obras con materiales no tradicionales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (46, 'Gestión de Patrocinios Culturales', '09/15/2014', 'Desarrollo de alianzas con empresas para financiamiento de proyectos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (47, 'Restauración de Pergaminos', '11/11/2024', 'Técnicas especializadas para la conservación de documentos medievales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (48, 'Curaduría de Arte Latinoamericano', '05/02/2016', 'Estudio y puesta en valor de colecciones de arte latinoamericano');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (49, 'Museos y Redes Sociales', '06/11/2014', 'Estrategias de comunicación digital para la promoción de museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (50, 'Conservación de Arte Rupestre', '07/11/2011', 'Técnicas de documentación y preservación de pinturas rupestres in situ');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (51, 'Gestión de Colecciones Museísticas', '06/04/2019', 'Especialización en catalogación, conservación y gestión de colecciones en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (52, 'Museografía y Diseño de Exposiciones', '03/19/2010', 'Diseño y planificación de espacios expositivos y montaje de exhibiciones museográficas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (53, 'Conservación Preventiva en Museos', '04/10/2019', 'Técnicas de conservación preventiva para bienes culturales en entornos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (54, 'Educación y Mediación Cultural en Museos', '02/17/2018', 'Desarrollo de programas educativos y estrategias de mediación cultural para públicos diversos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (55, 'Administración de Instituciones Museísticas', '01/07/2011', 'Gestión administrativa y financiera de museos y centros culturales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (56, 'Documentación de Bienes Culturales', '10/20/2022', 'Sistemas de registro y documentación de colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (57, 'Curaduría de Arte Contemporáneo', '07/29/2016', 'Investigación y desarrollo de proyectos curatoriales para arte contemporáneo');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (58, 'Museología Digital', '10/01/2022', 'Aplicación de tecnologías digitales en la gestión y difusión de colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (59, 'Patrimonio Cultural y Museos', '03/17/2022', 'Gestión del patrimonio cultural en el contexto de instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (60, 'Seguridad en Museos', '07/05/2015', 'Protocolos de seguridad y prevención de riesgos para bienes culturales en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (61, 'Diseño de Iluminación para Espacios Museísticos', '08/12/2024', 'Técnicas de iluminación para la exhibición y conservación de obras en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (62, 'Gestión de Públicos en Museos', '10/07/2018', 'Estrategias para el estudio y desarrollo de públicos en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (63, 'Restauración de Bienes Muebles', '10/08/2015', 'Técnicas de restauración aplicadas a bienes culturales en colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (64, 'Comunicación y Marketing para Museos', '06/13/2019', 'Estrategias de comunicación y marketing para instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (65, 'Gestión de Proyectos Culturales en Museos', '01/02/2016', 'Planificación y ejecución de proyectos culturales en el ámbito museístico');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (66, 'Conservación de Materiales Arqueológicos', '08/07/2024', 'Técnicas especializadas en conservación de materiales arqueológicos para museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (67, 'Derecho y Legislación para Museos', '10/19/2010', 'Marco legal y normativa aplicable a la gestión de instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (68, 'Interpretación del Patrimonio en Museos', '07/03/2018', 'Estrategias de interpretación del patrimonio cultural para exposiciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (69, 'Gestión de Riesgos en Colecciones Museísticas', '06/27/2023', 'Identificación y gestión de riesgos para la preservación de colecciones');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (70, 'Museos y Tecnologías Interactivas', '11/10/2015', 'Implementación de tecnologías interactivas en experiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (71, 'Catalogación de Obras de Arte', '01/26/2014', 'Sistemas y metodologías para la catalogación de obras artísticas en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (72, 'Diseño de Espacios Educativos en Museos', '05/31/2013', 'Planificación y diseño de áreas educativas dentro de instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (73, 'Gestión de Exposiciones Itinerantes', '10/22/2016', 'Organización y coordinación de exposiciones itinerantes entre instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (74, 'Conservación de Pintura de Caballete', '05/29/2019', 'Técnicas especializadas en conservación y restauración de pintura en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (75, 'Museos y Accesibilidad Universal', '01/30/2022', 'Diseño de programas y espacios accesibles en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (76, 'Gestión de Depósitos Museísticos', '06/03/2010', 'Organización y administración de áreas de reserva y depósitos en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (77, 'Curaduría de Arte Precolombino', '03/11/2019', 'Especialización en investigación y exposición de arte precolombino en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (78, 'Museos y Comunidades Locales', '11/29/2013', 'Estrategias de vinculación entre museos y comunidades locales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (79, 'Conservación de Fotografía Histórica', '11/25/2021', 'Técnicas de conservación y preservación de colecciones fotográficas en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (80, 'Gestión de Calidad en Museos', '03/12/2015', 'Implementación de sistemas de calidad en la gestión museística');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (81, 'Museos y Redes Sociales', '01/28/2017', 'Estrategias de comunicación digital y redes sociales para museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (82, 'Diseño de Señalética Museográfica', '07/11/2017', 'Planificación y diseño de sistemas de señalética para espacios museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (83, 'Gestión de Préstamos Internacionales', '01/07/2014', 'Coordinación y logística de préstamos internacionales entre instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (84, 'Conservación de Textiles Históricos', '01/31/2014', 'Técnicas especializadas en conservación de colecciones textiles en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (85, 'Museos y Turismo Cultural', '01/16/2017', 'Estrategias para la vinculación entre museos y el turismo cultural');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (86, 'Diseño de Experiencias Inmersivas', '08/25/2012', 'Creación de experiencias inmersivas y multimedia para exposiciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (87, 'Gestión de Colecciones Científicas', '10/18/2023', 'Administración y conservación de colecciones científicas en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (88, 'Museología Crítica', '03/19/2021', 'Enfoques teóricos y críticos contemporáneos sobre la museología');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (89, 'Conservación de Metales Arqueológicos', '08/05/2020', 'Técnicas especializadas en conservación de objetos metálicos en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (90, 'Museos y Realidad Aumentada', '10/01/2019', 'Aplicación de realidad aumentada en experiencias museísticas y exposiciones');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (91, 'Gestión de Archivos Museísticos', '08/02/2011', 'Organización y administración de archivos históricos en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (92, 'Diseño de Catálogos de Exposiciones', '09/05/2018', 'Planificación y diseño de publicaciones y catálogos para exposiciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (93, 'Museos y Educación No Formal', '05/17/2019', 'Desarrollo de programas educativos no formales en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (94, 'Conservación de Cerámica Arqueológica', '10/20/2023', 'Técnicas especializadas en conservación de cerámica histórica en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (95, 'Museos y Políticas Culturales', '01/18/2024', 'Análisis del rol de los museos en el marco de las políticas culturales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (96, 'Gestión de Espacios Públicos en Museos', '07/21/2021', 'Administración y programación de espacios públicos dentro de museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (97, 'Curaduría de Arte Moderno', '11/06/2018', 'Investigación y desarrollo de proyectos expositivos sobre arte moderno');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (98, 'Museos y Sostenibilidad', '04/08/2023', 'Estrategias de sostenibilidad ambiental y económica para instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (99, 'Conservación de Documentos Históricos', '02/21/2020', 'Técnicas de preservación y conservación de fondos documentales en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (100, 'Museos Virtuales y Digitalización', '12/01/2021', 'Creación y gestión de museos virtuales y procesos de digitalización de colecciones');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (100, 'Digitalización de Colecciones Museísticas', '12/01/2021', 'Técnicas y procesos para la digitalización de acervos en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (101, 'Gestión de Exposiciones Temporales', '03/10/2021', 'Planificación y coordinación de exposiciones temporales en museos e instituciones culturales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (102, 'Conservación de Esculturas en Museos', '03/28/2015', 'Técnicas especializadas en conservación y restauración de esculturas en colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (103, 'Museos y Educación Inclusiva', '04/15/2011', 'Diseño de programas educativos inclusivos para diversos públicos en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (104, 'Gestión de Riesgos en Museos', '05/19/2019', 'Identificación y prevención de riesgos para colecciones en entornos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (105, 'Curaduría de Arte Digital', '06/24/2019', 'Investigación y exposición de obras de arte digital en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (106, 'Museología Participativa', '10/14/2019', 'Enfoques participativos y comunitarios en la gestión y programación de museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (107, 'Conservación de Materiales Contemporáneos', '01/17/2010', 'Técnicas de conservación para obras de arte con materiales no tradicionales');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (108, 'Gestión de Fondos Museísticos', '01/20/2018', 'Administración y control de fondos económicos en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (109, 'Diseño de Itinerarios Museográficos', '09/21/2011', 'Planificación de recorridos y narrativas expositivas en espacios museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (110, 'Museos y Realidad Virtual', '04/08/2013', 'Aplicación de tecnologías de realidad virtual en experiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (111, 'Catalogación de Arte Moderno', '04/23/2015', 'Sistemas y metodologías para la catalogación de obras de arte moderno');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (112, 'Gestión de Voluntariado en Museos', '09/13/2022', 'Coordinación y formación de programas de voluntariado en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (113, 'Conservación Preventiva de Pintura', '09/26/2023', 'Protocolos de conservación preventiva aplicados a colecciones pictóricas en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (114, 'Museos y Comunidades Indígenas', '02/14/2013', 'Estrategias de colaboración entre museos y comunidades indígenas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (115, 'Diseño de Almacenes Museísticos', '12/16/2015', 'Planificación y organización de espacios de almacenamiento para colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (116, 'Gestión de Derechos de Autor en Museos', '10/09/2013', 'Aspectos legales sobre derechos de autor y reproducción de obras en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (117, 'Conservación de Fotografía Contemporánea', '04/30/2024', 'Técnicas especializadas en conservación de obras fotográficas contemporáneas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (118, 'Museos y Neuroeducación', '12/05/2019', 'Aplicación de principios de neuroeducación en experiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (119, 'Gestión de Espacios Multifuncionales', '03/09/2020', 'Administración de espacios multifuncionales en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (120, 'Curaduría de Arte Sonoro', '07/20/2019', 'Investigación y exposición de obras de arte sonoro en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (121, 'Museos y Economía Creativa', '03/25/2016', 'Modelos de economía creativa aplicados a la gestión museística');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (122, 'Conservación de Arte Efímero', '06/30/2014', 'Técnicas de documentación y conservación de obras de arte efímero en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (123, 'Gestión de Colecciones Etnográficas', '09/23/2018', 'Administración y conservación de colecciones etnográficas en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (124, 'Museos y Perspectiva de Género', '05/31/2012', 'Enfoques de género en la interpretación y gestión de colecciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (125, 'Diseño de Experiencias Táctiles', '03/28/2017', 'Creación de experiencias táctiles y multisensoriales en exposiciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (126, 'Gestión de Proyectos Internacionales', '02/24/2016', 'Coordinación de proyectos de cooperación internacional entre instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (127, 'Conservación de Arte Contemporáneo', '05/29/2021', 'Técnicas especializadas en conservación de obras de arte contemporáneo');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (128, 'Museos y Cambio Climático', '10/28/2012', 'Estrategias de sostenibilidad y concienciación ambiental en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (129, 'Gestión de Archivos Fotográficos', '02/08/2010', 'Organización y conservación de archivos fotográficos en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (130, 'Curaduría de Arte Latinoamericano', '09/16/2013', 'Investigación y exposición de arte latinoamericano en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (131, 'Museos y Tecnologías Emergentes', '01/07/2012', 'Implementación de tecnologías emergentes en experiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (132, 'Conservación de Arte en Papel', '01/08/2012', 'Técnicas especializadas en conservación de obras sobre papel en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (133, 'Gestión de Audiencias Digitales', '04/25/2022', 'Estrategias para el desarrollo y fidelización de audiencias digitales en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (134, 'Museos y Arte Público', '03/29/2020', 'Gestión de proyectos de arte público vinculados a instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (135, 'Diseño de Aplicaciones Museísticas', '01/18/2018', 'Desarrollo de aplicaciones móviles para la mediación cultural en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (136, 'Conservación de Arte Cinético', '10/31/2023', 'Técnicas especializadas en conservación de obras de arte cinético');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (137, 'Gestión de Espacios Expositivos', '02/23/2012', 'Planificación y administración de espacios expositivos en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (138, 'Museos y Memoria Histórica', '03/27/2020', 'Gestión de colecciones y narrativas sobre memoria histórica en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (139, 'Curaduría de Arte Asiático', '03/20/2024', 'Investigación y exposición de arte asiático en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (140, 'Conservación de Arte Conceptual', '01/21/2022', 'Técnicas de documentación y conservación de obras de arte conceptual');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (141, 'Gestión de Colecciones Científico-Técnicas', '05/24/2021', 'Administración de colecciones científico-técnicas en museos especializados');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (142, 'Museos y Gamificación', '07/20/2022', 'Aplicación de estrategias de gamificación en experiencias museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (143, 'Diseño de Exposiciones Itinerantes', '01/18/2023', 'Planificación y montaje de exposiciones diseñadas para itinerancia');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (144, 'Conservación de Arte Digital', '10/09/2015', 'Protocolos de preservación y conservación de obras de arte digital');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (145, 'Gestión de Programas Públicos', '05/12/2012', 'Coordinación de programas públicos y actividades culturales en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (146, 'Museos y Arte Relacional', '07/14/2015', 'Gestión de proyectos de arte relacional en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (147, 'Curaduría de Arte Africano', '09/08/2014', 'Investigación y exposición de arte africano en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (148, 'Conservación de Arte Textil Contemporáneo', '02/06/2024', 'Técnicas especializadas en conservación de obras textiles contemporáneas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (149, 'Gestión de Colecciones de Historia Natural', '11/27/2015', 'Administración de colecciones de historia natural en museos científicos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (150, 'Museos y Arte de Nuevos Medios', '05/22/2024', 'Exhibición y conservación de obras de nuevos medios en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (151, 'Diseño de Espacios Sensoriales', '04/05/2022', 'Creación de espacios expositivos sensoriales para públicos diversos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (152, 'Gestión de Colecciones de Diseño', '03/07/2020', 'Administración y conservación de colecciones de diseño en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (153, 'Conservación de Arte Callejero', '03/12/2012', 'Técnicas de documentación y conservación de arte urbano para museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (154, 'Museos y Arte Participativo', '02/27/2014', 'Gestión de proyectos de arte participativo en instituciones museísticas');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (155, 'Curaduría de Arte Oceánico', '09/05/2023', 'Investigación y exposición de arte oceánico en contextos museísticos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (156, 'Gestión de Colecciones de Moda', '02/14/2012', 'Administración y conservación de colecciones de indumentaria y moda');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (157, 'Museos y Arte Biotecnológico', '09/19/2010', 'Exhibición y conservación de obras que incorporan elementos biotecnológicos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (158, 'Conservación de Arte Sonoro', '07/10/2017', 'Técnicas de preservación y documentación de obras de arte sonoro');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (159, 'Gestión de Colecciones de Cine', '07/09/2013', 'Administración de colecciones cinematográficas y audiovisuales en museos');
-insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values (160, 'Museos y Arte de Inteligencia Artificial', '01/31/2021', 'Exhibición y conservación de obras creadas con inteligencia artificial');
+insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values 
+(1, 'Conservación de Obras de Arte', '12/12/2020', 'Especialización en técnicas de conservación y restauración de pinturas al óleo en museos de arte clásico'),
+(2, 'Gestión de Colecciones Museísticas', '11/02/2013', 'Catalogación y gestión digital de colecciones en museos de historia natural'),
+(3, 'Curaduría de Arte Contemporáneo', '11/08/2016', 'Desarrollo de exposiciones temporales y gestión de artistas emergentes para museos de arte moderno'),
+(4, 'Museografía Interactiva', '02/09/2019', 'Diseño de experiencias interactivas y tecnología aplicada a exposiciones museísticas'),
+(5, 'Arqueología Museística', '05/04/2015', 'Conservación y exhibición de artefactos arqueológicos en museos nacionales'),
+(6, 'Educación en Museos', '08/22/2013', 'Desarrollo de programas educativos para públicos escolares en museos de ciencia'),
+(7, 'Restauración de Esculturas', '12/29/2013', 'Técnicas avanzadas de restauración de esculturas en mármol y bronce para museos de bellas artes'),
+(8, 'Diseño de Exposiciones', '09/14/2013', 'Planificación y diseño de espacios expositivos para museos de arte e historia'),
+(9, 'Conservación Preventiva', '03/08/2016', 'Control de condiciones ambientales para la preservación de colecciones museísticas'),
+(10, 'Documentación de Arte', '01/16/2022', 'Catalogación y documentación de obras de arte para archivos museísticos digitales'),
+(11, 'Gestión de Museos Comunitarios', '05/17/2020', 'Desarrollo de estrategias para la participación comunitaria en museos locales'),
+(12, 'Paleontología Museística', '04/12/2012', 'Preparación y exhibición de fósiles para museos de historia natural'),
+(13, 'Iluminación en Espacios Museísticos', '08/18/2018', 'Diseño de sistemas de iluminación para la exhibición de obras de arte'),
+(14, 'Conservación de Textiles Históricos', '05/31/2017', 'Técnicas de preservación y restauración de textiles en museos de indumentaria'),
+(15, 'Digitalización de Colecciones', '11/15/2023', 'Técnicas de fotografía y escaneo 3D para la digitalización de patrimonio museístico'),
+(16, 'Gestión de Riesgos en Museos', '02/15/2020', 'Planificación de protocolos de emergencia para la protección de colecciones'),
+(17, 'Curaduría de Fotografía', '05/25/2020', 'Selección y organización de exposiciones fotográficas para museos especializados'),
+(18, 'Interpretación del Patrimonio', '06/24/2024', 'Desarrollo de contenidos narrativos para exposiciones en museos históricos'),
+(19, 'Restauración de Cerámica Arqueológica', '03/03/2023', 'Técnicas de reconstrucción y conservación de cerámica precolombina'),
+(20, 'Diseño de Museos Virtuales', '12/21/2020', 'Creación de experiencias museísticas en entornos digitales y realidad aumentada'),
+(21, 'Gestión de Préstamos Museísticos', '10/17/2021', 'Coordinación de préstamos internacionales de obras de arte entre instituciones'),
+(22, 'Conservación de Papel y Grabados', '09/28/2021', 'Técnicas de preservación de obras gráficas y documentos históricos en papel'),
+(23, 'Museología Crítica', '02/05/2010', 'Estudio de teorías contemporáneas sobre la función social de los museos'),
+(24, 'Exhibiciones Itinerantes', '09/07/2017', 'Logística y planificación de exposiciones itinerantes para museos regionales'),
+(25, 'Restauración de Mobiliario Histórico', '12/22/2010', 'Conservación y restauración de muebles antiguos para museos de artes decorativas'),
+(26, 'Gestión de Públicos en Museos', '11/06/2015', 'Estrategias para la diversificación y fidelización de audiencias museísticas'),
+(27, 'Curaduría de Arte Digital', '12/03/2013', 'Selección y exhibición de obras de arte generativo y nuevas tecnologías'),
+(28, 'Conservación de Metales', '10/16/2011', 'Técnicas para prevenir la corrosión en objetos metálicos de colecciones museísticas'),
+(29, 'Diseño de Museos para Niños', '08/05/2012', 'Creación de espacios interactivos y educativos para museos infantiles'),
+(30, 'Gestión de Fondos Museísticos', '03/03/2016', 'Administración de recursos económicos y financieros para instituciones museísticas'),
+(31, 'Restauración de Pintura Mural', '08/19/2017', 'Técnicas especializadas para la conservación de murales en museos al aire libre'),
+(32, 'Realidad Virtual en Museos', '02/08/2021', 'Desarrollo de experiencias inmersivas para la interpretación del patrimonio'),
+(33, 'Curaduría de Arte Precolombino', '06/11/2010', 'Estudio y exhibición de colecciones de arte indígena americano'),
+(34, 'Conservación de Materiales Orgánicos', '07/22/2010', 'Técnicas para la preservación de objetos en madera, cuero y fibras naturales'),
+(35, 'Diseño de Señalética Museística', '12/18/2018', 'Creación de sistemas de orientación y comunicación visual para museos'),
+(36, 'Gestión de Voluntariado Cultural', '07/31/2014', 'Coordinación de programas de voluntariado en instituciones museísticas'),
+(37, 'Restauración de Vidrieras Históricas', '08/14/2024', 'Técnicas de conservación de vitrales para museos y edificios patrimoniales'),
+(38, 'Curaduría de Arte Africano', '12/19/2018', 'Estudio y exhibición de colecciones de arte tradicional africano'),
+(39, 'Conservación de Fotografía Antigua', '05/30/2016', 'Técnicas para la preservación de daguerrotipos y primeros procesos fotográficos'),
+(40, 'Museos y Accesibilidad', '09/17/2018', 'Diseño de programas y espacios inclusivos para públicos con discapacidad'),
+(41, 'Gestión de Exposiciones Temporales', '05/29/2020', 'Planificación y ejecución de muestras temporales en museos de arte'),
+(42, 'Restauración de Instrumentos Musicales', '05/08/2013', 'Conservación de instrumentos históricos para museos de música'),
+(43, 'Curaduría de Arte Asiático', '04/09/2011', 'Estudio y exhibición de colecciones de arte oriental en museos especializados'),
+(44, 'Diseño de Almacenes Museísticos', '02/20/2024', 'Planificación de espacios de reserva para colecciones no exhibidas'),
+(45, 'Conservación de Materiales Contemporáneos', '09/01/2021', 'Desafíos en la preservación de obras con materiales no tradicionales'),
+(46, 'Gestión de Patrocinios Culturales', '09/15/2014', 'Desarrollo de alianzas con empresas para financiamiento de proyectos museísticos'),
+(47, 'Restauración de Pergaminos', '11/11/2024', 'Técnicas especializadas para la conservación de documentos medievales'),
+(48, 'Curaduría de Arte Latinoamericano', '05/02/2016', 'Estudio y puesta en valor de colecciones de arte latinoamericano'),
+(49, 'Museos y Redes Sociales', '06/11/2014', 'Estrategias de comunicación digital para la promoción de museos'),
+(50, 'Conservación de Arte Rupestre', '07/11/2011', 'Técnicas de documentación y preservación de pinturas rupestres in situ'),
+(51, 'Gestión de Colecciones Museísticas', '06/04/2019', 'Especialización en catalogación, conservación y gestión de colecciones en instituciones museísticas'),
+(52, 'Museografía y Diseño de Exposiciones', '03/19/2010', 'Diseño y planificación de espacios expositivos y montaje de exhibiciones museográficas'),
+(53, 'Conservación Preventiva en Museos', '04/10/2019', 'Técnicas de conservación preventiva para bienes culturales en entornos museísticos'),
+(54, 'Educación y Mediación Cultural en Museos', '02/17/2018', 'Desarrollo de programas educativos y estrategias de mediación cultural para públicos diversos'),
+(55, 'Administración de Instituciones Museísticas', '01/07/2011', 'Gestión administrativa y financiera de museos y centros culturales'),
+(56, 'Documentación de Bienes Culturales', '10/20/2022', 'Sistemas de registro y documentación de colecciones museísticas'),
+(57, 'Curaduría de Arte Contemporáneo', '07/29/2016', 'Investigación y desarrollo de proyectos curatoriales para arte contemporáneo'),
+(58, 'Museología Digital', '10/01/2022', 'Aplicación de tecnologías digitales en la gestión y difusión de colecciones museísticas'),
+(59, 'Patrimonio Cultural y Museos', '03/17/2022', 'Gestión del patrimonio cultural en el contexto de instituciones museísticas'),
+(60, 'Seguridad en Museos', '07/05/2015', 'Protocolos de seguridad y prevención de riesgos para bienes culturales en museos'),
+(61, 'Diseño de Iluminación para Espacios Museísticos', '08/12/2024', 'Técnicas de iluminación para la exhibición y conservación de obras en museos'),
+(62, 'Gestión de Públicos en Museos', '10/07/2018', 'Estrategias para el estudio y desarrollo de públicos en instituciones museísticas'),
+(63, 'Restauración de Bienes Muebles', '10/08/2015', 'Técnicas de restauración aplicadas a bienes culturales en colecciones museísticas'),
+(64, 'Comunicación y Marketing para Museos', '06/13/2019', 'Estrategias de comunicación y marketing para instituciones museísticas'),
+(65, 'Gestión de Proyectos Culturales en Museos', '01/02/2016', 'Planificación y ejecución de proyectos culturales en el ámbito museístico'),
+(66, 'Conservación de Materiales Arqueológicos', '08/07/2024', 'Técnicas especializadas en conservación de materiales arqueológicos para museos'),
+(67, 'Derecho y Legislación para Museos', '10/19/2010', 'Marco legal y normativa aplicable a la gestión de instituciones museísticas'),
+(68, 'Interpretación del Patrimonio en Museos', '07/03/2018', 'Estrategias de interpretación del patrimonio cultural para exposiciones museísticas'),
+(69, 'Gestión de Riesgos en Colecciones Museísticas', '06/27/2023', 'Identificación y gestión de riesgos para la preservación de colecciones'),
+(70, 'Museos y Tecnologías Interactivas', '11/10/2015', 'Implementación de tecnologías interactivas en experiencias museísticas'),
+(71, 'Catalogación de Obras de Arte', '01/26/2014', 'Sistemas y metodologías para la catalogación de obras artísticas en museos'),
+(72, 'Diseño de Espacios Educativos en Museos', '05/31/2013', 'Planificación y diseño de áreas educativas dentro de instituciones museísticas'),
+(73, 'Gestión de Exposiciones Itinerantes', '10/22/2016', 'Organización y coordinación de exposiciones itinerantes entre instituciones museísticas'),
+(74, 'Conservación de Pintura de Caballete', '05/29/2019', 'Técnicas especializadas en conservación y restauración de pintura en museos'),
+(75, 'Museos y Accesibilidad Universal', '01/30/2022', 'Diseño de programas y espacios accesibles en instituciones museísticas'),
+(76, 'Gestión de Depósitos Museísticos', '06/03/2010', 'Organización y administración de áreas de reserva y depósitos en museos'),
+(77, 'Curaduría de Arte Precolombino', '03/11/2019', 'Especialización en investigación y exposición de arte precolombino en museos'),
+(78, 'Museos y Comunidades Locales', '11/29/2013', 'Estrategias de vinculación entre museos y comunidades locales'),
+(79, 'Conservación de Fotografía Histórica', '11/25/2021', 'Técnicas de conservación y preservación de colecciones fotográficas en museos'),
+(80, 'Gestión de Calidad en Museos', '03/12/2015', 'Implementación de sistemas de calidad en la gestión museística'),
+(81, 'Museos y Redes Sociales', '01/28/2017', 'Estrategias de comunicación digital y redes sociales para museos'),
+(82, 'Diseño de Señalética Museográfica', '07/11/2017', 'Planificación y diseño de sistemas de señalética para espacios museísticos'),
+(83, 'Gestión de Préstamos Internacionales', '01/07/2014', 'Coordinación y logística de préstamos internacionales entre instituciones museísticas'),
+(84, 'Conservación de Textiles Históricos', '01/31/2014', 'Técnicas especializadas en conservación de colecciones textiles en museos'),
+(85, 'Museos y Turismo Cultural', '01/16/2017', 'Estrategias para la vinculación entre museos y el turismo cultural'),
+(86, 'Diseño de Experiencias Inmersivas', '08/25/2012', 'Creación de experiencias inmersivas y multimedia para exposiciones museísticas'),
+(87, 'Gestión de Colecciones Científicas', '10/18/2023', 'Administración y conservación de colecciones científicas en museos'),
+(88, 'Museología Crítica', '03/19/2021', 'Enfoques teóricos y críticos contemporáneos sobre la museología'),
+(89, 'Conservación de Metales Arqueológicos', '08/05/2020', 'Técnicas especializadas en conservación de objetos metálicos en museos'),
+(90, 'Museos y Realidad Aumentada', '10/01/2019', 'Aplicación de realidad aumentada en experiencias museísticas y exposiciones'),
+(91, 'Gestión de Archivos Museísticos', '08/02/2011', 'Organización y administración de archivos históricos en instituciones museísticas'),
+(92, 'Diseño de Catálogos de Exposiciones', '09/05/2018', 'Planificación y diseño de publicaciones y catálogos para exposiciones museísticas'),
+(93, 'Museos y Educación No Formal', '05/17/2019', 'Desarrollo de programas educativos no formales en contextos museísticos'),
+(94, 'Conservación de Cerámica Arqueológica', '10/20/2023', 'Técnicas especializadas en conservación de cerámica histórica en museos'),
+(95, 'Museos y Políticas Culturales', '01/18/2024', 'Análisis del rol de los museos en el marco de las políticas culturales'),
+(96, 'Gestión de Espacios Públicos en Museos', '07/21/2021', 'Administración y programación de espacios públicos dentro de museos'),
+(97, 'Curaduría de Arte Moderno', '11/06/2018', 'Investigación y desarrollo de proyectos expositivos sobre arte moderno'),
+(98, 'Museos y Sostenibilidad', '04/08/2023', 'Estrategias de sostenibilidad ambiental y económica para instituciones museísticas'),
+(99, 'Conservación de Documentos Históricos', '02/21/2020', 'Técnicas de preservación y conservación de fondos documentales en museos'),
+(100, 'Museos Virtuales y Digitalización', '12/01/2021', 'Creación y gestión de museos virtuales y procesos de digitalización de colecciones'),
+(100, 'Digitalización de Colecciones Museísticas', '12/01/2021', 'Técnicas y procesos para la digitalización de acervos en instituciones museísticas'),
+(101, 'Gestión de Exposiciones Temporales', '03/10/2021', 'Planificación y coordinación de exposiciones temporales en museos e instituciones culturales'),
+(102, 'Conservación de Esculturas en Museos', '03/28/2015', 'Técnicas especializadas en conservación y restauración de esculturas en colecciones museísticas'),
+(103, 'Museos y Educación Inclusiva', '04/15/2011', 'Diseño de programas educativos inclusivos para diversos públicos en museos'),
+(104, 'Gestión de Riesgos en Museos', '05/19/2019', 'Identificación y prevención de riesgos para colecciones en entornos museísticos'),
+(105, 'Curaduría de Arte Digital', '06/24/2019', 'Investigación y exposición de obras de arte digital en contextos museísticos'),
+(106, 'Museología Participativa', '10/14/2019', 'Enfoques participativos y comunitarios en la gestión y programación de museos'),
+(107, 'Conservación de Materiales Contemporáneos', '01/17/2010', 'Técnicas de conservación para obras de arte con materiales no tradicionales'),
+(108, 'Gestión de Fondos Museísticos', '01/20/2018', 'Administración y control de fondos económicos en instituciones museísticas'),
+(109, 'Diseño de Itinerarios Museográficos', '09/21/2011', 'Planificación de recorridos y narrativas expositivas en espacios museísticos'),
+(110, 'Museos y Realidad Virtual', '04/08/2013', 'Aplicación de tecnologías de realidad virtual en experiencias museísticas'),
+(111, 'Catalogación de Arte Moderno', '04/23/2015', 'Sistemas y metodologías para la catalogación de obras de arte moderno'),
+(112, 'Gestión de Voluntariado en Museos', '09/13/2022', 'Coordinación y formación de programas de voluntariado en instituciones museísticas'),
+(113, 'Conservación Preventiva de Pintura', '09/26/2023', 'Protocolos de conservación preventiva aplicados a colecciones pictóricas en museos'),
+(114, 'Museos y Comunidades Indígenas', '02/14/2013', 'Estrategias de colaboración entre museos y comunidades indígenas'),
+(115, 'Diseño de Almacenes Museísticos', '12/16/2015', 'Planificación y organización de espacios de almacenamiento para colecciones museísticas'),
+(116, 'Gestión de Derechos de Autor en Museos', '10/09/2013', 'Aspectos legales sobre derechos de autor y reproducción de obras en museos'),
+(117, 'Conservación de Fotografía Contemporánea', '04/30/2024', 'Técnicas especializadas en conservación de obras fotográficas contemporáneas'),
+(118, 'Museos y Neuroeducación', '12/05/2019', 'Aplicación de principios de neuroeducación en experiencias museísticas'),
+(119, 'Gestión de Espacios Multifuncionales', '03/09/2020', 'Administración de espacios multifuncionales en instituciones museísticas'),
+(120, 'Curaduría de Arte Sonoro', '07/20/2019', 'Investigación y exposición de obras de arte sonoro en contextos museísticos'),
+(121, 'Museos y Economía Creativa', '03/25/2016', 'Modelos de economía creativa aplicados a la gestión museística'),
+(122, 'Conservación de Arte Efímero', '06/30/2014', 'Técnicas de documentación y conservación de obras de arte efímero en museos'),
+(123, 'Gestión de Colecciones Etnográficas', '09/23/2018', 'Administración y conservación de colecciones etnográficas en museos'),
+(124, 'Museos y Perspectiva de Género', '05/31/2012', 'Enfoques de género en la interpretación y gestión de colecciones museísticas'),
+(125, 'Diseño de Experiencias Táctiles', '03/28/2017', 'Creación de experiencias táctiles y multisensoriales en exposiciones museísticas'),
+(126, 'Gestión de Proyectos Internacionales', '02/24/2016', 'Coordinación de proyectos de cooperación internacional entre instituciones museísticas'),
+(127, 'Conservación de Arte Contemporáneo', '05/29/2021', 'Técnicas especializadas en conservación de obras de arte contemporáneo'),
+(128, 'Museos y Cambio Climático', '10/28/2012', 'Estrategias de sostenibilidad y concienciación ambiental en museos'),
+(129, 'Gestión de Archivos Fotográficos', '02/08/2010', 'Organización y conservación de archivos fotográficos en instituciones museísticas'),
+(130, 'Curaduría de Arte Latinoamericano', '09/16/2013', 'Investigación y exposición de arte latinoamericano en contextos museísticos'),
+(131, 'Museos y Tecnologías Emergentes', '01/07/2012', 'Implementación de tecnologías emergentes en experiencias museísticas'),
+(132, 'Conservación de Arte en Papel', '01/08/2012', 'Técnicas especializadas en conservación de obras sobre papel en museos'),
+(133, 'Gestión de Audiencias Digitales', '04/25/2022', 'Estrategias para el desarrollo y fidelización de audiencias digitales en museos'),
+(134, 'Museos y Arte Público', '03/29/2020', 'Gestión de proyectos de arte público vinculados a instituciones museísticas'),
+(135, 'Diseño de Aplicaciones Museísticas', '01/18/2018', 'Desarrollo de aplicaciones móviles para la mediación cultural en museos'),
+(136, 'Conservación de Arte Cinético', '10/31/2023', 'Técnicas especializadas en conservación de obras de arte cinético'),
+(137, 'Gestión de Espacios Expositivos', '02/23/2012', 'Planificación y administración de espacios expositivos en museos'),
+(138, 'Museos y Memoria Histórica', '03/27/2020', 'Gestión de colecciones y narrativas sobre memoria histórica en museos'),
+(139, 'Curaduría de Arte Asiático', '03/20/2024', 'Investigación y exposición de arte asiático en contextos museísticos'),
+(140, 'Conservación de Arte Conceptual', '01/21/2022', 'Técnicas de documentación y conservación de obras de arte conceptual'),
+(141, 'Gestión de Colecciones Científico-Técnicas', '05/24/2021', 'Administración de colecciones científico-técnicas en museos especializados'),
+(142, 'Museos y Gamificación', '07/20/2022', 'Aplicación de estrategias de gamificación en experiencias museísticas'),
+(143, 'Diseño de Exposiciones Itinerantes', '01/18/2023', 'Planificación y montaje de exposiciones diseñadas para itinerancia'),
+(144, 'Conservación de Arte Digital', '10/09/2015', 'Protocolos de preservación y conservación de obras de arte digital'),
+(145, 'Gestión de Programas Públicos', '05/12/2012', 'Coordinación de programas públicos y actividades culturales en museos'),
+(146, 'Museos y Arte Relacional', '07/14/2015', 'Gestión de proyectos de arte relacional en contextos museísticos'),
+(147, 'Curaduría de Arte Africano', '09/08/2014', 'Investigación y exposición de arte africano en contextos museísticos'),
+(148, 'Conservación de Arte Textil Contemporáneo', '02/06/2024', 'Técnicas especializadas en conservación de obras textiles contemporáneas'),
+(149, 'Gestión de Colecciones de Historia Natural', '11/27/2015', 'Administración de colecciones de historia natural en museos científicos'),
+(150, 'Museos y Arte de Nuevos Medios', '05/22/2024', 'Exhibición y conservación de obras de nuevos medios en museos'),
+(151, 'Diseño de Espacios Sensoriales', '04/05/2022', 'Creación de espacios expositivos sensoriales para públicos diversos'),
+(152, 'Gestión de Colecciones de Diseño', '03/07/2020', 'Administración y conservación de colecciones de diseño en museos'),
+(153, 'Conservación de Arte Callejero', '03/12/2012', 'Técnicas de documentación y conservación de arte urbano para museos'),
+(154, 'Museos y Arte Participativo', '02/27/2014', 'Gestión de proyectos de arte participativo en instituciones museísticas'),
+(155, 'Curaduría de Arte Oceánico', '09/05/2023', 'Investigación y exposición de arte oceánico en contextos museísticos'),
+(156, 'Gestión de Colecciones de Moda', '02/14/2012', 'Administración y conservación de colecciones de indumentaria y moda'),
+(157, 'Museos y Arte Biotecnológico', '09/19/2010', 'Exhibición y conservación de obras que incorporan elementos biotecnológicos'),
+(158, 'Conservación de Arte Sonoro', '07/10/2017', 'Técnicas de preservación y documentación de obras de arte sonoro'),
+(159, 'Gestión de Colecciones de Cine', '07/09/2013', 'Administración de colecciones cinematográficas y audiovisuales en museos'),
+(160, 'Museos y Arte de Inteligencia Artificial', '01/31/2021', 'Exhibición y conservación de obras creadas con inteligencia artificial');
 
 
 INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarquia_estructura, id_jerarquia_museo) VALUES
