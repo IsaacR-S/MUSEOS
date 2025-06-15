@@ -281,7 +281,7 @@ CREATE TABLE historico_obra_movimiento(
   
     fecha_fin DATE, 
     valor_obra NUMERIC NOT NULL,
-    orden_recomendado NUMERIC NOT NULL, 
+    orden_recomendado NUMERIC, 
 
     CONSTRAINT fk_obra FOREIGN KEY(id_obra) REFERENCES obra(id_obra),
     CONSTRAINT fk_sala FOREIGN KEY(id_museo_sala, id_estructura_fisica, id_sala) REFERENCES sala_exposicion(id_museo, id_estructura_fisica, id_sala),  
