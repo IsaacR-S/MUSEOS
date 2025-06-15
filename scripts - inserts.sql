@@ -1354,7 +1354,6 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 -- Inserciones para la tabla historico_obra_movimiento
 
 -- Sentencias INSERT para la tabla historico_obra_movimiento
--- Sentencias INSERT para la tabla historico_obra_movimiento
 -- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
 -- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
 -- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
@@ -1369,11 +1368,11 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 
 -- Obra 2: Forest, British Columbia (Museo de Arte de Vancouvert)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(2, '1970-07-28', 'donado', 'no', 1, 32, 1, 1, 11, 1, 2, 11, 2, '2023-03-01', '1973-10-18', 431268, NULL);
+(2, '1970-07-28', 'donado', 'no', 1, 32, 1, 1, 11, 1, 1, 11, 2, '2023-03-01', '1973-10-18', 431268, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(2, '1974-06-13', 'comprado', 'si', 1, 32, 1, 1, 11, 1, 2, 11, 2, '2023-03-01', '1979-11-20', 337678, NULL);
+(2, '1974-06-13', 'comprado', 'si', 1, 32, 1, 1, 11, 1, 1, 11, 2, '2023-03-01', '1979-11-20', 337678, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(2, '2025-01-22', 'comprado a otro museo', 'si', 1, 32, 1, 1, 11, 1, 2, 11, 2, '2023-03-01', NULL, 484394, 2);
+(2, '2025-01-22', 'comprado a otro museo', 'si', 1, 32, 1, 1, 11, 1, 1, 11, 2, '2023-03-01', NULL, 484394, 2);
 
 -- Obra 3: Indian Church (Museo de Arte de Vancouvert)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
@@ -1550,7 +1549,6 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 (24, '1974-09-10', 'donado', 'no', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', '1982-12-05', 490000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
 (24, '2024-06-12', 'comprado a otro museo', 'si', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', NULL, 500000, 2);
-
 
 
 -- Inserciones para la tabla mantenimiento_obra
