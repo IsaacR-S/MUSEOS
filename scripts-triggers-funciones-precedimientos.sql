@@ -10,6 +10,11 @@ BEGIN
         RAISE EXCEPTION 'Una estructura organizacional no puede apuntar a sí misma';
     END IF;
 
+    -- Verificar que el nivel sea 'Nivel 1' para permitir id_jerarquia_estructura vacío
+    IF NEW.nivel <> 'Nivel 1' AND NEW.id_jerarquia_estructura IS NULL THEN
+        RAISE EXCEPTION 'El campo id_jerarquia_estructura debe ser proporcionado para niveles distintos de Nivel 1';
+    END IF;
+
     -- Verificar que el nivel del padre sea mayor
     IF NEW.id_jerarquia_estructura IS NOT NULL THEN
         SELECT nivel INTO nivel_padre
@@ -20,8 +25,15 @@ BEGIN
             RAISE EXCEPTION 'La estructura jerárquica padre no existe';
         END IF;
 
-        IF NEW.nivel <= nivel_padre THEN
-            RAISE EXCEPTION 'El nivel de la estructura hija debe ser mayor que el de su padre';
+        -- Verificar que el nivel del hijo sea un nivel menor que el del padre
+        IF (CASE 
+                WHEN nivel_padre = 'Nivel 1' THEN NEW.nivel <> 'Nivel 2'
+                WHEN nivel_padre = 'Nivel 2' THEN NEW.nivel <> 'Nivel 3'
+                WHEN nivel_padre = 'Nivel 3' THEN NEW.nivel <> 'Nivel 4'
+                WHEN nivel_padre = 'Nivel 4' THEN NEW.nivel IS NOT NULL
+                ELSE TRUE
+            END) THEN
+            RAISE EXCEPTION 'El nivel de la estructura hija debe ser un nivel menor que el de su padre';
         END IF;
     END IF;
 
@@ -55,7 +67,12 @@ BEGIN
         RAISE EXCEPTION 'Solo estructuras de tipo "edificio" pueden no tener jerarquía padre';
     END IF;
 
-    -- 4. Si tiene padre, debe ser consistente con la jerarquía
+    -- 4. Validar que solo las estructuras de tipo 'edificio' pueden tener dirección
+    IF NEW.tipo_estructura <> 'edificio' AND NEW.direccion IS NOT NULL THEN
+        RAISE EXCEPTION 'Solo las estructuras de tipo "edificio" pueden tener una dirección';
+    END IF;
+
+    -- 5. Si tiene padre, debe ser consistente con la jerarquía
     IF NEW.id_jerarquia_estructura IS NOT NULL THEN
         SELECT tipo_estructura INTO tipo_padre
         FROM estructura_fisica
@@ -65,7 +82,7 @@ BEGIN
             RAISE EXCEPTION 'La estructura física padre no existe';
         END IF;
 
-        -- Reglas jerárquicas entre tipos
+        -- Reglas jerárquicas entre tipos con restricción estricta
         IF tipo_padre = 'edificio' AND NEW.tipo_estructura <> 'piso' THEN
             RAISE EXCEPTION 'Un edificio solo puede tener pisos como hijos';
         ELSIF tipo_padre = 'piso' AND NEW.tipo_estructura <> 'area seccion' THEN
@@ -83,7 +100,7 @@ CREATE TRIGGER trg_validar_jerarquia_fisica
 BEFORE INSERT OR UPDATE ON estructura_fisica
 FOR EACH ROW EXECUTE FUNCTION validar_jerarquia_fisica();
 
---Validar movimiento obra
+--Validar movimiento obra --- ---------------------------------------------------Probar---------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION validar_movimiento_obra()
 RETURNS trigger AS $$
@@ -120,7 +137,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trg_validar_movimiento_obra
 BEFORE INSERT OR UPDATE ON historico_obra_movimiento
 FOR EACH ROW EXECUTE FUNCTION validar_movimiento_obra();
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Validar obra duplicada
 
 CREATE OR REPLACE FUNCTION validar_obra_duplicada()
@@ -130,7 +147,7 @@ DECLARE
 BEGIN
     SELECT COUNT(*) INTO cantidad
     FROM obra
-    WHERE nombre = NEW.nombre AND id_artista = NEW.id_artista;
+    WHERE nombre = NEW.nombre;
 
     IF cantidad > 0 THEN
         RAISE EXCEPTION 'Ya existe una obra con ese nombre y artista';
@@ -167,7 +184,7 @@ BEGIN
               (fecha_inicio_evento BETWEEN NEW.fecha_inicio_evento AND NEW.fecha_fin_evento)
           )
     ) THEN
-        RAISE EXCEPTION 'Ya existe un evento en ese museo que se traslapa con las fechas ingresadas';
+        RAISE EXCEPTION 'Ya existe un evento en ese museo que coincide con las fechas ingresadas';
     END IF;
 
     RETURN NEW;
