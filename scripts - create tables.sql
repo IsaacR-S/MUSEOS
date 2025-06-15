@@ -257,11 +257,11 @@ CREATE TABLE historico_empleado(
     PRIMARY KEY(id_empleado, id_museo, id_estructura_org, fecha_inicio)
 );
 
-CREATE SEQUENCE seq_mantenimiento_obra START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_historico_obra START WITH 1 INCREMENT BY 1;
 CREATE TABLE historico_obra_movimiento(
   
     id_obra NUMERIC NOT NULL,
-    id_historico_obra_movimiento NUMERIC DEFAULT nextval('seq_mantenimiento_obra') NOT NULL,
+    id_historico_obra_movimiento NUMERIC DEFAULT nextval('seq_historico_obra') NOT NULL,
     fecha_inicio DATE NOT NULL,
     tipo_obtencion VARCHAR NOT NULL,
     destacada VARCHAR(2) NOT NULL,
@@ -292,10 +292,12 @@ CREATE TABLE historico_obra_movimiento(
     primary key(id_obra, id_historico_obra_movimiento)
 );
 
+CREATE SEQUENCE seq_mantenimiento_obra START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE mantenimiento_obra(
     id_obra NUMERIC NOT NULL,
     id_historico_obra_movimiento NUMERIC NOT NULL,
-    id_mantenimiento_obra NUMERIC NOT NULL, 
+    id_mantenimiento_obra NUMERIC DEFAULT nextval('seq_mantenimiento_obra') NOT NULL, 
     actividad VARCHAR(250) NOT NULL,
     frecuencia NUMERIC NOT NULL, 
     tipo_resposable VARCHAR(15), 
