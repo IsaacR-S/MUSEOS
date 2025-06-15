@@ -131,6 +131,24 @@ INSERT INTO museo (nombre, mision, fecha_fundacion, id_lugar) VALUES
 ('Museo Nacional de Australia', 'Explorar la historia australiana', '2001-03-11', 11),
 ('Galería Nacional de Victoria', 'Ser un epicentro de la creatividad y la innovación artística', '1861-01-01', 12);
 
+INSERT INTO evento (id_museo, fecha_inicio_evento, fecha_fin_evento, nombre_evento, institucion_educativa, cantidad_asistentes, lugar_exposicion, costo_persona) VALUES
+(1, '2025-06-05', '2025-06-25', 'Taller de Pintura Abstracta para Jóvenes', 'Escuela de Arte de Vancouver', NULL, 'Sala de Talleres Creativos', 25.00), -- Fecha de inicio modificada
+(1, '2024-04-15', '2024-06-30', 'Exposición de Esculturas Modernas: Formas y Volúmenes', NULL, 300, 'Galería Principal', 15.00),
+(2, '2025-06-03', '2025-06-23', 'Ciclo de Conferencias: Maestros del Renacimiento', 'Universidad de Montreal', NULL, 'Auditorio Principal', 10.00), -- Fecha de inicio modificada
+(2, '2024-05-01', '2024-07-31', 'Retrospectiva Impresionista: Luz y Color', NULL, 450, 'Sala Impresionista', 18.00),
+(3, '2025-06-02', '2025-06-20', 'Seminario de Historia Colonial Mexicana', 'El Colegio de México', NULL, 'Auditorio Principal', 30.00), -- Fecha de inicio modificada
+(3, '2024-03-05', '2024-05-15', 'La Ciudad a Través del Tiempo: Exposición Fotográfica', NULL, 280, 'Sala de Orígenes', 12.00),
+(4, '2025-06-07', '2025-06-27', 'Diplomado en Curaduría de Arte Contemporáneo', 'Tecnológico de Monterrey', NULL, 'Salas de Capacitación', 150.00), -- Fecha de inicio modificada
+(4, '2024-06-10', '2024-08-20', 'Bienal de Arte Digital y Nuevos Medios', NULL, 600, 'Galería Norte y Sur', 20.00),
+(5, '2025-06-06', '2025-06-24', 'Clase Magistral de Caligrafía China Antigua', 'Universidad de Nanjing', NULL, 'Sala de Caligrafía', 40.00), -- Fecha de inicio modificada
+(5, '2024-05-05', '2024-07-10', 'Exposición de Dinastías Cerámicas Chinas', NULL, 350, 'Sala de Cerámica', 16.00),
+(6, '2025-06-04', '2025-06-21', 'Foro de Intercambio Cultural Cantonés', 'Universidad de Sun Yat-sen', NULL, 'Sala de Arte Cantonés', 5.00), -- Fecha de inicio modificada
+(6, '2024-04-01', '2024-06-01', 'Muestra de Reliquias Ancestrales de Guangdong', NULL, 290, 'Sala de Cultura Ancestral', 10.00),
+(7, '2025-06-08', '2025-06-26', 'Programa Educativo sobre Arte Aborigen', 'Universidad Nacional de Australia', NULL, 'Galería Aborigen', 20.00), -- Fecha de inicio modificada
+(7, '2024-03-10', '2024-05-25', 'Exposición Centenario de la Federación Australiana', NULL, 400, 'Sala de la Federación', 14.00),
+(8, '2025-06-09', '2025-06-29', 'Taller de Historia del Arte Europeo para Estudiantes', 'Universidad de Melbourne', NULL, 'Galería Europea', 35.00), -- Fecha de inicio modificada
+(8, '2024-04-05', '2024-06-15', 'Festival Internacional de Fotografía Artística', NULL, 500, 'Sala de Fotografía', 22.00);
+
 
 INSERT INTO HORARIO (id_museo, dia, hora_apertura, hora_cierre) VALUES
 (1,1,'09:00','18:00'),
