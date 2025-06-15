@@ -1356,6 +1356,11 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 -- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
 -- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
 
+-- Sentencias INSERT para la tabla historico_obra_movimiento
+-- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
+-- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
+-- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
+
 -- Obra 1: The Crazy One (Museo de Arte de Vancouvert)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
 (1, '1982-10-09', 'comprado', 'no', 1, 32, 1, 1, 11, 1, 1, 1, 1, '2023-01-15', '1987-10-09', 248698, NULL);
@@ -1514,7 +1519,7 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
 (20, '1975-09-10', 'comprado', 'no', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2023-09-01', '1984-05-01', 150000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(20, '2024-06-12', 'donado de otro museo', 'si', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2022-09-01', NULL, 200000, 1);
+(20, '2024-06-12', 'donado de otro museo', 'si', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2023-09-01', NULL, 200000, 1);
 
 -- Obra 21: Boomerang Ceremonial con Grabados (Museo Nacional de Australia)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
