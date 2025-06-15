@@ -1554,171 +1554,300 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 (24, '2024-06-12', 'comprado a otro museo', 'si', 8, 52, 18, 8, 26, 15, 8, 26, 31, '2023-12-01', NULL, 500000, 2);
 
 
--- Mantenimiento para la obra "david" (id_obra: 1, id_historico_obra_movimiento: 1)
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(1, 1, 1, 'Limpieza superficial de la escultura', 12, 'restaurador');
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(1, 1, 2, 'Revisión de anclajes y estabilidad', 6, 'otro');
+-- Sentencias INSERT para la tabla mantenimiento_obra
+-- Cada obra activa (con fecha_fin NULL en historico_obra_movimiento) tendrá registros de mantenimiento.
 
--- Mantenimiento para la obra "monalisa" (id_obra: 5, id_historico_obra_movimiento: 2)
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(5, 2, 1, 'Control de humedad y temperatura de la sala', 1, 'curador');
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(5, 2, 2, 'Inspección detallada de pigmentos y barniz', 3, 'restaurador');
+-- Obra 1: The Crazy One (Activa, id_historico_obra_movimiento = 3)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(1, 3, 'Inspección visual periódica', 12, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(1, 3, 'Limpieza superficial mensual', 1, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(1, 3, 'Revisión de iluminación de sala', 6, 'otro');
 
--- Mantenimiento para la obra "guernica" (id_obra: 9, id_historico_obra_movimiento: 3)
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(9, 3, 1, 'Revisión del bastidor y tensión del lienzo', 6, 'restaurador');
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(9, 3, 2, 'Limpieza profunda y consolidación de la pintura', 24, 'restaurador');
+-- Obra 2: Forest, British Columbia (Activa, id_historico_obra_movimiento = 6)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(2, 6, 'Chequeo de condiciones ambientales', 3, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(2, 6, 'Tratamiento preventivo contra plagas', 24, 'restaurador');
 
--- Mantenimiento para la obra "venus de milo" (id_obra: 3, id_historico_obra_movimiento: 4)
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(3, 4, 1, 'Pulido y tratamiento de superficie de mármol', 12, 'restaurador');
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(3, 4, 2, 'Evaluación de posibles fisuras o daños estructurales', 6, 'otro');
+-- Obra 3: Indian Church (Activa, id_historico_obra_movimiento = 9)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(3, 9, 'Revisión del estado de conservación', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(3, 9, 'Inventario y verificación de ubicación', 6, 'curador');
 
--- Mantenimiento para la obra "la pertenecia de la memoria" (id_obra: 7, id_historico_obra_movimiento: 5)
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(7, 5, 1, 'Verificación del estado del marco y cristal', 3, 'curador');
-INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
-(7, 5, 2, 'Análisis de conservación y retoques menores', 6, 'restaurador');
+-- Obra 4: Vase of Sunflowers (Activa, id_historico_obra_movimiento = 12)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(4, 12, 'Inspección de pigmentos', 6, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(4, 12, 'Rotación de exhibición', 24, 'curador');
 
+-- Obra 5: The Reading (Activa, id_historico_obra_movimiento = 15)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(5, 15, 'Limpieza y desempolvado semanal', 1, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(5, 15, 'Evaluación de daños menores', 3, 'restaurador');
+
+-- Obra 6: Nude with Raised Arms (Activa, id_historico_obra_movimiento = 18)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(6, 18, 'Inspección de marco y soporte', 12, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(6, 18, 'Reporte de condiciones de sala', 6, 'otro');
+
+-- Obra 7: Visión de la Ciudad de México (Activa, id_historico_obra_movimiento = 21)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(7, 21, 'Monitoreo de humedad y temperatura', 1, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(7, 21, 'Limpieza y mantenimiento general', 3, 'otro');
+
+-- Obra 8: Murales del Patio Central (Activa, id_historico_obra_movimiento = 24)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(8, 24, 'Revisión estructural del mural', 60, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(8, 24, 'Documentación fotográfica anual', 12, 'curador');
+
+-- Obra 9: Maqueta de la antigua Tenochtitlán (Activa, id_historico_obra_movimiento = 27)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(9, 27, 'Limpieza de elementos pequeños', 3, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(9, 27, 'Verificación de la integridad de la maqueta', 12, 'curador');
+
+-- Obra 10: Cabeza Vaca (Activa, id_historico_obra_movimiento = 30)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(10, 30, 'Mantenimiento del pedestal y base', 6, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(10, 30, 'Inspección de corrosión o desgaste', 12, 'restaurador');
+
+-- Obra 11: Paisaje con nubes (Activa, id_historico_obra_movimiento = 33)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(11, 33, 'Inspección de posibles decoloraciones', 12, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(11, 33, 'Limpieza del cristal protector', 3, 'otro');
+
+-- Obra 12: Sin Título (Serie Columnas) (Activa, id_historico_obra_movimiento = 36)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(12, 36, 'Revisión de estabilidad de la estructura', 6, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(12, 36, 'Chequeo de posibles grietas o fisuras', 12, 'restaurador');
+
+-- Obra 13: Montañas y Ríos de Nanjing (Activa, id_historico_obra_movimiento = 39)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(13, 39, 'Inspección detallada de la seda', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(13, 39, 'Control de humedad en vitrina', 1, 'curador');
+
+-- Obra 14: El Jardín Secreto (Activa, id_historico_obra_movimiento = 42)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(14, 42, 'Limpieza suave de la superficie', 3, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(14, 42, 'Revisión de la iluminación ambiental', 6, 'curador');
+
+-- Obra 15: Armonía Urbana (Activa, id_historico_obra_movimiento = 45)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(15, 45, 'Inspección de la capa pictórica', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(15, 45, 'Evaluación de la condición del lienzo', 24, 'restaurador');
+
+-- Obra 16: Pintura de Flor y Pájaro (Estilo Lingnan) (Activa, id_historico_obra_movimiento = 48)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(16, 48, 'Monitoreo de la estabilidad del papel', 6, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(16, 48, 'Limpieza de partículas de polvo', 1, 'curador');
+
+-- Obra 17: Paisaje con Cascada (Activa, id_historico_obra_movimiento = 51)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(17, 51, 'Revisión de la exposición a la luz', 3, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(17, 51, 'Mantenimiento del enmarcado', 12, 'restaurador');
+
+-- Obra 18: Jarrón de Cerámica de Guangdong (Activa, id_historico_obra_movimiento = 54)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(18, 54, 'Limpieza de superficie cerámica', 6, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(18, 54, 'Inspección de posibles grietas o chips', 12, 'restaurador');
+
+-- Obra 19: Canoa de corteza indígena (Activa, id_historico_obra_movimiento = 57)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(19, 57, 'Tratamiento de conservación de la corteza', 24, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(19, 57, 'Inspección de estabilidad y soporte', 12, 'curador');
+
+-- Obra 20: Wandjina (Pintura Rupestre) (Activa, id_historico_obra_movimiento = 60)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(20, 60, 'Monitoreo de microclima de la cueva', 1, 'curador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(20, 60, 'Registro de posibles deterioros', 6, 'restaurador');
+
+-- Obra 21: Boomerang Ceremonial con Grabados (Activa, id_historico_obra_movimiento = 63)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(21, 63, 'Limpieza y pulido de la madera', 3, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(21, 63, 'Inspección de grabados y decoraciones', 12, 'restaurador');
+
+-- Obra 22: The Bridal Party (Activa, id_historico_obra_movimiento = 66)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(22, 66, 'Inspección de la capa de barniz', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(22, 66, 'Revisión de la tensión del lienzo', 6, 'curador');
+
+-- Obra 23: The Bath of Diana (Activa, id_historico_obra_movimiento = 69)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(23, 69, 'Limpieza de polvo y suciedad acumulada', 1, 'otro');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(23, 69, 'Monitoreo de posibles cambios de color', 3, 'curador');
+
+-- Obra 24: Untitled (Large Blue) (Activa, id_historico_obra_movimiento = 72)
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(24, 72, 'Inspección de la superficie pintada', 12, 'restaurador');
+INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, actividad, frecuencia, tipo_resposable) VALUES
+(24, 72, 'Chequeo de la estabilidad del material', 6, 'restaurador');
 
 -- Sentencias INSERT para la tabla historico_mantenimiento_realizado
--- Cada entrada hace referencia a un empleado (restaurador o curador) según el tipo de mantenimiento.
--- Todas las entradas tienen una fecha de fin, indicando que el mantenimiento ha sido completado.
+-- Cada actividad de mantenimiento se asocia a una obra activa y a un empleado activo
 
-INSERT INTO historico_mantenimiento_realizado (
-    id_obra,
-    id_historico_obra_movimiento,
-    id_mantenimiento_obra,
-    fecha_inicio,
-    observaciones,
-    id_empleado,
-    id_museo,
-    id_estructura_org,
-    fecha_inicio_hist_empleado,
-    fecha_fin
-) VALUES
-(
-    1, -- id_obra
-    1, -- id_historico_obra_movimiento
-    1, -- id_mantenimiento_obra (Limpieza superficial de la escultura - restaurador)
-    '2023-08-01', -- fecha_inicio del mantenimiento
-    'Limpieza superficial de la escultura completada con éxito. Se utilizaron materiales no abrasivos.', -- observaciones
-    18, -- id_empleado (restaurador)
-    5, -- id_museo del empleado
-    20, -- id_estructura_org del empleado
-    '2023-07-10', -- fecha_inicio_hist_empleado
-    '2023-08-05' -- fecha_fin del mantenimiento
-),
-(
-    1, -- id_obra
-    1, -- id_historico_obra_movimiento
-    2, -- id_mantenimiento_obra (Revisión de anclajes y estabilidad - otro -> curador)
-    '2023-04-01', -- fecha_inicio del mantenimiento
-    'Anclajes revisados y estabilidad confirmada. No se detectaron problemas.', -- observaciones
-    2, -- id_empleado (curador)
-    1, -- id_museo del empleado
-    11, -- id_estructura_org del empleado
-    '2023-03-01', -- fecha_inicio_hist_empleado
-    '2023-04-02' -- fecha_fin del mantenimiento
-),
-(
-    3, -- id_obra
-    4, -- id_historico_obra_movimiento
-    1, -- id_mantenimiento_obra (Pulido y tratamiento de superficie de mármol - restaurador)
-    '2023-11-01', -- fecha_inicio del mantenimiento
-    'Superficie de mármol pulida y tratada. Se aplicó una capa protectora.', -- observaciones
-    30, -- id_empleado (restaurador)
-    8, -- id_museo del empleado
-    27, -- id_estructura_org del empleado
-    '2023-10-15', -- fecha_inicio_hist_empleado
-    '2023-11-03' -- fecha_fin del mantenimiento
-),
-(
-    3, -- id_obra
-    4, -- id_historico_obra_movimiento
-    2, -- id_mantenimiento_obra (Evaluación de posibles fisuras o daños estructurales - otro -> curador)
-    '2023-05-01', -- fecha_inicio del mantenimiento
-    'Evaluación completa. No se encontraron fisuras ni daños estructurales significativos.', -- observaciones
-    6, -- id_empleado (curador)
-    2, -- id_museo del empleado
-    14, -- id_estructura_org del empleado
-    '2023-04-10', -- fecha_inicio_hist_empleado
-    '2023-05-02' -- fecha_fin del mantenimiento
-),
-(
-    5, -- id_obra
-    2, -- id_historico_obra_movimiento
-    1, -- id_mantenimiento_obra (Control de humedad y temperatura de la sala - curador)
-    '2023-06-01', -- fecha_inicio del mantenimiento
-    'Control diario de humedad y temperatura. Parámetros dentro de los rangos óptimos.', -- observaciones
-    10, -- id_empleado (curador)
-    3, -- id_museo del empleado
-    16, -- id_estructura_org del empleado
-    '2023-05-01', -- fecha_inicio_hist_empleado
-    '2023-06-01' -- fecha_fin del mantenimiento
-),
-(
-    5, -- id_obra
-    2, -- id_historico_obra_movimiento
-    2, -- id_mantenimiento_obra (Inspección detallada de pigmentos y barniz - restaurador)
-    '2023-08-10', -- fecha_inicio del mantenimiento
-    'Inspección minuciosa de pigmentos y barniz. Se observó buen estado general.', -- observaciones
-    18, -- id_empleado (restaurador)
-    5, -- id_museo del empleado
-    20, -- id_estructura_org del empleado
-    '2023-07-10', -- fecha_inicio_hist_empleado
-    '2023-08-12' -- fecha_fin del mantenimiento
-),
-(
-    7, -- id_obra
-    5, -- id_historico_obra_movimiento
-    1, -- id_mantenimiento_obra (Verificación del estado del marco y cristal - curador)
-    '2023-07-01', -- fecha_inicio del mantenimiento
-    'Marco y cristal verificados. No se encontraron daños ni desajustes.', -- observaciones
-    14, -- id_empleado (curador)
-    4, -- id_museo del empleado
-    18, -- id_estructura_org del empleado
-    '2023-06-05', -- fecha_inicio_hist_empleado
-    '2023-07-01' -- fecha_fin del mantenimiento
-),
-(
-    7, -- id_obra
-    5, -- id_historico_obra_movimiento
-    2, -- id_mantenimiento_obra (Análisis de conservación y retoques menores - restaurador)
-    '2023-11-10', -- fecha_inicio del mantenimiento
-    'Análisis de conservación realizado. Se efectuaron retoques menores en áreas específicas.', -- observaciones
-    30, -- id_empleado (restaurador)
-    8, -- id_museo del empleado
-    27, -- id_estructura_org del empleado
-    '2023-10-15', -- fecha_inicio_hist_empleado
-    '2023-11-15' -- fecha_fin del mantenimiento
-),
-(
-    9, -- id_obra
-    3, -- id_historico_obra_movimiento
-    1, -- id_mantenimiento_obra (Revisión del bastidor y tensión del lienzo - restaurador)
-    '2023-09-01', -- fecha_inicio del mantenimiento
-    'Bastidor revisado y tensión del lienzo ajustada para una estabilidad óptima.', -- observaciones
-    18, -- id_empleado (restaurador)
-    5, -- id_museo del empleado
-    20, -- id_estructura_org del empleado
-    '2023-07-10', -- fecha_inicio_hist_empleado
-    '2023-09-02' -- fecha_fin del mantenimiento
-),
-(
-    9, -- id_obra
-    3, -- id_historico_obra_movimiento
-    2, -- id_mantenimiento_obra (Limpieza profunda y consolidación de la pintura - restaurador)
-    '2023-12-01', -- fecha_inicio del mantenimiento
-    'Limpieza profunda y consolidación de la pintura completadas. Mejora visible en la obra.', -- observaciones
-    30, -- id_empleado (restaurador)
-    8, -- id_museo del empleado
-    27, -- id_estructura_org del empleado
-    '2023-10-15', -- fecha_inicio_hist_empleado
-    '2023-12-05' -- fecha_fin del mantenimiento
-);
+-- Obra 1: The Crazy One
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(1, 3, 1, '2024-10-24', 'Se detectó un leve desgaste, se aplicó tratamiento preventivo.', 2, 1, 11, '2023-03-01', '2024-10-27');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(1, 3, 2, '2024-11-20', 'Mantenimiento completado satisfactoriamente.', 3, 1, 10, '2023-05-10', '2024-11-26');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(1, 3, 3, '2025-02-19', 'Actividad programada realizada sin incidencias.', 3, 1, 10, '2023-05-10', '2025-02-23');
 
+-- Obra 2: Forest, British Columbia
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(2, 6, 4, '2025-02-09', 'Condiciones óptimas después del mantenimiento.', 2, 1, 11, '2023-03-01', '2025-02-11');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(2, 6, 5, '2025-04-09', 'Se retrasó por coordinación de personal.', 3, 1, 10, '2023-05-10', '2025-04-12');
+
+-- Obra 3: Indian Church
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(3, 9, 6, '2025-05-17', 'Revisión de rutina sin hallazgos inusuales.', 3, 1, 10, '2023-05-10', '2025-05-19');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(3, 9, 7, '2025-03-24', 'Actividad programada realizada sin incidencias.', 2, 1, 11, '2023-03-01', '2025-03-28');
+
+-- Obra 4: Vase of Sunflowers
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(4, 12, 8, '2024-07-06', 'Mantenimiento completado satisfactoriamente.', 7, 2, 12, '2023-06-20', '2024-07-10');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(4, 12, 9, '2024-10-18', 'Pequeñas imperfecciones corregidas.', 6, 2, 14, '2023-04-10', '2024-10-23');
+
+-- Obra 5: The Reading
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(5, 15, 10, '2025-04-17', 'Se ajustaron los parámetros de conservación.', 7, 2, 12, '2023-06-20', '2025-04-20');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(5, 15, 11, '2024-10-13', 'No se encontraron anomalías durante la revisión.', 7, 2, 12, '2023-06-20', '2024-10-16');
+
+-- Obra 6: Nude with Raised Arms
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(6, 18, 12, '2025-05-19', 'Requiere seguimiento en la próxima revisión.', 6, 2, 14, '2023-04-10', '2025-05-26');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(6, 18, 13, '2025-01-20', 'Mantenimiento extendido 2 días por necesidad de ajuste adicional.', 7, 2, 12, '2023-06-20', '2025-01-22');
+
+-- Obra 7: Visión de la Ciudad de México
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(7, 21, 14, '2025-03-03', 'La obra está en excelente estado.', 10, 3, 16, '2023-05-01', '2025-03-05');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(7, 21, 15, '2025-01-08', 'Sin observaciones relevantes.', 11, 3, 15, '2023-07-01', '2025-01-13');
+
+-- Obra 8: Murales del Patio Central
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(8, 24, 16, '2025-03-04', 'Condiciones óptimas después del mantenimiento.', 11, 3, 15, '2023-07-01', '2025-03-05');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(8, 24, 17, '2024-12-07', 'Mantenimiento extendido 2 días por necesidad de ajuste adicional.', 10, 3, 16, '2023-05-01', '2024-12-13');
+
+-- Obra 9: Maqueta de la antigua Tenochtitlán
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(9, 27, 18, '2024-07-04', 'Mantenimiento completado satisfactoriamente.', 11, 3, 15, '2023-07-01', '2024-07-08');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(9, 27, 19, '2025-01-12', 'Se ajustaron los parámetros de conservación.', 10, 3, 16, '2023-05-01', '2025-01-14');
+
+-- Obra 10: Cabeza Vaca
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(10, 30, 20, '2025-01-08', 'Revisión de rutina sin hallazgos inusuales.', 15, 4, 17, '2023-08-15', '2025-01-11');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(10, 30, 21, '2024-08-07', 'Requiere seguimiento en la próxima revisión.', 15, 4, 17, '2023-08-15', '2024-08-12');
+
+-- Obra 11: Paisaje con nubes
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(11, 33, 22, '2024-10-14', 'La obra está en excelente estado.', 14, 4, 18, '2023-06-05', '2024-10-18');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(11, 33, 23, '2025-02-14', 'Mantenimiento completado satisfactoriamente.', 15, 4, 17, '2023-08-15', '2025-02-19');
+
+-- Obra 12: Sin Título (Serie Columnas)
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(12, 36, 24, '2024-09-02', 'Se detectó un leve desgaste, se aplicó tratamiento preventivo.', 15, 4, 17, '2023-08-15', '2024-09-03');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(12, 36, 25, '2025-03-22', 'Mantenimiento extendido 2 días por necesidad de ajuste adicional.', 15, 4, 17, '2023-08-15', '2025-03-24');
+
+-- Obra 13: Montañas y Ríos de Nanjing
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(13, 39, 26, '2024-10-09', 'Sin observaciones relevantes.', 18, 5, 20, '2023-07-10', '2024-10-13');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(13, 39, 27, '2025-01-27', 'Requiere seguimiento en la próxima revisión.', 19, 5, 19, '2023-09-01', '2025-02-02');
+
+-- Obra 14: El Jardín Secreto
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(14, 42, 28, '2024-08-27', 'Pequeñas imperfecciones corregidas.', 19, 5, 19, '2023-09-01', '2024-08-30');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(14, 42, 29, '2024-11-09', 'Condiciones óptimas después del mantenimiento.', 19, 5, 19, '2023-09-01', '2024-11-13');
+
+-- Obra 15: Armonía Urbana
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(15, 45, 30, '2025-04-10', 'Necesaria supervisión continua.', 18, 5, 20, '2023-07-10', '2025-04-14');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(15, 45, 31, '2024-07-28', 'Mantenimiento completado satisfactoriamente.', 18, 5, 20, '2023-07-10', '2024-08-01');
+
+-- Obra 16: Pintura de Flor y Pájaro (Estilo Lingnan)
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(16, 48, 32, '2024-11-20', 'Actividad programada realizada sin incidencias.', 23, 6, 21, '2023-10-10', '2024-11-23');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(16, 48, 33, '2025-05-18', 'Retraso de un día por falta de material específico.', 22, 6, 23, '2023-08-05', '2025-05-24');
+
+-- Obra 17: Paisaje con Cascada
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(17, 51, 34, '2024-07-08', 'La obra está en excelente estado.', 22, 6, 23, '2023-08-05', '2024-07-10');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(17, 51, 35, '2024-10-18', 'Se detectó un leve desgaste, se aplicó tratamiento preventivo.', 23, 6, 21, '2023-10-10', '2024-10-23');
+
+-- Obra 18: Jarrón de Cerámica de Guangdong
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(18, 54, 36, '2025-01-26', 'Mantenimiento completado satisfactoriamente.', 23, 6, 21, '2023-10-10', '2025-01-30');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(18, 54, 37, '2024-09-08', 'Revisión de rutina sin hallazgos inusuales.', 23, 6, 21, '2023-10-10', '2024-09-10');
+
+-- Obra 19: Canoa de corteza indígena
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(19, 57, 38, '2025-03-24', 'Necesaria supervisión continua.', 27, 7, 24, '2023-11-05', '2025-03-29');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(19, 57, 39, '2024-09-17', 'Se ajustaron los parámetros de conservación.', 26, 7, 25, '2023-09-01', '2024-09-21');
+
+-- Obra 20: Wandjina (Pintura Rupestre)
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(20, 60, 40, '2025-01-05', 'No se encontraron anomalías durante la revisión.', 26, 7, 25, '2023-09-01', '2025-01-11');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(20, 60, 41, '2024-10-28', 'Pendiente de suministro de herramienta especial.', 27, 7, 24, '2023-11-05', '2024-11-01');
+
+-- Obra 21: Boomerang Ceremonial con Grabados
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(21, 63, 42, '2024-12-14', 'Actividad programada realizada sin incidencias.', 27, 7, 24, '2023-11-05', '2024-12-19');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(21, 63, 43, '2025-05-09', 'Se detectó un leve desgaste, se aplicó tratamiento preventivo.', 27, 7, 24, '2023-11-05', '2025-05-15');
+
+-- Obra 22: The Bridal Party
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(22, 66, 44, '2024-09-04', 'Mantenimiento completado satisfactoriamente.', 30, 8, 27, '2023-10-15', '2024-09-08');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(22, 66, 45, '2025-01-19', 'Retraso de un día por falta de material específico.', 31, 8, 26, '2023-12-01', '2025-01-20');
+
+-- Obra 23: The Bath of Diana
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(23, 69, 46, '2024-10-25', 'Condiciones óptimas después del mantenimiento.', 31, 8, 26, '2023-12-01', '2024-10-29');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(23, 69, 47, '2025-04-03', 'Mantenimiento extendido 2 días por necesidad de ajuste adicional.', 31, 8, 26, '2023-12-01', '2025-04-09');
+
+-- Obra 24: Untitled (Large Blue)
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(24, 72, 48, '2024-07-28', 'Revisión de rutina sin hallazgos inusuales.', 30, 8, 27, '2023-10-15', '2024-08-01');
+INSERT INTO historico_mantenimiento_realizado (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, fecha_inicio, observaciones, id_empleado, id_museo, id_estructura_org, fecha_inicio_hist_empleado, fecha_fin) VALUES
+(24, 72, 49, '2025-02-09', 'La obra está en excelente estado.', 30, 8, 27, '2023-10-15', '2025-02-16');
