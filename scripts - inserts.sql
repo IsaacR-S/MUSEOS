@@ -1261,100 +1261,123 @@ INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion,
 INSERT INTO coleccion_permanente (id_museo, id_estructura_org, nombre_coleccion, descripcion_caracteristica, palabra_clave, orden_recorrido) VALUES
 (8, 43, 'Cerámica y Porcelana Japonesa', 'Ejemplos exquisitos de la cerámica y porcelana japonesa, desde periodos antiguos hasta modernos.', 'japonés', 2);
 
--- Inserciones para la tabla col_sal (Colecciones en Salas de Exposición)
+-- Sentencias INSERT para la tabla col_sal
+-- Se asocia cada colección a un mínimo de dos y un máximo de cuatro salas del mismo museo,
+-- con un orden de recorrido interno para cada sala.
 
--- Museo de Arte Moderno (id_museo: 1)
--- Sala: Galería Principal (1, 32, 1)
--- Colección: Colección de Arte Contemporáneo (1, 11, 1)
+-- Colección 1: Colección de Arte Contemporáneo (Museo 1)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (1, 32, 1, 1, 11, 1, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(1, 33, 2, 1, 11, 1, 2);
 
--- Sala: Sala de Esculturas (1, 33, 2)
--- Colección: Arte del Siglo XX (1, 29, 2)
+-- Colección 2: Arte del Siglo XX (Museo 1)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(1, 32, 1, 1, 29, 2, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (1, 33, 2, 1, 29, 2, 2);
 
--- Museo Nacional de Bellas Artes (id_museo: 2)
--- Sala: Sala Renacimiento (2, 35, 3)
--- Colección: Maestros Europeos (2, 14, 3)
+-- Colección 3: Maestros Europeos (Museo 2)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (2, 35, 3, 2, 14, 3, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 36, 4, 2, 14, 3, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 37, 5, 2, 14, 3, 3);
 
--- Sala: Sala Impresionista (2, 36, 4)
--- Colección: Pintura Latinoamericana (2, 31, 4)
+-- Colección 4: Pintura Latinoamericana (Museo 2)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 35, 3, 2, 31, 4, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (2, 36, 4, 2, 31, 4, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(2, 37, 5, 2, 31, 4, 3);
 
--- Galería de Arte Contemporáneo (id_museo: 3)
--- Sala: Sala de Orígenes (3, 38, 6)
--- Colección: Nuevos Medios y Digital (3, 16, 5)
+-- Colección 5: Nuevos Medios y Digital (Museo 3)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (3, 38, 6, 3, 16, 5, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(3, 39, 7, 3, 16, 5, 2);
 
--- Sala: Sala Virreinal (3, 39, 7)
--- Colección: Arte Urbano y Grafitis (3, 33, 6)
+-- Colección 6: Arte Urbano y Grafitis (Museo 3)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(3, 38, 6, 3, 33, 6, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (3, 39, 7, 3, 33, 6, 2);
 
--- Centro de Arte Digital (id_museo: 4)
--- Sala: Galería Norte (4, 41, 8)
--- Colección: Realidad Virtual y Aumentada (4, 18, 7)
+-- Colección 7: Realidad Virtual y Aumentada (Museo 4)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (4, 41, 8, 4, 18, 7, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(4, 42, 9, 4, 18, 7, 2);
 
--- Sala: Galería Sur (4, 42, 9)
--- Colección: Net Art y Arte Generativo (4, 35, 8)
+-- Colección 8: Net Art y Arte Generativo (Museo 4)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(4, 41, 8, 4, 35, 8, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (4, 42, 9, 4, 35, 8, 2);
 
--- Museo de Arte Clásico (id_museo: 5)
--- Sala: Sala de Caligrafía (5, 43, 10)
--- Colección: Escultura Romana (5, 19, 9)
+-- Colección 9: Escultura Romana (Museo 5)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (5, 43, 10, 5, 19, 9, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 44, 11, 5, 19, 9, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 45, 12, 5, 19, 9, 3);
 
--- Sala: Sala de Cerámica (5, 44, 11)
--- Colección: Cerámica Griega (5, 36, 10)
+-- Colección 10: Cerámica Griega (Museo 5)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 43, 10, 5, 36, 10, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (5, 44, 11, 5, 36, 10, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(5, 45, 12, 5, 36, 10, 3);
 
--- Museo de Guangdong (id_museo: 6)
--- Sala: Sala de Arte Cantonés (6, 46, 13)
--- Colección: Arte Moderno Latinoamericano (6, 23, 11)
+-- Colección 11: Arte Moderno Latinoamericano (Museo 6)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (6, 46, 13, 6, 23, 11, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 47, 14, 6, 23, 11, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 48, 15, 6, 23, 11, 3);
 
--- Sala: Sala de Cultura Ancestral (6, 47, 14)
--- Colección: Muralismo Mexicano (6, 39, 12)
+-- Colección 12: Muralismo Mexicano (Museo 6)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 46, 13, 6, 39, 12, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (6, 47, 14, 6, 39, 12, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(6, 48, 15, 6, 39, 12, 3);
 
--- Museo Nacional de Australia (id_museo: 7)
--- Sala: Galería Aborigen (7, 49, 16)
--- Colección: Expresionismo Abstracto (7, 24, 13)
+-- Colección 13: Expresionismo Abstracto (Museo 7)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (7, 49, 16, 7, 24, 13, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(7, 50, 17, 7, 24, 13, 2);
 
--- Sala: Sala de la Federación (7, 50, 17)
--- Colección: Minimalismo y Arte Conceptual (7, 40, 14)
+-- Colección 14: Minimalismo y Arte Conceptual (Museo 7)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(7, 49, 16, 7, 40, 14, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (7, 50, 17, 7, 40, 14, 2);
 
--- Galería Nacional de Victoria (id_museo: 8)
--- Sala: Gran Salón (8, 52, 18)
--- Colección: Pintura y Caligrafía China (8, 26, 15)
+-- Colección 15: Pintura y Caligrafía China (Museo 8)
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (8, 52, 18, 8, 26, 15, 1);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 53, 19, 8, 26, 15, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 54, 20, 8, 26, 15, 3);
 
--- Sala: Galería Europea (8, 53, 19)
--- Colección: Cerámica y Porcelana Japonesa (8, 43, 16)
+-- Colección 16: Cerámica y Porcelana Japonesa (Museo 8)
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 52, 18, 8, 43, 16, 1);
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (8, 53, 19, 8, 43, 16, 2);
+INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
+(8, 54, 20, 8, 43, 16, 3);
 
--- Sentencias INSERT para la tabla historico_obra_movimiento
--- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
--- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
--- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
+
 
 -- Sentencias INSERT para la tabla historico_obra_movimiento
 -- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
