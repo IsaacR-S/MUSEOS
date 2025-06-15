@@ -1351,13 +1351,6 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org, id_coleccion, orden_recorrido) VALUES
 (8, 53, 19, 8, 43, 16, 2);
 
--- Inserciones para la tabla historico_obra_movimiento
-
--- Sentencias INSERT para la tabla historico_obra_movimiento
--- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
--- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
--- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
-
 -- Sentencias INSERT para la tabla historico_obra_movimiento
 -- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
 -- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
@@ -1389,173 +1382,172 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 
 -- Obra 4: Vase of Sunflowers (Museo de Arte de Montreal)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(4, '1973-03-01', 'donado', 'si', 2, 35, 3, 2, 14, 3, 5, 2, 5, '2023-02-01', '1977-10-18', 198424, NULL);
+(4, '1973-03-01', 'donado', 'si', 2, 35, 3, 2, 14, 3, 2, 2, 5, '2023-02-01', '1977-10-18', 198424, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(4, '1978-01-09', 'comprado a otro museo', 'si', 2, 35, 3, 2, 14, 3, 5, 2, 5, '2023-02-01', '1984-06-21', 400508, NULL);
+(4, '1978-01-09', 'comprado a otro museo', 'si', 2, 35, 3, 2, 14, 3, 2, 2, 5, '2023-02-01', '1984-06-21', 400508, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(4, '2024-06-12', 'donado de otro museo', 'no', 2, 35, 3, 2, 14, 3, 5, 2, 5, '2023-02-01', NULL, 150035, NULL);
+(4, '2024-06-12', 'donado de otro museo', 'no', 2, 35, 3, 2, 14, 3, 2, 2, 5, '2023-02-01', NULL, 150035, NULL);
 
 -- Obra 5: The Reading (Museo de Arte de Montreal)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(5, '1979-05-18', 'comprado a otro museo', 'no', 2, 35, 3, 2, 31, 4, 6, 14, 6, '2023-04-10', '1984-06-25', 188806, NULL);
+(5, '1979-05-18', 'comprado a otro museo', 'no', 2, 35, 3, 2, 31, 4, 2, 14, 6, '2023-04-10', '1984-06-25', 188806, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(5, '1985-05-19', 'donado', 'si', 2, 35, 3, 2, 31, 4, 6, 14, 6, '2023-04-10', '1990-03-01', 376999, NULL);
+(5, '1985-05-19', 'donado', 'si', 2, 35, 3, 2, 31, 4, 2, 14, 6, '2023-04-10', '1990-03-01', 376999, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(5, '2024-09-02', 'comprado', 'si', 2, 35, 3, 2, 31, 4, 6, 14, 6, '2023-04-10', NULL, 477123, 1);
+(5, '2024-09-02', 'comprado', 'si', 2, 35, 3, 2, 31, 4, 2, 14, 6, '2023-04-10', NULL, 477123, 1);
 
 -- Obra 6: Nude with Raised Arms (Museo de Arte de Montreal)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(6, '1970-12-07', 'donado', 'no', 2, 35, 3, 2, 14, 3, 7, 12, 7, '2023-06-20', '1972-04-16', 466827, NULL);
+(6, '1970-12-07', 'donado', 'no', 2, 35, 3, 2, 14, 3, 2, 12, 7, '2023-06-20', '1972-04-16', 466827, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(6, '1972-10-22', 'comprado a otro museo', 'no', 2, 35, 3, 2, 14, 3, 7, 12, 7, '2023-06-20', '1978-08-20', 216776, NULL);
+(6, '1972-10-22', 'comprado a otro museo', 'no', 2, 35, 3, 2, 14, 3, 2, 12, 7, '2023-06-20', '1978-08-20', 216776, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(6, '2024-11-20', 'comprado', 'si', 2, 35, 3, 2, 14, 3, 7, 12, 7, '2023-06-20', NULL, 300407, 2);
+(6, '2024-11-20', 'comprado', 'si', 2, 35, 3, 2, 14, 3, 2, 12, 7, '2023-06-20', NULL, 300407, 2);
 
 -- Obra 7: Visión de la Ciudad de México (Museo de la Ciudad de México)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(7, '1971-08-01', 'donado', 'si', 3, 38, 6, 3, 16, 5, 9, 3, 9, '2023-03-10', '1976-02-14', 450000, NULL);
+(7, '1971-08-01', 'donado', 'si', 3, 38, 6, 3, 16, 5, 3, 3, 9, '2023-03-10', '1976-02-14', 450000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(7, '1976-08-20', 'comprado', 'si', 3, 38, 6, 3, 16, 5, 9, 3, 9, '2023-03-10', '1983-05-10', 480000, NULL);
+(7, '1976-08-20', 'comprado', 'si', 3, 38, 6, 3, 16, 5, 3, 3, 9, '2023-03-10', '1983-05-10', 480000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(7, '2024-11-20', 'donado de otro museo', 'no', 3, 38, 6, 3, 16, 5, 9, 3, 9, '2023-03-10', NULL, 390000, NULL);
+(7, '2024-11-20', 'donado de otro museo', 'no', 3, 38, 6, 3, 16, 5, 3, 3, 9, '2023-03-10', NULL, 390000, NULL);
 
 -- Obra 8: Murales del Patio Central (Museo de la Ciudad de México)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(8, '1980-02-28', 'comprado', 'no', 3, 38, 6, 3, 33, 6, 10, 16, 10, '2023-05-01', '1984-07-09', 280000, NULL);
+(8, '1980-02-28', 'comprado', 'no', 3, 38, 6, 3, 33, 6, 3, 16, 10, '2023-05-01', '1984-07-09', 280000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(8, '1985-01-15', 'donado de otro museo', 'si', 3, 38, 6, 3, 33, 6, 10, 16, 10, '2023-05-01', '1992-03-25', 310000, NULL);
+(8, '1985-01-15', 'donado de otro museo', 'si', 3, 38, 6, 3, 33, 6, 3, 16, 10, '2023-05-01', '1992-03-25', 310000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(8, '2024-07-28', 'comprado', 'si', 3, 38, 6, 3, 33, 6, 10, 16, 10, '2023-05-01', NULL, 420000, 1);
+(8, '2024-07-28', 'comprado', 'si', 3, 38, 6, 3, 33, 6, 3, 16, 10, '2023-05-01', NULL, 420000, 1);
 
 -- Obra 9: Maqueta de la antigua Tenochtitlán (Museo de la Ciudad de México)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(9, '1975-04-10', 'comprado a otro museo', 'no', 3, 38, 6, 3, 16, 5, 11, 15, 11, '2023-07-01', '1979-09-01', 150000, NULL);
+(9, '1975-04-10', 'comprado a otro museo', 'no', 3, 38, 6, 3, 16, 5, 3, 15, 11, '2023-07-01', '1979-09-01', 150000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(9, '1980-03-05', 'donado', 'no', 3, 38, 6, 3, 16, 5, 11, 15, 11, '2023-07-01', '1987-11-30', 200000, NULL);
+(9, '1980-03-05', 'donado', 'no', 3, 38, 6, 3, 16, 5, 3, 15, 11, '2023-07-01', '1987-11-30', 200000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(9, '2024-06-13', 'comprado', 'si', 3, 38, 6, 3, 16, 5, 11, 15, 11, '2023-07-01', NULL, 250000, 2);
+(9, '2024-06-13', 'comprado', 'si', 3, 38, 6, 3, 16, 5, 3, 15, 11, '2023-07-01', NULL, 250000, 2);
 
 -- Obra 10: Cabeza Vaca (Museo De Arte Contemporáneo De Monterrey)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(10, '1972-11-15', 'donado de otro museo', 'si', 4, 41, 8, 4, 18, 7, 13, 4, 13, '2023-04-01', '1977-03-20', 350000, NULL);
+(10, '1972-11-15', 'donado de otro museo', 'si', 4, 41, 8, 4, 18, 7, 4, 4, 13, '2023-04-01', '1977-03-20', 350000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(10, '1977-09-01', 'comprado', 'no', 4, 41, 8, 4, 18, 7, 13, 4, 13, '2023-04-01', '1985-01-10', 400000, NULL);
+(10, '1977-09-01', 'comprado', 'no', 4, 41, 8, 4, 18, 7, 4, 4, 13, '2023-04-01', '1985-01-10', 400000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(10, '2024-06-12', 'donado', 'si', 4, 41, 8, 4, 18, 7, 13, 4, 13, '2023-04-01', NULL, 450000, 1);
+(10, '2024-06-12', 'donado', 'si', 4, 41, 8, 4, 18, 7, 4, 4, 13, '2023-04-01', NULL, 450000, 1);
 
 -- Obra 11: Paisaje con nubes (Museo De Arte Contemporáneo De Monterrey)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(11, '1978-01-01', 'comprado', 'si', 4, 41, 8, 4, 35, 8, 14, 18, 14, '2023-06-05', '1982-06-15', 210000, NULL);
+(11, '1978-01-01', 'comprado', 'si', 4, 41, 8, 4, 35, 8, 4, 18, 14, '2023-06-05', '1982-06-15', 210000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(11, '1983-02-10', 'donado', 'no', 4, 41, 8, 4, 35, 8, 14, 18, 14, '2023-06-05', '1990-04-01', 250000, NULL);
+(11, '1983-02-10', 'donado', 'no', 4, 41, 8, 4, 35, 8, 4, 18, 14, '2023-06-05', '1990-04-01', 250000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(11, '2024-06-13', 'comprado a otro museo', 'no', 4, 41, 8, 4, 35, 8, 14, 18, 14, '2023-06-05', NULL, 300000, NULL);
+(11, '2024-06-13', 'comprado a otro museo', 'no', 4, 41, 8, 4, 35, 8, 4, 18, 14, '2023-06-05', NULL, 300000, NULL);
 
 -- Obra 12: Sin Título (Serie Columnas) (Museo De Arte Contemporáneo De Monterrey)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(12, '1970-05-20', 'comprado a otro museo', 'no', 4, 41, 8, 4, 18, 7, 15, 17, 15, '2023-08-15', '1975-01-01', 380000, NULL);
+(12, '1970-05-20', 'comprado a otro museo', 'no', 4, 41, 8, 4, 18, 7, 4, 17, 15, '2023-08-15', '1975-01-01', 380000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(12, '1975-08-15', 'donado de otro museo', 'si', 4, 41, 8, 4, 18, 7, 15, 17, 15, '2023-08-15', '1982-10-25', 420000, NULL);
+(12, '1975-08-15', 'donado de otro museo', 'si', 4, 41, 8, 4, 18, 7, 4, 17, 15, '2023-08-15', '1982-10-25', 420000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(12, '2024-06-12', 'comprado', 'si', 4, 41, 8, 4, 18, 7, 15, 17, 15, '2023-08-15', NULL, 490000, 2);
+(12, '2024-06-12', 'comprado', 'si', 4, 41, 8, 4, 18, 7, 4, 17, 15, '2023-08-15', NULL, 490000, 2);
 
 -- Obra 13: Montañas y Ríos de Nanjing (Jiangsu Art Museum)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(13, '1974-03-01', 'comprado', 'si', 5, 43, 10, 5, 19, 9, 17, 5, 17, '2023-05-01', '1979-05-10', 120000, NULL);
+(13, '1974-03-01', 'comprado', 'si', 5, 43, 10, 5, 19, 9, 5, 5, 17, '2023-05-01', '1979-05-10', 120000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(13, '1979-11-20', 'donado', 'no', 5, 43, 10, 5, 19, 9, 17, 5, 17, '2023-05-01', '1987-07-01', 180000, NULL);
+(13, '1979-11-20', 'donado', 'no', 5, 43, 10, 5, 19, 9, 5, 5, 17, '2023-05-01', '1987-07-01', 180000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(13, '2024-06-12', 'comprado a otro museo', 'si', 5, 43, 10, 5, 19, 9, 17, 5, 17, '2023-05-01', NULL, 250000, 1);
+(13, '2024-06-12', 'comprado a otro museo', 'si', 5, 43, 10, 5, 19, 9, 5, 5, 17, '2023-05-01', NULL, 250000, 1);
 
 -- Obra 14: El Jardín Secreto (Jiangsu Art Museum)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(14, '1971-01-01', 'donado de otro museo', 'no', 5, 43, 10, 5, 36, 10, 18, 20, 18, '2023-07-10', '1976-06-30', 90000, NULL);
+(14, '1971-01-01', 'donado de otro museo', 'no', 5, 43, 10, 5, 36, 10, 5, 20, 18, '2023-07-10', '1976-06-30', 90000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(14, '1977-01-15', 'comprado', 'si', 5, 43, 10, 5, 36, 10, 18, 20, 18, '2023-07-10', '1985-09-01', 150000, NULL);
+(14, '1977-01-15', 'comprado', 'si', 5, 43, 10, 5, 36, 10, 5, 20, 18, '2023-07-10', '1985-09-01', 150000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(14, '2024-06-12', 'donado', 'no', 5, 43, 10, 5, 36, 10, 18, 20, 18, '2023-07-10', NULL, 200000, NULL);
+(14, '2024-06-12', 'donado', 'no', 5, 43, 10, 5, 36, 10, 5, 20, 18, '2023-07-10', NULL, 200000, NULL);
 
 -- Obra 15: Armonía Urbana (Jiangsu Art Museum)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(15, '1979-08-01', 'comprado', 'no', 5, 43, 10, 5, 19, 9, 19, 19, 19, '2023-09-01', '1984-02-28', 100000, NULL);
+(15, '1979-08-01', 'comprado', 'no', 5, 43, 10, 5, 19, 9, 5, 19, 19, '2023-09-01', '1984-02-28', 100000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(15, '1984-09-10', 'donado de otro museo', 'si', 5, 43, 10, 5, 19, 9, 19, 19, 19, '2023-09-01', '1992-01-01', 130000, NULL);
+(15, '1984-09-10', 'donado de otro museo', 'si', 5, 43, 10, 5, 19, 9, 5, 19, 19, '2023-09-01', '1992-01-01', 130000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(15, '2024-06-12', 'comprado a otro museo', 'si', 5, 43, 10, 5, 19, 9, 19, 19, 19, '2023-09-01', NULL, 180000, 2);
+(15, '2024-06-12', 'comprado a otro museo', 'si', 5, 43, 10, 5, 19, 9, 5, 19, 19, '2023-09-01', NULL, 180000, 2);
 
 -- Obra 16: Pintura de Flor y Pájaro (Estilo Lingnan) (Museo de Guangdong)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(16, '1970-02-10', 'comprado', 'si', 6, 46, 13, 6, 23, 11, 21, 6, 21, '2023-06-01', '1974-07-20', 80000, NULL);
+(16, '1970-02-10', 'comprado', 'si', 6, 46, 13, 6, 23, 11, 6, 6, 21, '2023-06-01', '1974-07-20', 80000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(16, '1975-01-05', 'donado de otro museo', 'no', 6, 46, 13, 6, 23, 11, 21, 6, 21, '2023-06-01', '1983-03-15', 120000, NULL);
+(16, '1975-01-05', 'donado de otro museo', 'no', 6, 46, 13, 6, 23, 11, 6, 6, 21, '2023-06-01', '1983-03-15', 120000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(16, '2024-06-12', 'donado', 'si', 6, 46, 13, 6, 23, 11, 21, 6, 21, '2023-06-01', NULL, 170000, 1);
+(16, '2024-06-12', 'donado', 'si', 6, 46, 13, 6, 23, 11, 6, 6, 21, '2023-06-01', NULL, 170000, 1);
 
 -- Obra 17: Paisaje con Cascada (Museo de Guangdong)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(17, '1972-04-01', 'donado', 'no', 6, 46, 13, 6, 39, 12, 22, 23, 22, '2023-08-05', '1977-09-30', 70000, NULL);
+(17, '1972-04-01', 'donado', 'no', 6, 46, 13, 6, 39, 12, 6, 23, 22, '2023-08-05', '1977-09-30', 70000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(17, '1978-05-10', 'comprado a otro museo', 'si', 6, 46, 13, 6, 39, 12, 22, 23, 22, '2023-08-05', '1986-02-20', 110000, NULL);
+(17, '1978-05-10', 'comprado a otro museo', 'si', 6, 46, 13, 6, 39, 12, 6, 23, 22, '2023-08-05', '1986-02-20', 110000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(17, '2024-06-12', 'comprado', 'no', 6, 46, 13, 6, 39, 12, 22, 23, 22, '2023-08-05', NULL, 150000, NULL);
+(17, '2024-06-12', 'comprado', 'no', 6, 46, 13, 6, 39, 12, 6, 23, 22, '2023-08-05', NULL, 150000, NULL);
 
 -- Obra 18: Jarrón de Cerámica de Guangdong (Museo de Guangdong)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(18, '1970-01-01', 'comprado', 'si', 6, 46, 13, 6, 23, 11, 23, 21, 23, '2023-10-10', '1973-08-01', 50000, NULL);
+(18, '1970-01-01', 'comprado', 'si', 6, 46, 13, 6, 23, 11, 6, 21, 23, '2023-10-10', '1973-08-01', 50000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(18, '1974-02-15', 'donado', 'no', 6, 46, 13, 6, 23, 11, 23, 21, 23, '2023-10-10', '1980-11-20', 80000, NULL);
+(18, '1974-02-15', 'donado', 'no', 6, 46, 13, 6, 23, 11, 6, 21, 23, '2023-10-10', '1980-11-20', 80000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(18, '2024-06-12', 'comprado a otro museo', 'si', 6, 46, 13, 6, 23, 11, 23, 21, 23, '2023-10-10', NULL, 120000, 2);
+(18, '2024-06-12', 'comprado a otro museo', 'si', 6, 46, 13, 6, 23, 11, 6, 21, 23, '2023-10-10', NULL, 120000, 2);
 
 -- Obra 19: Canoa de corteza indígena (Museo Nacional de Australia)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(19, '1973-05-20', 'comprado', 'no', 7, 49, 16, 7, 24, 13, 25, 7, 25, '2023-07-01', '1978-01-01', 60000, NULL);
+(19, '1973-05-20', 'comprado', 'no', 7, 49, 16, 7, 24, 13, 7, 7, 25, '2023-07-01', '1978-01-01', 60000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(19, '1978-08-10', 'donado de otro museo', 'si', 7, 49, 16, 7, 24, 13, 25, 7, 25, '2023-07-01', '1986-06-30', 90000, NULL);
+(19, '1978-08-10', 'donado de otro museo', 'si', 7, 49, 16, 7, 24, 13, 7, 7, 25, '2023-07-01', '1986-06-30', 90000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(19, '2024-06-12', 'comprado a otro museo', 'no', 7, 49, 16, 7, 24, 13, 25, 7, 25, '2023-07-01', NULL, 130000, NULL);
+(19, '2024-06-12', 'comprado a otro museo', 'no', 7, 49, 16, 7, 24, 13, 7, 7, 25, '2023-07-01', NULL, 130000, NULL);
 
 -- Obra 20: Wandjina (Pintura Rupestre) (Museo Nacional de Australia)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(20, '1970-01-01', 'donado', 'si', 7, 49, 16, 7, 40, 14, 26, 25, 26, '2023-09-01', '1975-02-28', 100000, NULL);
+(20, '1970-01-01', 'donado', 'si', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2023-09-01', '1975-02-28', 100000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(20, '1975-09-10', 'comprado', 'no', 7, 49, 16, 7, 40, 14, 26, 25, 26, '2023-09-01', '1984-05-01', 150000, NULL);
+(20, '1975-09-10', 'comprado', 'no', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2023-09-01', '1984-05-01', 150000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(20, '2024-06-12', 'donado de otro museo', 'si', 7, 49, 16, 7, 40, 14, 26, 25, 26, '2023-09-01', NULL, 200000, 1);
+(20, '2024-06-12', 'donado de otro museo', 'si', 7, 49, 16, 7, 40, 14, 7, 25, 26, '2022-09-01', NULL, 200000, 1);
 
 -- Obra 21: Boomerang Ceremonial con Grabados (Museo Nacional de Australia)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(21, '1976-03-01', 'comprado a otro museo', 'no', 7, 49, 16, 7, 24, 13, 27, 24, 27, '2023-11-05', '1981-10-01', 40000, NULL);
+(21, '1976-03-01', 'comprado a otro museo', 'no', 7, 49, 16, 7, 24, 13, 7, 24, 27, '2023-11-05', '1981-10-01', 40000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(21, '1982-04-20', 'donado', 'no', 7, 49, 16, 7, 24, 13, 27, 24, 27, '2023-11-05', '1989-11-30', 60000, NULL);
+(21, '1982-04-20', 'donado', 'no', 7, 49, 16, 7, 24, 13, 7, 24, 27, '2023-11-05', '1989-11-30', 60000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(21, '2024-06-12', 'comprado', 'no', 7, 49, 16, 7, 24, 13, 27, 24, 27, '2023-11-05', NULL, 80000, NULL);
+(21, '2024-06-12', 'comprado', 'no', 7, 49, 16, 7, 24, 13, 7, 24, 27, '2023-11-05', NULL, 80000, NULL);
 
 -- Obra 22: The Bridal Party (Galería Nacional de Victoria)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(22, '1975-01-01', 'donado de otro museo', 'si', 8, 52, 18, 8, 26, 15, 29, 8, 29, '2023-08-01', '1980-05-15', 300000, NULL);
+(22, '1975-01-01', 'donado de otro museo', 'si', 8, 52, 18, 8, 26, 15, 8, 8, 29, '2023-08-01', '1980-05-15', 300000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(22, '1980-11-20', 'comprado', 'no', 8, 52, 18, 8, 26, 15, 29, 8, 29, '2023-08-01', '1988-02-28', 350000, NULL);
+(22, '1980-11-20', 'comprado', 'no', 8, 52, 18, 8, 26, 15, 8, 8, 29, '2023-08-01', '1988-02-28', 350000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(22, '2024-06-12', 'donado', 'si', 8, 52, 18, 8, 26, 15, 29, 8, 29, '2023-08-01', NULL, 400000, 1);
+(22, '2024-06-12', 'donado', 'si', 8, 52, 18, 8, 26, 15, 8, 8, 29, '2023-08-01', NULL, 400000, 1);
 
 -- Obra 23: The Bath of Diana (Galería Nacional de Victoria)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(23, '1972-06-01', 'comprado a otro museo', 'no', 8, 52, 18, 8, 43, 16, 30, 27, 30, '2023-10-15', '1977-11-30', 250000, NULL);
+(23, '1972-06-01', 'comprado a otro museo', 'no', 8, 52, 18, 8, 43, 16, 8, 27, 30, '2023-10-15', '1977-11-30', 250000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(23, '1978-06-20', 'donado', 'si', 8, 52, 18, 8, 43, 16, 30, 27, 30, '2023-10-15', '1986-09-01', 300000, NULL);
+(23, '1978-06-20', 'donado', 'si', 8, 52, 18, 8, 43, 16, 8, 27, 30, '2023-10-15', '1986-09-01', 300000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(23, '2024-06-12', 'comprado', 'no', 8, 52, 18, 8, 43, 16, 30, 27, 30, '2023-10-15', NULL, 350000, NULL);
+(23, '2024-06-12', 'comprado', 'no', 8, 52, 18, 8, 43, 16, 8, 27, 30, '2023-10-15', NULL, 350000, NULL);
 
 -- Obra 24: Untitled (Large Blue) (Galería Nacional de Victoria)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(24, '1970-01-01', 'comprado', 'si', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', '1974-03-01', 450000, NULL);
+(24, '1970-01-01', 'comprado', 'si', 8, 52, 18, 8, 26, 15, 8, 26, 31, '2023-12-01', '1974-03-01', 450000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(24, '1974-09-10', 'donado', 'no', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', '1982-12-05', 490000, NULL);
+(24, '1974-09-10', 'donado', 'no', 8, 52, 18, 8, 26, 15, 8, 26, 31, '2023-12-01', '1982-12-05', 490000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(24, '2024-06-12', 'comprado a otro museo', 'si', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', NULL, 500000, 2);
+(24, '2024-06-12', 'comprado a otro museo', 'si', 8, 52, 18, 8, 26, 15, 8, 26, 31, '2023-12-01', NULL, 500000, 2);
 
--- Inserciones para la tabla mantenimiento_obra
 
 -- Mantenimiento para la obra "david" (id_obra: 1, id_historico_obra_movimiento: 1)
 INSERT INTO mantenimiento_obra (id_obra, id_historico_obra_movimiento, id_mantenimiento_obra, actividad, frecuencia, tipo_resposable) VALUES
