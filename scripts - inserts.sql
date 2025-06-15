@@ -899,244 +899,167 @@ INSERT INTO estructura_organizacional (id_museo, nombre, nivel, tipo, id_jerarqu
 (8, 'Subsección de Textiles Antiguos', 'Nivel 4', 'subseccion', 43, 8);
 
 
-SELECT CURRENT_DATE AS fecha_actual;
-
-
-SELECT CURRENT_DATE - INTERVAL '1 month' AS fecha_hace_un_mes;
-
-
-
 INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(1, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND tipo = 'direccion' LIMIT 1), '2023-01-15', 'director', NULL), 
-(2, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Curaduría%' LIMIT 1), '2023-03-01', 'curador', NULL),
-(3, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Educación%' LIMIT 1), '2023-05-10', 'administrativo', NULL),
-(4, 1, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 1 AND nombre LIKE 'Departamento de Conservación%' LIMIT 1), '2022-02-20', 'restaurador', '2024-02-28'); 
+(1, 1, 1, '2023-01-15', 'director', NULL),
+(2, 1, 11, '2023-03-01', 'curador', NULL),
+(3, 1, 10, '2023-05-10', 'administrativo', NULL),
+(4, 1, 9, '2022-02-20', 'restaurador', '2024-02-28'),
+(5, 2, 2, '2023-02-01', 'director', NULL),
+(6, 2, 14, '2023-04-10', 'curador', NULL),
+(7, 2, 12, '2023-06-20', 'administrativo', NULL),
+(8, 2, 13, '2022-03-05', 'curador', '2023-04-15'),
+(9, 3, 3, '2023-03-10', 'director', NULL),
+(10, 3, 16, '2023-05-01', 'curador', NULL),
+(11, 3, 15, '2023-07-01', 'administrativo', NULL),
+(12, 3, 33, '2022-04-15', 'curador', '2023-07-30'),
+(13, 4, 4, '2023-04-01', 'director', NULL),
+(14, 4, 18, '2023-06-05', 'curador', NULL),
+(15, 4, 17, '2023-08-15', 'administrativo', NULL),
+(16, 4, 35, '2022-05-20', 'curador', '2023-06-30'),
+(17, 5, 5, '2023-05-01', 'director', NULL),
+(18, 5, 20, '2023-07-10', 'restaurador', NULL),
+(19, 5, 19, '2023-09-01', 'administrativo', NULL),
+(20, 5, 36, '2022-06-01', 'curador', '2023-09-15'),
+(21, 6, 6, '2023-06-01', 'director', NULL),
+(22, 6, 23, '2023-08-05', 'curador', NULL),
+(23, 6, 21, '2023-10-10', 'administrativo', NULL),
+(24, 6, 22, '2022-07-20', 'curador', '2023-12-31'),
+(25, 7, 7, '2023-07-01', 'director', NULL),
+(26, 7, 25, '2023-09-01', 'curador', NULL),
+(27, 7, 24, '2023-11-05', 'administrativo', NULL),
+(28, 7, 40, '2022-08-10', 'curador', '2023-11-25'),
+(29, 8, 8, '2023-08-01', 'director', NULL),
+(30, 8, 27, '2023-10-15', 'restaurador', NULL),
+(31, 8, 26, '2023-12-01', 'administrativo', NULL),
+(32, 8, 43, '2022-09-01', 'curador', '2023-10-30');
 
 
+-- Nivel 1: Insertar Edificios (no tienen padres dentro de esta tabla)
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 1, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Arte de Vancouver.', '750 Hornby St, Vancouver, BC V6Z 2H7, Canadá', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 2, 'Edificio Central', 'edificio', 'Edificio principal del Museo de Arte de Montreal.', '1380 Sherbrooke St W, Montreal, QC H3G 1J5, Canadá', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 3, 'Edificio Histórico', 'edificio', 'Edificio principal del Museo de la Ciudad de México.', 'José María Pino Suárez 30, Centro Histórico, CDMX, México', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (4, 4, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Arte Contemporáneo de Monterrey.', 'Av. Constitución 445, Centro, Monterrey, N.L., México', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 5, 'Edificio Principal', 'edificio', 'Edificio principal del Jiangsu Art Museum.', '135 Changjiang Rd, Xuanwu District, Nanjing, Jiangsu, China', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 6, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Guangdong.', '2 Zhujiang E Rd, Tianhe District, Guangzhou, Guangdong, China', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 7, 'Edificio Principal', 'edificio', 'Edificio principal del Museo Nacional de Australia.', 'Lawson Cres, Acton ACT 2601, Australia', NULL, NULL);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 8, 'Edificio Histórico', 'edificio', 'Edificio principal de la Galería Nacional de Victoria.', '180 St Kilda Rd, Melbourne VIC 3006, Australia', NULL, NULL);
 
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(5, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND tipo = 'direccion' LIMIT 1), '2023-02-01', 'director', NULL),
-(6, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Colecciones%' LIMIT 1), '2023-04-10', 'curador', NULL),
-(7, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Marketing%' LIMIT 1), '2023-06-20', 'administrativo', NULL),
-(8, 2, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 2 AND nombre LIKE 'Departamento de Investigación%' LIMIT 1), '2022-03-05', 'curador', '2023-04-15');
+-- Nivel 2: Insertar Pisos (referencian a los edificios)
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 9, 'Planta Baja', 'piso', 'Piso principal con exposiciones temporales.', NULL, 1, 1);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 10, 'Primer Piso', 'piso', 'Piso dedicado a colecciones permanentes.', NULL, 1, 1);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 11, 'Segundo Piso', 'piso', 'Piso con oficinas administrativas y salas de eventos.', NULL, 1, 1);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 12, 'Planta Baja', 'piso', 'Piso de entrada y exposiciones principales.', NULL, 2, 2);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 13, 'Primer Piso', 'piso', 'Piso con galerías de arte europeo.', NULL, 2, 2);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 14, 'Segundo Piso', 'piso', 'Piso con galerías de arte canadiense.', NULL, 2, 2);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 15, 'Tercer Piso', 'piso', 'Piso de arte contemporáneo y oficinas.', NULL, 2, 2);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 16, 'Planta Baja', 'piso', 'Piso de exposiciones históricas y tienda.', NULL, 3, 3);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 17, 'Primer Piso', 'piso', 'Piso con colecciones de arte colonial.', NULL, 3, 3);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (4, 18, 'Planta Baja', 'piso', 'Piso de entrada y galerías de arte contemporáneo.', NULL, 4, 4);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (4, 19, 'Primer Piso', 'piso', 'Piso con exposiciones temporales y auditorio.', NULL, 4, 4);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 20, 'Planta Baja', 'piso', 'Piso de exposiciones de arte tradicional chino.', NULL, 5, 5);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 21, 'Primer Piso', 'piso', 'Piso de arte contemporáneo y galerías internacionales.', NULL, 5, 5);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 22, 'Segundo Piso', 'piso', 'Piso de investigación y biblioteca.', NULL, 5, 5);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 23, 'Planta Baja', 'piso', 'Piso de arte local y exposiciones temporales.', NULL, 6, 6);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 24, 'Primer Piso', 'piso', 'Piso de colecciones históricas y culturales.', NULL, 6, 6);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 25, 'Planta Baja', 'piso', 'Piso de exposiciones aborígenes y tienda.', NULL, 7, 7);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 26, 'Primer Piso', 'piso', 'Piso de historia colonial y moderna.', NULL, 7, 7);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 27, 'Segundo Piso', 'piso', 'Piso de investigación y archivos.', NULL, 7, 7);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 28, 'Planta Baja', 'piso', 'Piso de entrada y galerías de arte australiano.', NULL, 8, 8);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 29, 'Primer Piso', 'piso', 'Piso de arte internacional y exposiciones especiales.', NULL, 8, 8);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 30, 'Segundo Piso', 'piso', 'Piso de arte contemporáneo y diseño.', NULL, 8, 8);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 31, 'Tercer Piso', 'piso', 'Piso de oficinas administrativas y conservación.', NULL, 8, 8);
 
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(9, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND tipo = 'direccion' LIMIT 1), '2023-03-10', 'director', NULL),
-(10, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Departamento de Exposiciones%' LIMIT 1), '2023-05-01', 'curador', NULL),
-(11, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Departamento de Desarrollo%' LIMIT 1), '2023-07-01', 'administrativo', NULL),
-(12, 3, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 3 AND nombre LIKE 'Sección de Nuevos Medios%' LIMIT 1), '2022-04-15', 'curador', '2023-07-30');
-
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(13, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND tipo = 'direccion' LIMIT 1), '2023-04-01', 'director', NULL),
-(14, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Innovación%' LIMIT 1), '2023-06-05', 'curador', NULL),
-(15, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Departamento de Experiencias%' LIMIT 1), '2023-08-15', 'administrativo', NULL),
-(16, 4, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 4 AND nombre LIKE 'Sección de Realidad Virtual%' LIMIT 1), '2022-05-20', 'curador', '2023-06-30');
-
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(17, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND tipo = 'direccion' LIMIT 1), '2023-05-01', 'director', NULL),
-(18, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Departamento de Antigüedades%' LIMIT 1), '2023-07-10', 'restaurador', NULL),
-(19, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Departamento de Arte Romano%' LIMIT 1), '2023-09-01', 'administrativo', NULL),
-(20, 5, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 5 AND nombre LIKE 'Sección de Escultura Griega%' LIMIT 1), '2022-06-01', 'curador', '2023-09-15');
-
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(21, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND tipo = 'direccion' LIMIT 1), '2023-06-01', 'director', NULL),
-(22, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Arte Moderno Latinoamericano%' LIMIT 1), '2023-08-05', 'curador', NULL),
-(23, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Programas Comunitarios%' LIMIT 1), '2023-10-10', 'administrativo', NULL),
-(24, 6, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 6 AND nombre LIKE 'Departamento de Arte Colonial%' LIMIT 1), '2022-07-20', 'curador', '2023-12-31');
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(25, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND tipo = 'direccion' LIMIT 1), '2023-07-01', 'director', NULL),
-(26, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Departamento de Geometría Abstracta%' LIMIT 1), '2023-09-01', 'curador', NULL),
-(27, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Departamento de Expresionismo Abstracto%' LIMIT 1), '2023-11-05', 'administrativo', NULL),
-(28, 7, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 7 AND nombre LIKE 'Sección de Arte Minimalista%' LIMIT 1), '2022-08-10', 'curador', '2023-11-25');
-
-
-
-INSERT INTO historico_empleado (id_empleado, id_museo, id_estructura_org, fecha_inicio, rol_empleado, fecha_fin) VALUES
-(29, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND tipo = 'direccion' LIMIT 1), '2023-08-01', 'director', NULL),
-(30, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Departamento de Arte Japonés%' LIMIT 1), '2023-10-15', 'restaurador', NULL),
-(31, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Departamento de Arte Chino%' LIMIT 1), '2023-12-01', 'administrativo', NULL),
-(32, 8, (SELECT id_estructura_org FROM estructura_organizacional WHERE id_museo = 8 AND nombre LIKE 'Sección de Cerámica y Porcelana%' LIMIT 1), '2022-09-01', 'curador', '2023-10-30');
-
-INSERT INTO estructura_fisica (id_museo, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_estructura, id_jerarquia_museo) VALUES
-(1, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Arte de Vancouver.', '750 Hornby St, Vancouver, BC V6Z 2H7, Canadá', NULL, NULL),
-(2, 'Edificio Central', 'edificio', 'Edificio principal del Museo de Arte de Montreal.', '1380 Sherbrooke St W, Montreal, QC H3G 1J5, Canadá', NULL, NULL),
-(3, 'Edificio Histórico', 'edificio', 'Edificio principal del Museo de la Ciudad de México.', 'José María Pino Suárez 30, Centro Histórico, CDMX, México', NULL, NULL),
-(4, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Arte Contemporáneo de Monterrey.', 'Av. Constitución 445, Centro, Monterrey, N.L., México', NULL, NULL),
-(5, 'Edificio Principal', 'edificio', 'Edificio principal del Jiangsu Art Museum.', '135 Changjiang Rd, Xuanwu District, Nanjing, Jiangsu, China', NULL, NULL),
-(6, 'Edificio Principal', 'edificio', 'Edificio principal del Museo de Guangdong.', '2 Zhujiang E Rd, Tianhe District, Guangzhou, Guangdong, China', NULL, NULL),
-(7, 'Edificio Principal', 'edificio', 'Edificio principal del Museo Nacional de Australia.', 'Lawson Cres, Acton ACT 2601, Australia', NULL, NULL),
-(8, 'Edificio Histórico', 'edificio', 'Edificio principal de la Galería Nacional de Victoria.', '180 St Kilda Rd, Melbourne VIC 3006, Australia', NULL, NULL);
-
----
-
-INSERT INTO estructura_fisica (id_museo, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_estructura, id_jerarquia_museo)
-SELECT
-    piso_data.id_museo,
-    piso_data.nombre_piso,
-    'piso',
-    piso_data.descripcion_piso,
-    NULL, -- Direccion es NULL para pisos
-    edificio.id_estructura_fisica,
-    edificio.id_museo
-FROM (VALUES
-    (1, 'Planta Baja', 'Piso principal con exposiciones temporales.', 'Edificio Principal'),
-    (1, 'Primer Piso', 'Piso dedicado a colecciones permanentes.', 'Edificio Principal'),
-    (1, 'Segundo Piso', 'Piso con oficinas administrativas y salas de eventos.', 'Edificio Principal'),
-    (2, 'Planta Baja', 'Piso de entrada y exposiciones principales.', 'Edificio Central'),
-    (2, 'Primer Piso', 'Piso con galerías de arte europeo.', 'Edificio Central'),
-    (2, 'Segundo Piso', 'Piso con galerías de arte canadiense.', 'Edificio Central'),
-    (2, 'Tercer Piso', 'Piso de arte contemporáneo y oficinas.', 'Edificio Central'),
-    (3, 'Planta Baja', 'Piso de exposiciones históricas y tienda.', 'Edificio Histórico'),
-    (3, 'Primer Piso', 'Piso con colecciones de arte colonial.', 'Edificio Histórico'),
-    (4, 'Planta Baja', 'Piso de entrada y galerías de arte contemporáneo.', 'Edificio Principal'),
-    (4, 'Primer Piso', 'Piso con exposiciones temporales y auditorio.', 'Edificio Principal'),
-    (5, 'Planta Baja', 'Piso de exposiciones de arte tradicional chino.', 'Edificio Principal'),
-    (5, 'Primer Piso', 'Piso de arte contemporáneo y galerías internacionales.', 'Edificio Principal'),
-    (5, 'Segundo Piso', 'Piso de investigación y biblioteca.', 'Edificio Principal'),
-    (6, 'Planta Baja', 'Piso de arte local y exposiciones temporales.', 'Edificio Principal'),
-    (6, 'Primer Piso', 'Piso de colecciones históricas y culturales.', 'Edificio Principal'),
-    (7, 'Planta Baja', 'Piso de exposiciones aborígenes y tienda.', 'Edificio Principal'),
-    (7, 'Primer Piso', 'Piso de historia colonial y moderna.', 'Edificio Principal'),
-    (7, 'Segundo Piso', 'Piso de investigación y archivos.', 'Edificio Principal'),
-    (8, 'Planta Baja', 'Piso de entrada y galerías de arte australiano.', 'Edificio Histórico'),
-    (8, 'Primer Piso', 'Piso de arte internacional y exposiciones especiales.', 'Edificio Histórico'),
-    (8, 'Segundo Piso', 'Piso de arte contemporáneo y diseño.', 'Edificio Histórico'),
-    (8, 'Tercer Piso', 'Piso de oficinas administrativas y conservación.', 'Edificio Histórico')
-) AS piso_data(id_museo, nombre_piso, descripcion_piso, nombre_edificio_padre)
-JOIN estructura_fisica AS edificio ON piso_data.id_museo = edificio.id_museo
-                                   AND piso_data.nombre_edificio_padre = edificio.nombre
-                                   AND edificio.tipo_estructura = 'edificio';
-
----
-
-INSERT INTO estructura_fisica (id_museo, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_estructura, id_jerarquia_museo)
-SELECT
-    area_data.id_museo,
-    area_data.nombre_area,
-    'area seccion',
-    area_data.descripcion_area,
-    NULL, -- Direccion es NULL para areas de seccion
-    piso.id_estructura_fisica,
-    piso.id_museo
-FROM (VALUES
-    (1, 'Galería Principal', 'Área de exhibición de obras destacadas.', 'Planta Baja'),
-    (1, 'Sala de Esculturas', 'Espacio dedicado a esculturas modernas.', 'Primer Piso'),
-    (1, 'Oficinas Curaduría', 'Oficinas del equipo de curaduría.', 'Segundo Piso'),
-    (2, 'Sala Renacimiento', 'Galería de arte del Renacimiento.', 'Primer Piso'),
-    (2, 'Sala Impresionista', 'Galería de obras impresionistas.', 'Primer Piso'),
-    (2, 'Sala Contemporánea', 'Espacio para arte actual.', 'Tercer Piso'),
-    (3, 'Sala de Orígenes', 'Exhibición de la fundación de la ciudad.', 'Planta Baja'),
-    (3, 'Sala Virreinal', 'Colección de arte del virreinato.', 'Primer Piso'),
-    (3, 'Auditorio Principal', 'Espacio para conferencias y eventos.', 'Planta Baja'),
-    (4, 'Galería Norte', 'Galería de arte contemporáneo.', 'Planta Baja'),
-    (4, 'Galería Sur', 'Galería de exposiciones temporales.', 'Primer Piso'),
-    (5, 'Sala de Caligrafía', 'Exhibición de caligrafía y pintura tradicional.', 'Planta Baja'),
-    (5, 'Sala de Cerámica', 'Colección de cerámica histórica.', 'Planta Baja'),
-    (5, 'Sala de Arte Moderno', 'Galería de arte moderno chino.', 'Primer Piso'),
-    (6, 'Sala de Arte Cantonés', 'Exhibición de arte de la región de Cantón.', 'Planta Baja'),
-    (6, 'Sala de Cultura Ancestral', 'Colección de artefactos antiguos.', 'Primer Piso'),
-    (6, 'Sala de Exposiciones Temporales', 'Espacio para muestras rotativas.', 'Planta Baja'),
-    (7, 'Galería Aborigen', 'Exhibición de arte y cultura aborigen.', 'Planta Baja'),
-    (7, 'Sala de la Federación', 'Exhibición de la historia de la federación australiana.', 'Primer Piso'),
-    (7, 'Centro de Investigación', 'Área de estudio y consulta de archivos.', 'Segundo Piso'),
-    (8, 'Gran Salón', 'Espacio principal de exhibición.', 'Planta Baja'),
-    (8, 'Galería Europea', 'Colección de arte europeo.', 'Primer Piso'),
-    (8, 'Sala de Fotografía', 'Galería dedicada a la fotografía.', 'Segundo Piso')
-) AS area_data(id_museo, nombre_area, descripcion_area, nombre_piso_padre)
-JOIN estructura_fisica AS piso ON area_data.id_museo = piso.id_museo
-                               AND area_data.nombre_piso_padre = piso.nombre
-                               AND piso.tipo_estructura = 'piso';
+-- Nivel 3: Insertar Áreas/Secciones (referencian a pisos o edificios)
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 32, 'Galería Principal', 'area seccion', 'Área de exhibición de obras destacadas.', NULL, 1, 9);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 33, 'Sala de Esculturas', 'area seccion', 'Espacio dedicado a esculturas modernas.', NULL, 1, 10);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (1, 34, 'Oficinas Curaduría', 'area seccion', 'Oficinas del equipo de curaduría.', NULL, 1, 11);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 35, 'Sala Renacimiento', 'area seccion', 'Galería de arte del Renacimiento.', NULL, 2, 13);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 36, 'Sala Impresionista', 'area seccion', 'Galería de obras impresionistas.', NULL, 2, 13);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (2, 37, 'Sala Contemporánea', 'area seccion', 'Espacio para arte actual.', NULL, 2, 15);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 38, 'Sala de Orígenes', 'area seccion', 'Exhibición de la fundación de la ciudad.', NULL, 3, 16);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 39, 'Sala Virreinal', 'area seccion', 'Colección de arte del virreinato.', NULL, 3, 17);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (3, 40, 'Auditorio Principal', 'area seccion', 'Espacio para conferencias y eventos.', NULL, 3, 16);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (4, 41, 'Galería Norte', 'area seccion', 'Galería de arte contemporáneo.', NULL, 4, 18);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (4, 42, 'Galería Sur', 'area seccion', 'Galería de exposiciones temporales.', NULL, 4, 19);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 43, 'Sala de Caligrafía', 'area seccion', 'Exhibición de caligrafía y pintura tradicional.', NULL, 5, 20);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 44, 'Sala de Cerámica', 'area seccion', 'Colección de cerámica histórica.', NULL, 5, 20);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (5, 45, 'Sala de Arte Moderno', 'area seccion', 'Galería de arte moderno chino.', NULL, 5, 21);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 46, 'Sala de Arte Cantonés', 'area seccion', 'Exhibición de arte de la región de Cantón.', NULL, 6, 23);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 47, 'Sala de Cultura Ancestral', 'area seccion', 'Colección de artefactos antiguos.', NULL, 6, 24);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (6, 48, 'Sala de Exposiciones Temporales', 'area seccion', 'Espacio para muestras rotativas.', NULL, 6, 23);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 49, 'Galería Aborigen', 'area seccion', 'Exhibición de arte y cultura aborigen.', NULL, 7, 25);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 50, 'Sala de la Federación', 'area seccion', 'Exhibición de la historia de la federación australiana.', NULL, 7, 26);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (7, 51, 'Centro de Investigación', 'area seccion', 'Área de estudio y consulta de archivos.', NULL, 7, 27);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 52, 'Gran Salón', 'area seccion', 'Espacio principal de exhibición.', NULL, 8, 28);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 53, 'Galería Europea', 'area seccion', 'Colección de arte europeo.', NULL, 8, 29);
+INSERT INTO estructura_fisica (id_museo, id_estructura_fisica, nombre, tipo_estructura, descripcion, direccion, id_jerarquia_museo, id_jerarquia_estructura) VALUES (8, 54, 'Sala de Fotografía', 'area seccion', 'Galería dedicada a la fotografía.', NULL, 8, 30);
 
 INSERT INTO asignacion_mensual (id_museo, id_estructura_fisica, id_empleado_mantenimiento_vigilancia, mes_ano, turno) VALUES
--- Museo 1: Museo de Arte de Vancouver
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 1, '2025-06-01', 'matutino'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 2, '2025-06-01', 'vesperino'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Galería Principal' AND tipo_estructura = 'area seccion' LIMIT 1), 3, '2025-06-01', 'nocturno'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 4, '2025-05-01', 'matutino'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 1, '2025-05-01', 'vesperino'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Sala de Esculturas' AND tipo_estructura = 'area seccion' LIMIT 1), 2, '2025-05-01', 'nocturno'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 3, '2025-04-01', 'matutino'),
-(1, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 1 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 4, '2025-04-01', 'vesperino'),
+(1, 1, 1, '2025-06-01', 'matutino'),
+(1, 1, 3, '2025-04-01', 'matutino'),
+(1, 1, 4, '2025-05-01', 'matutino'),
+(1, 9, 2, '2025-06-01', 'vesperino'),
+(1, 10, 1, '2025-05-01', 'vesperino'),
+(1, 11, 4, '2025-04-01', 'vesperino'),
+(1, 32, 3, '2025-06-01', 'nocturno'),
+(1, 33, 2, '2025-05-01', 'nocturno'),
+(2, 2, 5, '2025-06-01', 'matutino'),
+(2, 2, 7, '2025-04-01', 'matutino'),
+(2, 2, 8, '2025-05-01', 'matutino'),
+(2, 12, 6, '2025-06-01', 'vesperino'),
+(2, 13, 5, '2025-05-01', 'vesperino'),
+(2, 14, 8, '2025-04-01', 'vesperino'),
+(2, 35, 7, '2025-06-01', 'nocturno'),
+(2, 36, 6, '2025-05-01', 'nocturno'),
+(3, 3, 9, '2025-06-01', 'matutino'),
+(3, 3, 11, '2025-04-01', 'matutino'),
+(3, 3, 12, '2025-05-01', 'matutino'),
+(3, 16, 10, '2025-06-01', 'vesperino'),
+(3, 17, 9, '2025-05-01', 'vesperino'),
+(3, 38, 11, '2025-06-01', 'nocturno'),
+(3, 39, 10, '2025-05-01', 'nocturno'),
+(3, 40, 12, '2025-04-01', 'vesperino'),
+(4, 4, 13, '2025-06-01', 'matutino'),
+(4, 4, 15, '2025-04-01', 'matutino'),
+(4, 4, 16, '2025-05-01', 'matutino'),
+(4, 18, 14, '2025-06-01', 'vesperino'),
+(4, 18, 16, '2025-04-01', 'vesperino'),
+(4, 19, 13, '2025-05-01', 'vesperino'),
+(4, 41, 15, '2025-06-01', 'nocturno'),
+(4, 42, 14, '2025-05-01', 'nocturno'),
+(5, 5, 17, '2025-06-01', 'matutino'),
+(5, 5, 19, '2025-04-01', 'matutino'),
+(5, 5, 20, '2025-05-01', 'matutino'),
+(5, 20, 18, '2025-06-01', 'vesperino'),
+(5, 21, 17, '2025-05-01', 'vesperino'),
+(5, 22, 20, '2025-04-01', 'vesperino'),
+(5, 43, 19, '2025-06-01', 'nocturno'),
+(5, 44, 18, '2025-05-01', 'nocturno'),
+(6, 6, 21, '2025-06-01', 'matutino'),
+(6, 6, 23, '2025-04-01', 'matutino'),
+(6, 6, 24, '2025-05-01', 'matutino'),
+(6, 23, 22, '2025-06-01', 'vesperino'),
+(6, 23, 24, '2025-04-01', 'vesperino'),
+(6, 24, 21, '2025-05-01', 'vesperino'),
+(6, 46, 23, '2025-06-01', 'nocturno'),
+(6, 47, 22, '2025-05-01', 'nocturno'),
+(7, 7, 25, '2025-06-01', 'matutino'),
+(7, 7, 27, '2025-04-01', 'matutino'),
+(7, 7, 28, '2025-05-01', 'matutino'),
+(7, 25, 26, '2025-06-01', 'vesperino'),
+(7, 26, 25, '2025-05-01', 'vesperino'),
+(7, 27, 28, '2025-04-01', 'vesperino'),
+(7, 49, 27, '2025-06-01', 'nocturno'),
+(7, 50, 26, '2025-05-01', 'nocturno'),
+(8, 8, 29, '2025-06-01', 'matutino'),
+(8, 8, 31, '2025-04-01', 'matutino'),
+(8, 8, 32, '2025-05-01', 'matutino'),
+(8, 28, 30, '2025-06-01', 'vesperino'),
+(8, 29, 29, '2025-05-01', 'vesperino'),
+(8, 30, 32, '2025-04-01', 'vesperino'),
+(8, 52, 31, '2025-06-01', 'nocturno'),
+(8, 53, 30, '2025-05-01', 'nocturno');
 
--- Museo 2: Museo de Arte de Montreal
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Edificio Central' AND tipo_estructura = 'edificio' LIMIT 1), 5, '2025-06-01', 'matutino'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 6, '2025-06-01', 'vesperino'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Sala Renacimiento' AND tipo_estructura = 'area seccion' LIMIT 1), 7, '2025-06-01', 'nocturno'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Edificio Central' AND tipo_estructura = 'edificio' LIMIT 1), 8, '2025-05-01', 'matutino'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 5, '2025-05-01', 'vesperino'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Sala Impresionista' AND tipo_estructura = 'area seccion' LIMIT 1), 6, '2025-05-01', 'nocturno'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Edificio Central' AND tipo_estructura = 'edificio' LIMIT 1), 7, '2025-04-01', 'matutino'),
-(2, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 2 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 8, '2025-04-01', 'vesperino'),
-
--- Museo 3: Museo de la Ciudad de México
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 9, '2025-06-01', 'matutino'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 10, '2025-06-01', 'vesperino'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Sala de Orígenes' AND tipo_estructura = 'area seccion' LIMIT 1), 11, '2025-06-01', 'nocturno'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 12, '2025-05-01', 'matutino'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 9, '2025-05-01', 'vesperino'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Sala Virreinal' AND tipo_estructura = 'area seccion' LIMIT 1), 10, '2025-05-01', 'nocturno'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 11, '2025-04-01', 'matutino'),
-(3, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 3 AND nombre = 'Auditorio Principal' AND tipo_estructura = 'area seccion' LIMIT 1), 12, '2025-04-01', 'vesperino'),
-
--- Museo 4: Museo De Arte Contemporáneo De Monterrey
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 13, '2025-06-01', 'matutino'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 14, '2025-06-01', 'vesperino'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Galería Norte' AND tipo_estructura = 'area seccion' LIMIT 1), 15, '2025-06-01', 'nocturno'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 16, '2025-05-01', 'matutino'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 13, '2025-05-01', 'vesperino'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Galería Sur' AND tipo_estructura = 'area seccion' LIMIT 1), 14, '2025-05-01', 'nocturno'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 15, '2025-04-01', 'matutino'),
-(4, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 4 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 16, '2025-04-01', 'vesperino'),
-
--- Museo 5: Jiangsu Art Museum
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 17, '2025-06-01', 'matutino'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 18, '2025-06-01', 'vesperino'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Sala de Caligrafía' AND tipo_estructura = 'area seccion' LIMIT 1), 19, '2025-06-01', 'nocturno'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 20, '2025-05-01', 'matutino'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 17, '2025-05-01', 'vesperino'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Sala de Cerámica' AND tipo_estructura = 'area seccion' LIMIT 1), 18, '2025-05-01', 'nocturno'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 19, '2025-04-01', 'matutino'),
-(5, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 5 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 20, '2025-04-01', 'vesperino'),
-
--- Museo 6: Museo de Guangdong
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 21, '2025-06-01', 'matutino'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 22, '2025-06-01', 'vesperino'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Sala de Arte Cantonés' AND tipo_estructura = 'area seccion' LIMIT 1), 23, '2025-06-01', 'nocturno'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 24, '2025-05-01', 'matutino'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 21, '2025-05-01', 'vesperino'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Sala de Cultura Ancestral' AND tipo_estructura = 'area seccion' LIMIT 1), 22, '2025-05-01', 'nocturno'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 23, '2025-04-01', 'matutino'),
-(6, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 6 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 24, '2025-04-01', 'vesperino'),
-
--- Museo 7: Museo Nacional de Australia
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 25, '2025-06-01', 'matutino'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 26, '2025-06-01', 'vesperino'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Galería Aborigen' AND tipo_estructura = 'area seccion' LIMIT 1), 27, '2025-06-01', 'nocturno'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 28, '2025-05-01', 'matutino'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 25, '2025-05-01', 'vesperino'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Sala de la Federación' AND tipo_estructura = 'area seccion' LIMIT 1), 26, '2025-05-01', 'nocturno'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Edificio Principal' AND tipo_estructura = 'edificio' LIMIT 1), 27, '2025-04-01', 'matutino'),
-(7, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 7 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 28, '2025-04-01', 'vesperino'),
-
--- Museo 8: Galería Nacional de Victoria
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 29, '2025-06-01', 'matutino'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Planta Baja' AND tipo_estructura = 'piso' LIMIT 1), 30, '2025-06-01', 'vesperino'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Gran Salón' AND tipo_estructura = 'area seccion' LIMIT 1), 31, '2025-06-01', 'nocturno'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 32, '2025-05-01', 'matutino'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Primer Piso' AND tipo_estructura = 'piso' LIMIT 1), 29, '2025-05-01', 'vesperino'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Galería Europea' AND tipo_estructura = 'area seccion' LIMIT 1), 30, '2025-05-01', 'nocturno'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Edificio Histórico' AND tipo_estructura = 'edificio' LIMIT 1), 31, '2025-04-01', 'matutino'),
-(8, (SELECT id_estructura_fisica FROM estructura_fisica WHERE id_museo = 8 AND nombre = 'Segundo Piso' AND tipo_estructura = 'piso' LIMIT 1), 32, '2025-04-01', 'vesperino');
 
 INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (1, 32, 'Galería Principal', 'Sala principal para obras destacadas.');
 INSERT INTO sala_exposicion (id_museo, id_estructura_fisica, nombre_sala, descripcion) VALUES (1, 33, 'Sala de Esculturas', 'Espacio dedicado a exhibir esculturas modernas.');
