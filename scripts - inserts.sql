@@ -1358,6 +1358,11 @@ INSERT INTO col_sal (id_museo_sala, id_estructura_fisica, id_sala, id_museo_cole
 -- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
 -- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
 
+-- Sentencias INSERT para la tabla historico_obra_movimiento
+-- Cada obra tiene tres registros: dos movimientos históricos con fecha_fin y uno actual con fecha_fin NULL.
+-- El 'orden_recomendado' es ascendente (desde 1) solo para las obras 'destacada = si' en su registro actual.
+-- Para obras no destacadas o registros históricos, 'orden_recomendado' es NULL.
+
 -- Obra 1: The Crazy One (Museo de Arte de Vancouvert)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
 (1, '1982-10-09', 'comprado', 'no', 1, 32, 1, 1, 11, 1, 1, 1, 1, '2023-01-15', '1987-10-09', 248698, NULL);
@@ -1376,11 +1381,11 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 
 -- Obra 3: Indian Church (Museo de Arte de Vancouvert)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(3, '1978-08-01', 'donado de otro museo', 'no', 1, 32, 1, 1, 29, 2, 3, 10, 3, '2023-05-10', '1982-12-16', 323067, NULL);
+(3, '1978-08-01', 'donado de otro museo', 'no', 1, 32, 1, 1, 29, 2, 1, 10, 3, '2023-05-10', '1982-12-16', 323067, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(3, '1983-05-24', 'comprado', 'si', 1, 32, 1, 1, 29, 2, 3, 10, 3, '2023-05-10', '1990-09-08', 356499, NULL);
+(3, '1983-05-24', 'comprado', 'si', 1, 32, 1, 1, 29, 2, 1, 10, 3, '2023-05-10', '1990-09-08', 356499, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
-(3, '2024-12-13', 'donado', 'si', 1, 32, 1, 1, 29, 2, 3, 10, 3, '2023-05-10', NULL, 477123, 3);
+(3, '2024-12-13', 'donado', 'si', 1, 32, 1, 1, 29, 2, 1, 10, 3, '2023-05-10', NULL, 477123, 3);
 
 -- Obra 4: Vase of Sunflowers (Museo de Arte de Montreal)
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
@@ -1549,7 +1554,6 @@ INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, de
 (24, '1974-09-10', 'donado', 'no', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', '1982-12-05', 490000, NULL);
 INSERT INTO historico_obra_movimiento (id_obra, fecha_inicio, tipo_obtencion, destacada, id_museo_sala, id_estructura_fisica, id_sala, id_museo_coleccion, id_estructura_org_coleccion, id_coleccion, id_museo_empleado, id_estructura_org_empleado, id_empleado, fecha_inicio_empleado, fecha_fin, valor_obra, orden_recomendado) VALUES
 (24, '2024-06-12', 'comprado a otro museo', 'si', 8, 52, 18, 8, 26, 15, 31, 26, 31, '2023-12-01', NULL, 500000, 2);
-
 
 -- Inserciones para la tabla mantenimiento_obra
 
