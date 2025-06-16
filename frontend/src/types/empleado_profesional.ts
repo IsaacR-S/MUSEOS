@@ -10,6 +10,23 @@ export interface Idioma {
   nombre: string;
 }
 
+export interface EstructuraOrganizacional {
+  id_museo: number;
+  id_estructura_org: number;
+  nombre: string;
+  nivel: string;
+  tipo: string;
+  id_jerarquia_estructura?: number | null;
+  id_jerarquia_museo?: number | null;
+}
+
+export interface HistoricoEmpleadoForm {
+  id_museo: number;
+  id_estructura_org: number;
+  fecha_inicio: string;
+  rol_empleado: string;
+}
+
 export interface EmpleadoProfesional {
   id_empleado_prof?: number;
   primer_nombre: string;

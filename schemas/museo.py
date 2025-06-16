@@ -1,6 +1,10 @@
 from pydantic import BaseModel
+from typing import Optional, List
 from datetime import date
-from typing import Optional
+
+class ResumenHistCreate(BaseModel):
+    ano: date
+    hechos_hist: str
 
 class MuseoBase(BaseModel):
     nombre: str
@@ -9,7 +13,7 @@ class MuseoBase(BaseModel):
     id_lugar: int
 
 class MuseoCreate(MuseoBase):
-    pass
+    resumenes_hist: Optional[List[ResumenHistCreate]] = []
 
 class MuseoResponse(MuseoBase):
     id_museo: int

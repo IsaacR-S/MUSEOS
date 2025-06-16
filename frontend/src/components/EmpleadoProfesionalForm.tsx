@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import type { EmpleadoProfesional, FormacionProfesional, Idioma } from '../types/empleado_profesional';
+import type { EmpleadoProfesional, FormacionProfesional, Idioma, EstructuraOrganizacional, HistoricoEmpleadoForm } from '../types/empleado_profesional';
+import type { Museo } from '../types/museo';
 
 interface Props {
   empleado: EmpleadoProfesional | null;
@@ -24,6 +25,16 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
   const [idiomas, setIdiomas] = useState<Idioma[]>([]);
   const [showFormaciones, setShowFormaciones] = useState(false);
   const [showIdiomas, setShowIdiomas] = useState(false);
+  const [nuevoIdioma, setNuevoIdioma] = useState('');
+  const [agregandoIdioma, setAgregandoIdioma] = useState(false);
+  const [museos, setMuseos] = useState<Museo[]>([]);
+  const [estructuras, setEstructuras] = useState<EstructuraOrganizacional[]>([]);
+  const [historico, setHistorico] = useState<HistoricoEmpleadoForm>({
+    id_museo: 0,
+    id_estructura_org: 0,
+    fecha_inicio: '',
+    rol_empleado: ''
+  });
 
   useEffect(() => {
     fetchIdiomas();
@@ -60,6 +71,39 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
     }
   }, [empleado]);
 
+  useEffect(() => {
+    fetchMuseos();
+  }, []);
+
+  const fetchMuseos = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/museos/');
+      if (!response.ok) throw new Error('Error al cargar museos');
+      const data = await response.json();
+      setMuseos(data);
+    } catch (error) {
+      toast.error('Error al cargar museos');
+    }
+  };
+
+  const fetchEstructuras = async (idMuseo: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/empleados-profesionales/estructuras/${idMuseo}`);
+      if (!response.ok) throw new Error('Error al cargar estructuras organizacionales');
+      const data = await response.json();
+      setEstructuras(data);
+    } catch (error) {
+      toast.error('Error al cargar estructuras organizacionales');
+    }
+  };
+
+  useEffect(() => {
+    if (historico.id_museo) {
+      fetchEstructuras(historico.id_museo);
+      setHistorico(h => ({ ...h, id_estructura_org: 0 }));
+    }
+  }, [historico.id_museo]);
+
   const fetchIdiomas = async () => {
     try {
       const response = await fetch('http://localhost:8000/idiomas/');
@@ -81,20 +125,17 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
       const url = empleado?.id_empleado_prof
         ? `http://localhost:8000/empleados-profesionales/${empleado.id_empleado_prof}`
         : 'http://localhost:8000/empleados-profesionales/';
-
+      const body = {
+        ...formData,
+        doc_identidad: parseInt(formData.doc_identidad),
+        formaciones: formData.formaciones.map(f => ({ ...f, ano: f.ano })),
+        idiomas: formData.idiomas,
+        historico: historico
+      };
       const response = await fetch(url, {
         method: empleado ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          doc_identidad: parseInt(formData.doc_identidad),
-          formaciones: formData.formaciones.map(f => ({
-            ...f,
-            ano: f.ano
-          }))
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
@@ -119,6 +160,7 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
         formaciones: [],
         idiomas: []
       });
+      setHistorico({ id_museo: 0, id_estructura_org: 0, fecha_inicio: '', rol_empleado: '' });
       onSuccess();
       onCancel();
     } catch (error) {
@@ -161,6 +203,26 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
         ? prev.idiomas.filter(id => id !== idiomaId)
         : [...prev.idiomas, idiomaId]
     }));
+  };
+
+  const handleAgregarIdioma = async () => {
+    if (!nuevoIdioma.trim()) return;
+    try {
+      const response = await fetch('http://localhost:8000/idiomas/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: nuevoIdioma.trim() })
+      });
+      if (!response.ok) throw new Error('Error al agregar idioma');
+      const idiomaCreado = await response.json();
+      setIdiomas(prev => [...prev, idiomaCreado]);
+      setFormData(prev => ({ ...prev, idiomas: [...prev.idiomas, idiomaCreado.id_idioma] }));
+      setNuevoIdioma('');
+      setAgregandoIdioma(false);
+      toast.success('Idioma agregado');
+    } catch (error) {
+      toast.error('No se pudo agregar el idioma');
+    }
   };
 
   return (
@@ -260,6 +322,62 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
             onChange={(e) => setFormData({ ...formData, dato_contacto: e.target.value })}
             className="museum-input w-full"
             placeholder="Teléfono, correo electrónico, etc."
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-[#2C3639]">Museo *</label>
+            <select
+              className="museum-input w-full"
+              value={historico.id_museo}
+              onChange={e => setHistorico(h => ({ ...h, id_museo: Number(e.target.value) }))}
+              required
+            >
+              <option value={0}>Seleccione un museo</option>
+              {museos.map(m => (
+                <option key={m.id_museo} value={m.id_museo}>{m.nombre}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#2C3639]">Estructura Organizacional *</label>
+            <select
+              className="museum-input w-full"
+              value={historico.id_estructura_org}
+              onChange={e => setHistorico(h => ({ ...h, id_estructura_org: Number(e.target.value) }))}
+              required
+              disabled={!historico.id_museo}
+            >
+              <option value={0}>Seleccione una estructura</option>
+              {estructuras.map(e => (
+                <option key={e.id_estructura_org} value={e.id_estructura_org}>{e.nombre} ({e.nivel} - {e.tipo})</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#2C3639]">Rol *</label>
+            <select
+              className="museum-input w-full"
+              value={historico.rol_empleado}
+              onChange={e => setHistorico(h => ({ ...h, rol_empleado: e.target.value }))}
+              required
+            >
+              <option value="">Seleccione un rol</option>
+              <option value="curador">Curador</option>
+              <option value="restaurador">Restaurador</option>
+              <option value="administrativo">Administrativo</option>
+              <option value="director">Director</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#2C3639]">Fecha de Inicio *</label>
+            <input
+              type="date"
+              className="museum-input w-full"
+              value={historico.fecha_inicio}
+              onChange={e => setHistorico(h => ({ ...h, fecha_inicio: e.target.value }))}
+              required
           />
         </div>
       </div>
@@ -372,6 +490,25 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
                 </label>
               ))}
             </div>
+              <div className="mt-4">
+                {agregandoIdioma ? (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={nuevoIdioma}
+                      onChange={e => setNuevoIdioma(e.target.value)}
+                      className="museum-input"
+                      placeholder="Nuevo idioma"
+                    />
+                    <button type="button" className="museum-button" onClick={handleAgregarIdioma}>Guardar</button>
+                    <button type="button" className="museum-button bg-[#3F4E4F]" onClick={() => { setAgregandoIdioma(false); setNuevoIdioma(''); }}>Cancelar</button>
+                  </div>
+                ) : (
+                  <button type="button" className="museum-button" onClick={() => setAgregandoIdioma(true)}>
+                    + Agregar nuevo idioma
+                  </button>
+                )}
+              </div>
           </div>
         )}
       </div>
@@ -392,6 +529,7 @@ const EmpleadoProfesionalForm: React.FC<Props> = ({ empleado, onCancel, onSucces
         >
           {loading ? 'Guardando...' : empleado ? 'Actualizar' : 'Crear'}
         </button>
+        </div>
       </div>
     </form>
   );

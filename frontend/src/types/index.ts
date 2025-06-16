@@ -10,4 +10,6 @@ export interface LugarFormData {
   nombre_lugar: string;
   tipo: 'ciudad' | 'pais';
   id_jerarquia: string;
-} 
+}
+
+export * from './artista'; 

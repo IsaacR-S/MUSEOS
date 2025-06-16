@@ -2,8 +2,8 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
-from models.database_models import Museo
-from schemas.museo import MuseoCreate, MuseoResponse
+from models.database_models import Museo, ResumenHist
+from schemas.museo import MuseoCreate, MuseoResponse, ResumenHistCreate
 from datetime import datetime
 
 router = APIRouter()
@@ -16,15 +16,20 @@ def create_museo(museo: MuseoCreate, db: Session = Depends(get_db)):
         fecha_fundacion=museo.fecha_fundacion,
         id_lugar=museo.id_lugar
     )
-    
-    try:
-        db.add(db_museo)
-        db.commit()
-        db.refresh(db_museo)
-        return db_museo
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=400, detail=str(e))
+    db.add(db_museo)
+    db.flush()  # Para obtener el id_museo
+    # Registrar resúmenes históricos si vienen
+    if museo.resumenes_hist:
+        for resumen in museo.resumenes_hist:
+            db_resumen = ResumenHist(
+                id_museo=db_museo.id_museo,
+                ano=resumen.ano,
+                hechos_hist=resumen.hechos_hist
+            )
+            db.add(db_resumen)
+    db.commit()
+    db.refresh(db_museo)
+    return db_museo
 
 @router.get("/", response_model=List[MuseoResponse])
 def get_museos(db: Session = Depends(get_db)):
@@ -66,4 +71,18 @@ def delete_museo(id_museo: int, db: Session = Depends(get_db)):
         return {"message": "Museo eliminado exitosamente"}
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=400, detail=str(e)) 
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/{id_museo}/resumenes", response_model=list)
+def agregar_resumenes_a_museo(id_museo: int, resumenes: List[ResumenHistCreate], db: Session = Depends(get_db)):
+    nuevos = []
+    for resumen in resumenes:
+        db_resumen = ResumenHist(
+            id_museo=id_museo,
+            ano=resumen.ano,
+            hechos_hist=resumen.hechos_hist
+        )
+        db.add(db_resumen)
+        nuevos.append({"ano": resumen.ano, "hechos_hist": resumen.hechos_hist})
+    db.commit()
+    return nuevos 

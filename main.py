@@ -5,7 +5,9 @@ from routes.lugar import router as lugar_router
 from routes.resumen_hist import router as resumen_hist_router
 from routes.empleado_profesional import router as empleado_profesional_router
 from routes.obra import router as obra_router
-from routes import empleado_profesional, idioma
+from routes import empleado_profesional, idioma, artista
+from routes import estructura_fisica, sala_exposicion, coleccion_permanente
+from routes import estructura_organizacional
 from database import init_db
 
 # Crear la aplicación FastAPI
@@ -31,6 +33,11 @@ app.include_router(empleado_profesional_router, prefix="/empleados-profesionales
 app.include_router(obra_router, prefix="/obras", tags=["obras"])
 app.include_router(empleado_profesional.router, prefix="/empleados-profesionales", tags=["empleados"])
 app.include_router(idioma.router, prefix="/idiomas", tags=["idiomas"])
+app.include_router(artista.router, tags=["artistas"])
+app.include_router(estructura_fisica.router, tags=["estructuras-fisicas"])
+app.include_router(sala_exposicion.router, tags=["salas"])
+app.include_router(coleccion_permanente.router, tags=["colecciones"])
+app.include_router(estructura_organizacional.router, tags=["estructuras-org"])
 
 @app.get("/")
 def read_root():

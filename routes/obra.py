@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Body
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Dict
 from database import get_db
-from models.database_models import Obra
-from schemas.obra import ObraCreate, ObraResponse
+from models.database_models import Obra, art_obra, HistoricoObraMovimiento
+from schemas.obra import ObraCreate, ObraResponse, HistoricoObraMovimientoCreate, HistoricoObraMovimientoResponse
 
 router = APIRouter()
 
@@ -66,6 +66,26 @@ def delete_obra(id_obra: int, db: Session = Depends(get_db)):
         db.delete(obra)
         db.commit()
         return {"message": "Obra eliminada exitosamente"}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/{id_obra}/artistas")
+def asignar_artistas_obra(id_obra: int, data: Dict = Body(...), db: Session = Depends(get_db)):
+    id_artistas = data.get('id_artistas', [])
+    for id_artista in id_artistas:
+        db.execute(art_obra.insert().values(id_obra=id_obra, id_artista=id_artista))
+    db.commit()
+    return {"msg": "Artistas asignados"}
+
+@router.post("/historico-obra-movimiento/", response_model=HistoricoObraMovimientoResponse)
+def crear_historico_obra_movimiento(mov: HistoricoObraMovimientoCreate, db: Session = Depends(get_db)):
+    db_mov = HistoricoObraMovimiento(**mov.dict())
+    try:
+        db.add(db_mov)
+        db.commit()
+        db.refresh(db_mov)
+        return db_mov
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=400, detail=str(e)) 

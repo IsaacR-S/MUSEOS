@@ -2,8 +2,8 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
-from models.database_models import EmpleadoProfesional, FormacionProfesional, EmpleadoIdioma, Idioma
-from schemas.empleado_profesional import EmpleadoProfesionalCreate, EmpleadoProfesionalResponse
+from models.database_models import EmpleadoProfesional, FormacionProfesional, EmpleadoIdioma, Idioma, HistoricoEmpleado, EstructuraOrganizacional
+from schemas.empleado_profesional import EmpleadoProfesionalCreate, EmpleadoProfesionalResponse, HistoricoEmpleadoCreate, EstructuraOrganizacionalResponse
 from schemas.formacion_profesional import FormacionProfesionalCreate, FormacionProfesionalResponse
 
 router = APIRouter()
@@ -43,6 +43,17 @@ def create_empleado(empleado: EmpleadoProfesionalCreate, db: Session = Depends(g
                     id_idioma=id_idioma
                 )
                 db.add(db_emp_idi)
+
+        # Crear el histórico del empleado
+        hist = empleado.historico
+        db_historico = HistoricoEmpleado(
+            id_empleado=db_empleado.id_empleado_prof,
+            id_museo=hist.id_museo,
+            id_estructura_org=hist.id_estructura_org,
+            fecha_inicio=hist.fecha_inicio,
+            rol_empleado=hist.rol_empleado
+        )
+        db.add(db_historico)
 
         db.commit()
         db.refresh(db_empleado)
@@ -124,4 +135,57 @@ def delete_empleado(id_empleado: int, db: Session = Depends(get_db)):
         return {"message": "Empleado eliminado exitosamente"}
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=400, detail=str(e)) 
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/historicos-empleado-detalle/{id_museo}/{id_estructura_org}", response_model=List[dict])
+def get_historicos_empleado_detalle(id_museo: int, id_estructura_org: int, db: Session = Depends(get_db)):
+    historicos = (
+        db.query(HistoricoEmpleado, EmpleadoProfesional)
+        .join(EmpleadoProfesional, EmpleadoProfesional.id_empleado_prof == HistoricoEmpleado.id_empleado)
+        .filter(
+            HistoricoEmpleado.id_museo == id_museo,
+            HistoricoEmpleado.id_estructura_org == id_estructura_org,
+            HistoricoEmpleado.fecha_fin == None
+        )
+        .all()
+    )
+    # Solo devolver un registro por empleado+fecha_inicio (el histórico activo en esa estructura)
+    resultado = []
+    empleados_vistos = set()
+    for h in historicos:
+        key = (h.HistoricoEmpleado.id_empleado, h.HistoricoEmpleado.fecha_inicio)
+        if key not in empleados_vistos:
+            empleados_vistos.add(key)
+            resultado.append({
+                "id_empleado": h.HistoricoEmpleado.id_empleado,
+                "primer_nombre": h.EmpleadoProfesional.primer_nombre,
+                "primer_apellido": h.EmpleadoProfesional.primer_apellido,
+                "fecha_inicio": h.HistoricoEmpleado.fecha_inicio
+            })
+    return resultado
+
+@router.get("/empleados-profesionales/{id_museo}/{id_estructura_org}", response_model=List[dict])
+def get_empleados_profesionales(id_museo: int, id_estructura_org: int, db: Session = Depends(get_db)):
+    empleados = (
+        db.query(EmpleadoProfesional)
+        .join(HistoricoEmpleado, EmpleadoProfesional.id_empleado_prof == HistoricoEmpleado.id_empleado)
+        .filter(
+            HistoricoEmpleado.id_museo == id_museo,
+            HistoricoEmpleado.id_estructura_org == id_estructura_org
+        )
+        .all()
+    )
+    return [e.__dict__ for e in empleados]
+
+@router.get("/estructuras/{id_museo}", response_model=List[EstructuraOrganizacionalResponse])
+def get_estructuras_por_museo(id_museo: int, db: Session = Depends(get_db)):
+    estructuras = db.query(EstructuraOrganizacional).filter(EstructuraOrganizacional.id_museo == id_museo).all()
+    return estructuras
+
+@router.get("/historicos-empleado/{id_museo}/{id_estructura_org}", response_model=List[dict])
+def get_historicos_empleado(id_museo: int, id_estructura_org: int, db: Session = Depends(get_db)):
+    historicos = db.query(HistoricoEmpleado).filter(
+        HistoricoEmpleado.id_museo == id_museo,
+        HistoricoEmpleado.id_estructura_org == id_estructura_org
+    ).all()
+    return [h.__dict__ for h in historicos] 

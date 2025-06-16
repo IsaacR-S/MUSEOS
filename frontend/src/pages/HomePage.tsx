@@ -10,35 +10,35 @@ interface ModuleCard {
 
 const modules: ModuleCard[] = [
   {
-    title: "Gestión de Lugares",
+    title: "Lugares",
     description: "Administra países y ciudades donde se encuentran los museos.",
     path: "/lugares",
     icon: "🌎",
     available: true
   },
   {
-    title: "Gestión de Museos",
+    title: "Museos",
     description: "Administra la información básica de los museos y sus ubicaciones.",
     path: "/museos",
     icon: "🏛️",
     available: true
   },
   {
-    title: "Gestión de Obras",
+    title: "Obras",
     description: "Cataloga y administra las obras de arte de los museos.",
     path: "/obras",
     icon: "🎨",
     available: true
   },
   {
-    title: "Gestión de Personal",
+    title: "Personal",
     description: "Administra empleados profesionales y de mantenimiento.",
     path: "/empleados",
     icon: "👥",
     available: true
   },
   {
-    title: "Gestión de Idiomas",
+    title: "Idiomas",
     description: "Administra los idiomas que manejan los empleados profesionales.",
     path: "/idiomas",
     icon: "🌐",
@@ -59,7 +59,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="text-center mb-16">
         <h1 className="text-5xl font-playfair text-[#2C3639] mb-4">
-          Sistema de Gestión de Museos
+          Sistema de Museos
         </h1>
         <p className="text-xl text-[#3F4E4F] max-w-2xl mx-auto">
           Plataforma integral para la administración y gestión de museos, sus colecciones,
@@ -97,7 +97,7 @@ export default function HomePage() {
       {/* Footer Info */}
       <div className="mt-16 text-center text-[#3F4E4F]">
         <p className="text-sm">
-          Sistema desarrollado para la gestión integral de museos según los estándares museológicos.
+          Sistema desarrollado para la administración integral de museos según los estándares museológicos.
         </p>
       </div>
     </div>

@@ -131,4 +131,87 @@ class ResumenHist(Base):
     hechos_hist = Column(String(350), nullable=False)
 
     # Relationships
-    museo = relationship("Museo", back_populates="resumenes_historicos") 
+    museo = relationship("Museo", back_populates="resumenes_historicos")
+
+class EstructuraOrganizacional(Base):
+    __tablename__ = "estructura_organizacional"
+    __table_args__ = {'extend_existing': True}
+
+    id_museo = Column(Numeric, ForeignKey('museo.id_museo'), primary_key=True)
+    id_estructura_org = Column(Numeric, primary_key=True)
+    nombre = Column(String(100), nullable=False)
+    nivel = Column(String(50), nullable=False)
+    tipo = Column(String(50), nullable=False)
+    id_jerarquia_estructura = Column(Numeric, nullable=True)
+    id_jerarquia_museo = Column(Numeric, nullable=True)
+
+    # Relaciones
+    museo = relationship("Museo")
+
+class HistoricoEmpleado(Base):
+    __tablename__ = "historico_empleado"
+    __table_args__ = {'extend_existing': True}
+
+    id_empleado = Column(Numeric, ForeignKey('empleado_profesional.id_empleado_prof'), primary_key=True)
+    id_museo = Column(Numeric, ForeignKey('museo.id_museo'), primary_key=True)
+    id_estructura_org = Column(Numeric, ForeignKey('estructura_organizacional.id_estructura_org'), primary_key=True)
+    fecha_inicio = Column(Date, primary_key=True)
+    rol_empleado = Column(String(70), nullable=False)
+    fecha_fin = Column(Date, nullable=True)
+
+    # Relaciones
+    empleado = relationship("EmpleadoProfesional")
+    museo = relationship("Museo")
+    estructura = relationship("EstructuraOrganizacional")
+
+class HistoricoObraMovimiento(Base):
+    __tablename__ = "historico_obra_movimiento"
+    __table_args__ = {'extend_existing': True}
+
+    id_obra = Column(Numeric, primary_key=True)
+    id_historico_obra_movimiento = Column(Numeric, primary_key=True, autoincrement=True)
+    fecha_inicio = Column(Date, nullable=False)
+    tipo_obtencion = Column(String, nullable=False)
+    destacada = Column(String(2), nullable=False)
+    id_museo_sala = Column(Numeric, nullable=False)
+    id_estructura_fisica = Column(Numeric, nullable=False)
+    id_sala = Column(Numeric, nullable=False)
+    id_museo_coleccion = Column(Numeric, nullable=False)
+    id_estructura_org_coleccion = Column(Numeric, nullable=False)
+    id_coleccion = Column(Numeric, nullable=False)
+    id_museo_empleado = Column(Numeric, nullable=False)
+    id_estructura_org_empleado = Column(Numeric, nullable=False)
+    id_empleado = Column(Numeric, nullable=False)
+    fecha_inicio_empleado = Column(Date, nullable=False)
+    fecha_fin = Column(Date, nullable=True)
+    valor_obra = Column(Numeric, nullable=False)
+    orden_recomendado = Column(Numeric, nullable=True)
+
+class EstructuraFisica(Base):
+    __tablename__ = 'estructura_fisica'
+    id_museo = Column(Numeric, primary_key=True)
+    id_estructura_fisica = Column(Numeric, primary_key=True)
+    nombre = Column(String(50), nullable=False)
+    tipo_estructura = Column(String(15))
+    descripcion = Column(String(150))
+    direccion = Column(String(250))
+    id_jerarquia_museo = Column(Numeric)
+    id_jerarquia_estructura = Column(Numeric)
+
+class SalaExposicion(Base):
+    __tablename__ = 'sala_exposicion'
+    id_museo = Column(Numeric, primary_key=True)
+    id_estructura_fisica = Column(Numeric, primary_key=True)
+    id_sala = Column(Numeric, primary_key=True)
+    nombre_sala = Column(String(50))
+    descripcion = Column(String(250))
+
+class ColeccionPermanente(Base):
+    __tablename__ = 'coleccion_permanente'
+    id_museo = Column(Numeric, primary_key=True)
+    id_estructura_org = Column(Numeric, primary_key=True)
+    id_coleccion = Column(Numeric, primary_key=True)
+    nombre_coleccion = Column(String(80), nullable=False)
+    descripcion_caracteristica = Column(String(300), nullable=False)
+    palabra_clave = Column(String(50), nullable=False)
+    orden_recorrido = Column(Numeric, nullable=False) 
