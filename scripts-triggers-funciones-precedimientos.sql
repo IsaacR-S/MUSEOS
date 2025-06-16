@@ -100,43 +100,50 @@ CREATE TRIGGER trg_validar_jerarquia_fisica
 BEFORE INSERT OR UPDATE ON estructura_fisica
 FOR EACH ROW EXECUTE FUNCTION validar_jerarquia_fisica();
 
---Validar movimiento obra --- ---------------------------------------------------Probar---------------------------------------------------------------------
+--Validar movimiento obra --- ---------------------------------------------------funciona---------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION validar_movimiento_obra()
+CREATE OR REPLACE FUNCTION trg_validar_actualizar_fecha_fin()
 RETURNS trigger AS $$
 DECLARE
-    activo_count INT;
-    fin DATE;
+    fecha_inicio_existente DATE;
+    last_record_id NUMERIC;
 BEGIN
-    -- Validar fechas
-    IF NEW.fecha_fin IS NOT NULL AND NEW.fecha_inicio > NEW.fecha_fin THEN
-        RAISE EXCEPTION 'La fecha de inicio no puede ser posterior a la fecha de fin';
+    -- Verificar si el id_historico_obra_movimiento ya existe
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_historico_obra_movimiento = NEW.id_historico_obra_movimiento) THEN
+        -- Obtener la fecha_inicio del registro existente
+        SELECT fecha_inicio INTO fecha_inicio_existente
+        FROM historico_obra_movimiento
+        WHERE id_historico_obra_movimiento = NEW.id_historico_obra_movimiento;
+
+        -- Validar que la nueva fecha_inicio sea mayor que la existente
+        IF NEW.fecha_inicio <= fecha_inicio_existente THEN
+            RAISE EXCEPTION 'La nueva fecha de inicio (%), debe ser mayor que la fecha de inicio existente (%) para el mismo id_historico_obra_movimiento', NEW.fecha_inicio, fecha_inicio_existente;
+        END IF;
     END IF;
 
-    -- Si es destacada, debe tener sala asociada
-    IF NEW.destacada = 'si' AND (NEW.id_sala IS NULL OR NEW.id_estructura_fisica IS NULL) THEN
-        RAISE EXCEPTION 'Una obra destacada debe tener ubicación asignada';
-    END IF;
-
-    -- No permitir duplicar movimiento activo para una misma obra
-    SELECT COUNT(*) INTO activo_count
+    -- Buscar el registro con mayor fecha_inicio menor que la nueva fecha_inicio para la misma obra
+    SELECT id_historico_obra_movimiento INTO last_record_id
     FROM historico_obra_movimiento
     WHERE id_obra = NEW.id_obra
-    AND fecha_fin IS NULL
-    AND (id_historico_obra_movimiento <> NEW.id_historico_obra_movimiento OR TG_OP = 'INSERT');
+      AND fecha_inicio < NEW.fecha_inicio
+    ORDER BY fecha_inicio DESC, id_historico_obra_movimiento DESC
+    LIMIT 1;
 
-
-    IF activo_count > 0 THEN
-        RAISE EXCEPTION 'La obra ya tiene un movimiento activo';
+    IF last_record_id IS NOT NULL THEN
+        -- Actualizar la fecha_fin del registro encontrado
+        UPDATE historico_obra_movimiento
+        SET fecha_fin = NEW.fecha_inicio
+        WHERE id_obra = NEW.id_obra
+          AND id_historico_obra_movimiento = last_record_id;
     END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validar_movimiento_obra
-BEFORE INSERT OR UPDATE ON historico_obra_movimiento
-FOR EACH ROW EXECUTE FUNCTION validar_movimiento_obra();
+CREATE TRIGGER trg_actualizar_fecha_fin
+BEFORE INSERT ON historico_obra_movimiento
+FOR EACH ROW EXECUTE FUNCTION trg_validar_actualizar_fecha_fin();
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Validar obra duplicada
 
