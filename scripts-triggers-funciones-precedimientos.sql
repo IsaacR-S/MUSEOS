@@ -195,32 +195,46 @@ CREATE TRIGGER trg_validar_evento
 BEFORE INSERT OR UPDATE ON evento
 FOR EACH ROW EXECUTE FUNCTION validar_evento();
 
---Validar estado historico empleado
-
-CREATE OR REPLACE FUNCTION validar_traslape_hist_empleado()
-RETURNS trigger AS $$
+-- Trigger function para hacer cumplir el pedido de fecha_inicio y actualizar fecha_fin del registro anterior
+CREATE OR REPLACE FUNCTION validar_hist_empleado()
+RETURNS TRIGGER AS $$
+DECLARE
+    latest_fecha_inicio DATE;
+    latest_id_museo NUMERIC;
+    latest_id_estructura_org NUMERIC;
 BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM historico_empleado
+    --Encuentra la última fecha_inicio del empleado
+    SELECT id_museo, id_estructura_org, fecha_inicio
+    INTO latest_id_museo, latest_id_estructura_org, latest_fecha_inicio
+    FROM historico_empleado
+    WHERE id_empleado = NEW.id_empleado
+    ORDER BY fecha_inicio DESC
+    LIMIT 1;
+
+    IF latest_fecha_inicio IS NOT NULL THEN
+        -- Comprueba si la nueva fecha_inicio es mayor que la última fecha_inicio
+        IF NEW.fecha_inicio <= latest_fecha_inicio THEN
+            RAISE EXCEPTION 'New fecha_inicio (%) debe ser mayor que la última existente fecha_inicio (%) para empleado %',
+                            NEW.fecha_inicio, latest_fecha_inicio, NEW.id_empleado;
+        END IF;
+
+        -- Actualizar la fecha_fin del último registro existente a la nueva fecha_inicio
+        UPDATE historico_empleado
+        SET fecha_fin = NEW.fecha_inicio
         WHERE id_empleado = NEW.id_empleado
-          AND id_museo = NEW.id_museo
-          AND id_estructura_org = NEW.id_estructura_org
-          AND (
-              NEW.fecha_inicio BETWEEN fecha_inicio AND COALESCE(fecha_fin, NEW.fecha_inicio)
-              OR (fecha_fin IS NULL AND NEW.fecha_fin IS NULL)
-          )
-    ) THEN
-        RAISE EXCEPTION 'Ya existe un historial activo o traslapado para este empleado en esta estructura';
+          AND id_museo = latest_id_museo
+          AND id_estructura_org = latest_id_estructura_org
+          AND fecha_inicio = latest_fecha_inicio;
     END IF;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validar_traslape_hist_empleado
+CREATE TRIGGER trg_validar_hist_empleado
 BEFORE INSERT ON historico_empleado
 FOR EACH ROW
-EXECUTE FUNCTION validar_traslape_hist_empleado();
+EXECUTE FUNCTION validar_hist_empleado();
 
 --Validar si ya exite una obra destacada
 
@@ -252,27 +266,44 @@ EXECUTE FUNCTION validar_obra_destacada();
 -----------------------------------------------------------------------------------------------------------FUNCIONES------------------------------------------------------------------------------------------------------------
 --Calcular rotacion
 
-CREATE OR REPLACE FUNCTION calcular_rotacion_museo(id_museo_input NUMERIC)
-RETURNS INT AS $$
+CREATE OR REPLACE FUNCTION calcular_promedio_anios_empleados(museo_id NUMERIC)
+RETURNS INTEGER AS $$
 DECLARE
     promedio_anios NUMERIC;
+    resultado INTEGER;
 BEGIN
-    SELECT AVG(EXTRACT(YEAR FROM COALESCE(fecha_fin, CURRENT_DATE)) - EXTRACT(YEAR FROM fecha_inicio))
-    INTO promedio_anios
-    FROM historico_empleado
-    WHERE id_museo = id_museo_input;
+    WITH ultimos_registros AS (
+        SELECT id_empleado, fecha_inicio, fecha_fin
+        FROM (
+            SELECT 
+                id_empleado,
+                fecha_inicio,
+                fecha_fin,
+                ROW_NUMBER() OVER (PARTITION BY id_empleado ORDER BY fecha_inicio DESC) AS rn
+            FROM historico_empleado
+            WHERE id_museo = museo_id
+              AND fecha_fin IS NOT NULL
+        ) sub
+        WHERE rn = 1
+    )
+    SELECT AVG(EXTRACT(YEAR FROM AGE(fecha_fin, fecha_inicio))) INTO promedio_anios
+    FROM ultimos_registros;
 
     IF promedio_anios IS NULL THEN
-        RETURN 3; -- sin datos se asume alta rotación
+        RETURN NULL;
     ELSIF promedio_anios > 10 THEN
-        RETURN 1;
-    ELSIF promedio_anios >= 5 THEN
-        RETURN 2;
+        resultado := 1;
+    ELSIF promedio_anios >= 5 AND promedio_anios <= 10 THEN
+        resultado := 2;
     ELSE
-        RETURN 3;
+        resultado := 3;
     END IF;
+
+    RETURN resultado;
 END;
 $$ LANGUAGE plpgsql;
+
+-- select calcular_promedio_anios_empleados(1)
 
 --Calcular visitas anuales
 
@@ -295,7 +326,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 --
-
+-------------------------------------------------------------------------------------------------No funciona---------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION ficha_obra(_id_obra NUMERIC)
 RETURNS TABLE (
     nombre_obra VARCHAR,
@@ -333,7 +364,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION orden_recorrido(_id_museo NUMERIC, _id_sala NUMERIC)
 RETURNS TABLE (
