@@ -1,4 +1,35 @@
 ------------------------------------------------------------------------------------TIGGERS---------------------------------------------------------------------------------------
+
+-- Función para actualizar orden_recorrido antes de insertar un nuevo registro
+CREATE OR REPLACE FUNCTION actualizar_orden_recorrido()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Verificar si existe algún registro con el mismo id_museo y orden_recorrido mayor o igual
+    IF EXISTS (
+        SELECT 1
+        FROM coleccion_permanente
+        WHERE id_museo = NEW.id_museo
+          AND orden_recorrido >= NEW.orden_recorrido
+    ) THEN
+        -- Incrementar orden_recorrido en 1 para todos esos registros para hacer espacio
+        UPDATE coleccion_permanente
+        SET orden_recorrido = orden_recorrido + 1
+        WHERE id_museo = NEW.id_museo
+          AND orden_recorrido >= NEW.orden_recorrido;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger que llama a la función antes de insertar en coleccion_permanente
+DROP TRIGGER IF EXISTS before_insert_coleccion ON coleccion_permanente;
+
+CREATE TRIGGER before_insert_coleccion
+BEFORE INSERT ON coleccion_permanente
+FOR EACH ROW
+EXECUTE FUNCTION actualizar_orden_recorrido();
+
 -- Valida la insercion de la estructura organizacional
 CREATE OR REPLACE FUNCTION validar_jerarquia_organizacional()
 RETURNS trigger AS $$
