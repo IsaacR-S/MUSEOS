@@ -76,7 +76,7 @@ CREATE TABLE evento(
     fecha_inicio_evento DATE,
     fecha_fin_evento DATE NOT NULL, 
     nombre_evento VARCHAR(150) NOT NULL,
-    institucion_educativa VARCHAR(150) NOT NULL, 
+    institucion_educativa VARCHAR(150), 
     cantidad_asistentes NUMERIC,
     lugar_exposicion VARCHAR(100),
     costo_persona NUMERIC,  
