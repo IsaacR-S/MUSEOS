@@ -467,6 +467,62 @@ BEFORE INSERT ON historico_obra_movimiento
 FOR EACH ROW
 EXECUTE FUNCTION validar_obra_destacada();
 
+
+-- Función PL/pgSQL para validar rol_empleado y tipo_resposable antes de insert
+CREATE OR REPLACE FUNCTION check_rol_responsable_before_insert()
+RETURNS TRIGGER AS $$
+DECLARE
+    empleado_rol VARCHAR(70);
+    mantenimiento_tipo_responsable VARCHAR(15);
+BEGIN
+    -- Obtener el rol_empleado del historico_empleado asociado
+    SELECT rol_empleado
+      INTO empleado_rol
+      FROM historico_empleado
+     WHERE id_empleado = NEW.id_empleado
+       AND id_museo = NEW.id_museo
+       AND id_estructura_org = NEW.id_estructura_org
+       AND fecha_inicio = NEW.fecha_inicio_hist_empleado;
+       
+    IF empleado_rol IS NULL THEN
+        RAISE EXCEPTION 'No existe un registro de historico_empleado para el empleado % con museo %, estructura_org % y fecha_inicio %',
+            NEW.id_empleado, NEW.id_museo, NEW.id_estructura_org, NEW.fecha_inicio_hist_empleado;
+    END IF;
+    
+    -- Verificar que rol_empleado sea 'curador' o 'restaurador'
+    IF empleado_rol NOT IN ('curador', 'restaurador') THEN
+        RAISE EXCEPTION 'El rol_empleado asociado debe ser curador o restaurador. Encontrado: %', empleado_rol;
+    END IF;
+    
+    -- Obtener el tipo_resposable del mantenimiento_obra asociado
+    SELECT tipo_resposable
+      INTO mantenimiento_tipo_responsable
+      FROM mantenimiento_obra
+     WHERE id_obra = NEW.id_obra
+       AND id_historico_obra_movimiento = NEW.id_historico_obra_movimiento
+       AND id_mantenimiento_obra = NEW.id_mantenimiento_obra;
+    
+    IF mantenimiento_tipo_responsable IS NULL THEN
+        RAISE EXCEPTION 'No existe mantenimiento_obra para id_obra %, id_historico_obra_movimiento %, id_mantenimiento_obra %',
+        NEW.id_obra, NEW.id_historico_obra_movimiento, NEW.id_mantenimiento_obra;
+    END IF;
+    
+    -- Verificar que rol_empleado coincida con tipo_resposable
+    IF empleado_rol <> mantenimiento_tipo_responsable THEN
+        RAISE EXCEPTION 'El rol_empleado (%) no coincide con el tipo_resposable (%) del mantenimiento_obra asociado.',
+            empleado_rol, mantenimiento_tipo_responsable;
+    END IF;
+    
+    -- Si todo está correcto, dejar continuar la inserción
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger BEFORE INSERT en historico_mantenimiento_realizado
+CREATE TRIGGER trg_check_rol_responsable
+BEFORE INSERT ON historico_mantenimiento_realizado
+FOR EACH ROW
+EXECUTE FUNCTION check_rol_responsable_before_insert();
 -----------------------------------------------------------------------------------------------------------FUNCIONES------------------------------------------------------------------------------------------------------------
 --Calcular rotacion
 
