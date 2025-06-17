@@ -55,7 +55,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarObra(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
@@ -84,17 +84,17 @@ CREATE OR REPLACE FUNCTION SP_EliminarObra(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
     -- Comprobar dependencias en art_obra
-    IF EXISTS (SELECT 1 FROM art_obra WHERE id_obra = p_id_obra) THEN
+    IF EXISTS (SELECT 1 FROM art_obra WHERE art_obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'No se puede eliminar la obra % porque está asociada a uno o más artistas. Elimine la asociación primero.', p_id_obra;
     END IF;
 
     -- Comprobar dependencias en historico_obra_movimiento
-    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra) THEN
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'No se puede eliminar la obra % porque tiene registros en el historial de movimiento. Elimine los movimientos históricos primero.', p_id_obra;
     END IF;
 
@@ -146,7 +146,7 @@ CREATE OR REPLACE FUNCTION SP_InsertarArtista(
     p_fecha_nacimiento DATE DEFAULT NULL,
     p_apodo_artista VARCHAR(60) DEFAULT NULL,
     p_fecha_muerte DATE DEFAULT NULL,
-    p_descripcion_estilo_tecnicas VARCHAR(300)
+    p_descripcion_estilo_tecnicas VARCHAR(300) DEFAULT NULL -- ¡CORREGIDO! Agregado DEFAULT NULL
 )
 RETURNS NUMERIC AS $$
 DECLARE
@@ -190,7 +190,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarArtista(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el artista existe
-    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE artista.id_artista = p_id_artista) THEN
         RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
     END IF;
 
@@ -219,12 +219,12 @@ CREATE OR REPLACE FUNCTION SP_EliminarArtista(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el artista existe
-    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE artista.id_artista = p_id_artista) THEN
         RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
     END IF;
 
     -- Comprobar dependencias en art_obra
-    IF EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista) THEN
+    IF EXISTS (SELECT 1 FROM art_obra WHERE art_obra.id_artista = p_id_artista) THEN
         RAISE EXCEPTION 'No se puede eliminar el artista % porque está asociado a una o más obras. Elimine las asociaciones primero.', p_id_artista;
     END IF;
 
@@ -279,17 +279,17 @@ CREATE OR REPLACE FUNCTION SP_AsignarObraArtista(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el artista existe
-    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE artista.id_artista = p_id_artista) THEN
         RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
     END IF;
 
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
     -- Prevenir duplicados
-    IF EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista AND id_obra = p_id_obra) THEN
+    IF EXISTS (SELECT 1 FROM art_obra WHERE art_obra.id_artista = p_id_artista AND art_obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'La obra % ya está asociada al artista %.', p_id_obra, p_id_artista;
     END IF;
 
@@ -306,7 +306,7 @@ CREATE OR REPLACE FUNCTION SP_EliminarObraArtista(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la asociación existe
-    IF NOT EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista AND id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM art_obra WHERE art_obra.id_artista = p_id_artista AND art_obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Asociación de obra % con artista % no encontrada.', p_id_obra, p_id_artista;
     END IF;
 
@@ -327,7 +327,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el artista existe
-    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE artista.id_artista = p_id_artista) THEN
         RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
     END IF;
 
@@ -357,7 +357,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
@@ -391,7 +391,7 @@ DECLARE
     v_id_coleccion NUMERIC;
 BEGIN
     -- Validar que la estructura organizacional existe y pertenece al museo
-    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_estructura_org) THEN
         RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada. No se puede crear la colección.', p_id_estructura_org, p_id_museo;
     END IF;
 
@@ -428,7 +428,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarColeccionPermanente(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la colección existe
-    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo AND coleccion_permanente.id_estructura_org = p_id_estructura_org AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
     END IF;
 
@@ -455,17 +455,17 @@ CREATE OR REPLACE FUNCTION SP_EliminarColeccionPermanente(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la colección existe
-    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo AND coleccion_permanente.id_estructura_org = p_id_estructura_org AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
     END IF;
 
     -- Comprobar dependencias en col_sal
-    IF EXISTS (SELECT 1 FROM col_sal WHERE id_museo_coleccion = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF EXISTS (SELECT 1 FROM col_sal WHERE col_sal.id_museo_coleccion = p_id_museo AND col_sal.id_estructura_org = p_id_estructura_org AND col_sal.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'No se puede eliminar la colección % porque está asociada a una o más salas de exposición. Elimine las asociaciones primero.', p_id_coleccion;
     END IF;
 
     -- Comprobar dependencias en historico_obra_movimiento
-    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_museo_coleccion = p_id_museo AND id_estructura_org_coleccion = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_museo_coleccion = p_id_museo AND historico_obra_movimiento.id_estructura_org_coleccion = p_id_estructura_org AND historico_obra_movimiento.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'No se puede eliminar la colección % porque tiene obras de arte asociadas en su historial de movimiento. Reasigne las obras o finalice sus movimientos primero.', p_id_coleccion;
     END IF;
 
@@ -535,12 +535,12 @@ CREATE OR REPLACE FUNCTION SP_AsociarColeccionSala(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo_sala AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
     END IF;
 
     -- Validar que la colección permanente existe
-    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo_coleccion AND coleccion_permanente.id_estructura_org = p_id_estructura_org AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo_coleccion;
     END IF;
 
@@ -548,12 +548,12 @@ BEGIN
     IF EXISTS (
         SELECT 1 FROM col_sal
         WHERE
-            id_museo_sala = p_id_museo_sala AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_sala = p_id_sala AND
-            id_museo_coleccion = p_id_museo_coleccion AND
-            id_estructura_org = p_id_estructura_org AND
-            id_coleccion = p_id_coleccion
+            col_sal.id_museo_sala = p_id_museo_sala AND
+            col_sal.id_estructura_fisica = p_id_estructura_fisica AND
+            col_sal.id_sala = p_id_sala AND
+            col_sal.id_museo_coleccion = p_id_museo_coleccion AND
+            col_sal.id_estructura_org = p_id_estructura_org AND
+            col_sal.id_coleccion = p_id_coleccion
     ) THEN
         RAISE EXCEPTION 'La colección % ya está asociada a la sala %.', p_id_coleccion, p_id_sala;
     END IF;
@@ -593,12 +593,12 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM col_sal
         WHERE
-            id_museo_sala = p_id_museo_sala AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_sala = p_id_sala AND
-            id_museo_coleccion = p_id_museo_coleccion AND
-            id_estructura_org = p_id_estructura_org AND
-            id_coleccion = p_id_coleccion
+            col_sal.id_museo_sala = p_id_museo_sala AND
+            col_sal.id_estructura_fisica = p_id_estructura_fisica AND
+            col_sal.id_sala = p_id_sala AND
+            col_sal.id_museo_coleccion = p_id_museo_coleccion AND
+            col_sal.id_estructura_org = p_id_estructura_org AND
+            col_sal.id_coleccion = p_id_coleccion
     ) THEN
         RAISE EXCEPTION 'Asociación de colección % con sala % no encontrada.', p_id_coleccion, p_id_sala;
     END IF;
@@ -629,7 +629,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -668,7 +668,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la colección permanente existe
-    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo AND coleccion_permanente.id_estructura_org = p_id_estructura_org AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
     END IF;
 
@@ -712,7 +712,7 @@ CREATE OR REPLACE FUNCTION SP_RegistrarMovimientoObra(
     p_id_empleado NUMERIC,
     p_fecha_inicio_empleado DATE,
     p_fecha_fin DATE DEFAULT NULL,
-    p_valor_obra NUMERIC,
+    p_valor_obra NUMERIC DEFAULT NULL, -- ¡CORREGIDO! Agregado DEFAULT NULL
     p_orden_recomendado NUMERIC DEFAULT NULL
 )
 RETURNS NUMERIC AS $$
@@ -720,22 +720,22 @@ DECLARE
     v_id_historico_obra_movimiento NUMERIC;
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
     -- Validar que la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo_sala AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
     END IF;
 
     -- Validar que la colección permanente existe
-    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org_coleccion AND id_coleccion = p_id_coleccion) THEN
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo_coleccion AND coleccion_permanente.id_estructura_org = p_id_estructura_org_coleccion AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org_coleccion, p_id_museo_coleccion;
     END IF;
 
     -- Validar que el historial de empleado existe
-    IF NOT EXISTS (SELECT 1 FROM historico_empleado WHERE id_museo = p_id_museo_empleado AND id_estructura_org = p_id_estructura_org_empleado AND id_empleado = p_id_empleado AND fecha_inicio = p_fecha_inicio_empleado) THEN
+    IF NOT EXISTS (SELECT 1 FROM historico_empleado WHERE historico_empleado.id_museo = p_id_museo_empleado AND historico_empleado.id_estructura_org = p_id_estructura_org_empleado AND historico_empleado.id_empleado = p_id_empleado AND historico_empleado.fecha_inicio = p_fecha_inicio_empleado) THEN
         RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo_empleado, p_id_estructura_org_empleado, p_fecha_inicio_empleado;
     END IF;
 
@@ -816,19 +816,19 @@ CREATE OR REPLACE FUNCTION SP_ActualizarMovimientoObra(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el registro de movimiento existe
-    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_obra = p_id_obra AND historico_obra_movimiento.id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
         RAISE EXCEPTION 'Registro de movimiento de obra con ID_Obra % y ID_HistMov % no encontrado.', p_id_obra, p_id_historico_obra_movimiento;
     END IF;
 
     -- Validar que la sala de exposición existe si se proporciona
     IF p_id_museo_sala IS NOT NULL AND p_id_estructura_fisica IS NOT NULL AND p_id_sala IS NOT NULL AND
-       NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+       NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo_sala AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
     END IF;
 
     -- Validar que la colección permanente existe si se proporciona
     IF p_id_museo_coleccion IS NOT NULL AND p_id_estructura_org_coleccion IS NOT NULL AND p_id_coleccion IS NOT NULL AND
-       NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org_coleccion AND id_coleccion = p_id_coleccion) THEN
+       NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo_coleccion AND coleccion_permanente.id_estructura_org = p_id_estructura_org_coleccion AND coleccion_permanente.id_coleccion = p_id_coleccion) THEN
         RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org_coleccion, p_id_museo_coleccion;
     END IF;
 
@@ -866,6 +866,33 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- SP_EliminarMovimientoObra: Elimina un registro de movimiento de obra
+-- NOTA: Se debe considerar las dependencias en 'mantenimiento_obra' y 'historico_mantenimiento_realizado'.
+CREATE OR REPLACE FUNCTION SP_EliminarMovimientoObra(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro de movimiento existe
+    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_obra = p_id_obra AND historico_obra_movimiento.id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+        RAISE EXCEPTION 'No se encontró un registro de movimiento de obra para la Obra ID % y Histórico Movimiento ID %.', p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Comprobar dependencias en mantenimiento_obra
+    IF EXISTS (SELECT 1 FROM mantenimiento_obra WHERE mantenimiento_obra.id_obra = p_id_obra AND mantenimiento_obra.id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+        RAISE EXCEPTION 'No se puede eliminar este movimiento de obra % porque tiene actividades de mantenimiento planificadas asociadas. Elimine las actividades de mantenimiento primero.', p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Comprobar dependencias en historico_mantenimiento_realizado
+    IF EXISTS (SELECT 1 FROM historico_mantenimiento_realizado WHERE historico_mantenimiento_realizado.id_obra = p_id_obra AND historico_mantenimiento_realizado.id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+        RAISE EXCEPTION 'No se puede eliminar este movimiento de obra % porque tiene registros de mantenimientos realizados. Elimine los registros de mantenimiento primero.', p_id_historico_obra_movimiento;
+    END IF;
+
+    DELETE FROM historico_obra_movimiento
+    WHERE id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento;
+END;
+$$ LANGUAGE plpgsql;
 
 -- SP_ObtenerMovimientosObra: Obtiene el historial de movimientos de una obra
 CREATE OR REPLACE FUNCTION SP_ObtenerMovimientosObra(
@@ -886,7 +913,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
