@@ -1,0 +1,921 @@
+--------------------------------------------------------------------------------
+-- 9. Administración de Obras de Arte y Colecciones
+--------------------------------------------------------------------------------
+
+-- 9.1. Gestión de Obras (obra)
+
+-- SP_InsertarObra: Inserta una nueva obra de arte
+CREATE OR REPLACE FUNCTION SP_InsertarObra(
+    p_nombre_obra VARCHAR(250),
+    p_fecha_periodo VARCHAR(100),
+    p_tipo_obra VARCHAR(9),
+    p_dimensiones VARCHAR(80),
+    p_estilo_descripcion VARCHAR(80),
+    p_descripcion_materiales_tecnicas VARCHAR(300)
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_obra NUMERIC;
+BEGIN
+    -- Validar el tipo de obra
+    IF p_tipo_obra NOT IN ('pintura', 'escultura') THEN
+        RAISE EXCEPTION 'El tipo de obra debe ser "pintura" o "escultura".';
+    END IF;
+
+    INSERT INTO obra (
+        nombre_obra,
+        fecha_periodo,
+        tipo_obra,
+        dimensiones,
+        estilo_descripcion,
+        descripcion_materiales_tecnicas
+    ) VALUES (
+        p_nombre_obra,
+        p_fecha_periodo,
+        p_tipo_obra,
+        p_dimensiones,
+        p_estilo_descripcion,
+        p_descripcion_materiales_tecnicas
+    ) RETURNING id_obra INTO v_id_obra;
+
+    RETURN v_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarObra: Actualiza los datos de una obra existente
+CREATE OR REPLACE FUNCTION SP_ActualizarObra(
+    p_id_obra NUMERIC,
+    p_nombre_obra VARCHAR(250) DEFAULT NULL,
+    p_fecha_periodo VARCHAR(100) DEFAULT NULL,
+    p_tipo_obra VARCHAR(9) DEFAULT NULL,
+    p_dimensiones VARCHAR(80) DEFAULT NULL,
+    p_estilo_descripcion VARCHAR(80) DEFAULT NULL,
+    p_descripcion_materiales_tecnicas VARCHAR(300) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    -- Validar el tipo de obra si se proporciona
+    IF p_tipo_obra IS NOT NULL AND p_tipo_obra NOT IN ('pintura', 'escultura') THEN
+        RAISE EXCEPTION 'El tipo de obra debe ser "pintura" o "escultura".';
+    END IF;
+
+    UPDATE obra
+    SET
+        nombre_obra = COALESCE(p_nombre_obra, nombre_obra),
+        fecha_periodo = COALESCE(p_fecha_periodo, fecha_periodo),
+        tipo_obra = COALESCE(p_tipo_obra, tipo_obra),
+        dimensiones = COALESCE(p_dimensiones, dimensiones),
+        estilo_descripcion = COALESCE(p_estilo_descripcion, estilo_descripcion),
+        descripcion_materiales_tecnicas = COALESCE(p_descripcion_materiales_tecnicas, descripcion_materiales_tecnicas)
+    WHERE id_obra = p_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarObra: Elimina una obra
+-- NOTA: Se debe considerar las dependencias en 'art_obra' y 'historico_obra_movimiento'.
+CREATE OR REPLACE FUNCTION SP_EliminarObra(
+    p_id_obra NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    -- Comprobar dependencias en art_obra
+    IF EXISTS (SELECT 1 FROM art_obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'No se puede eliminar la obra % porque está asociada a uno o más artistas. Elimine la asociación primero.', p_id_obra;
+    END IF;
+
+    -- Comprobar dependencias en historico_obra_movimiento
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'No se puede eliminar la obra % porque tiene registros en el historial de movimiento. Elimine los movimientos históricos primero.', p_id_obra;
+    END IF;
+
+    DELETE FROM obra
+    WHERE id_obra = p_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerObra: Obtiene información de una o varias obras
+CREATE OR REPLACE FUNCTION SP_ObtenerObra(
+    p_id_obra NUMERIC DEFAULT NULL,
+    p_nombre_obra VARCHAR(250) DEFAULT NULL,
+    p_tipo_obra VARCHAR(9) DEFAULT NULL
+)
+RETURNS TABLE (
+    id_obra NUMERIC,
+    nombre_obra VARCHAR,
+    fecha_periodo VARCHAR,
+    tipo_obra VARCHAR,
+    dimensiones VARCHAR,
+    estilo_descripcion VARCHAR,
+    descripcion_materiales_tecnicas VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        o.id_obra,
+        o.nombre_obra,
+        o.fecha_periodo,
+        o.tipo_obra,
+        o.dimensiones,
+        o.estilo_descripcion,
+        o.descripcion_materiales_tecnicas
+    FROM
+        obra o
+    WHERE
+        (p_id_obra IS NULL OR o.id_obra = p_id_obra) AND
+        (p_nombre_obra IS NULL OR o.nombre_obra ILIKE '%' || p_nombre_obra || '%') AND
+        (p_tipo_obra IS NULL OR o.tipo_obra = p_tipo_obra);
+END;
+$$ LANGUAGE plpgsql;
+
+-- 9.2. Gestión de Artistas (artista)
+
+-- SP_InsertarArtista: Inserta un nuevo artista
+CREATE OR REPLACE FUNCTION SP_InsertarArtista(
+    p_nombre_artista VARCHAR(60),
+    p_apellido_artista VARCHAR(60),
+    p_fecha_nacimiento DATE DEFAULT NULL,
+    p_apodo_artista VARCHAR(60) DEFAULT NULL,
+    p_fecha_muerte DATE DEFAULT NULL,
+    p_descripcion_estilo_tecnicas VARCHAR(300)
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_artista NUMERIC;
+BEGIN
+    -- Validar que la fecha de muerte no sea anterior a la fecha de nacimiento
+    IF p_fecha_muerte IS NOT NULL AND p_fecha_nacimiento IS NOT NULL AND p_fecha_muerte < p_fecha_nacimiento THEN
+        RAISE EXCEPTION 'La fecha de muerte (%) no puede ser anterior a la fecha de nacimiento (%).', p_fecha_muerte, p_fecha_nacimiento;
+    END IF;
+
+    INSERT INTO artista (
+        nombre_artista,
+        apellido_artista,
+        fecha_nacimiento,
+        apodo_artista,
+        fecha_muerte,
+        descripcion_estilo_tecnicas
+    ) VALUES (
+        p_nombre_artista,
+        p_apellido_artista,
+        p_fecha_nacimiento,
+        p_apodo_artista,
+        p_fecha_muerte,
+        p_descripcion_estilo_tecnicas
+    ) RETURNING id_artista INTO v_id_artista;
+
+    RETURN v_id_artista;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarArtista: Actualiza los datos de un artista existente
+CREATE OR REPLACE FUNCTION SP_ActualizarArtista(
+    p_id_artista NUMERIC,
+    p_nombre_artista VARCHAR(60) DEFAULT NULL,
+    p_apellido_artista VARCHAR(60) DEFAULT NULL,
+    p_fecha_nacimiento DATE DEFAULT NULL,
+    p_apodo_artista VARCHAR(60) DEFAULT NULL,
+    p_fecha_muerte DATE DEFAULT NULL,
+    p_descripcion_estilo_tecnicas VARCHAR(300) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el artista existe
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+        RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
+    END IF;
+
+    -- Validar que la fecha de muerte no sea anterior a la fecha de nacimiento si se actualizan ambas
+    IF p_fecha_muerte IS NOT NULL AND p_fecha_nacimiento IS NOT NULL AND p_fecha_muerte < p_fecha_nacimiento THEN
+        RAISE EXCEPTION 'La fecha de muerte (%) no puede ser anterior a la fecha de nacimiento (%).', p_fecha_muerte, p_fecha_nacimiento;
+    END IF;
+
+    UPDATE artista
+    SET
+        nombre_artista = COALESCE(p_nombre_artista, nombre_artista),
+        apellido_artista = COALESCE(p_apellido_artista, apellido_artista),
+        fecha_nacimiento = COALESCE(p_fecha_nacimiento, fecha_nacimiento),
+        apodo_artista = COALESCE(p_apodo_artista, apodo_artista),
+        fecha_muerte = COALESCE(p_fecha_muerte, fecha_muerte),
+        descripcion_estilo_tecnicas = COALESCE(p_descripcion_estilo_tecnicas, descripcion_estilo_tecnicas)
+    WHERE id_artista = p_id_artista;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarArtista: Elimina un artista
+-- NOTA: Se debe considerar las dependencias en 'art_obra'.
+CREATE OR REPLACE FUNCTION SP_EliminarArtista(
+    p_id_artista NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el artista existe
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+        RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
+    END IF;
+
+    -- Comprobar dependencias en art_obra
+    IF EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista) THEN
+        RAISE EXCEPTION 'No se puede eliminar el artista % porque está asociado a una o más obras. Elimine las asociaciones primero.', p_id_artista;
+    END IF;
+
+    DELETE FROM artista
+    WHERE id_artista = p_id_artista;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerArtista: Obtiene información de uno o varios artistas
+CREATE OR REPLACE FUNCTION SP_ObtenerArtista(
+    p_id_artista NUMERIC DEFAULT NULL,
+    p_nombre_artista VARCHAR(60) DEFAULT NULL,
+    p_apellido_artista VARCHAR(60) DEFAULT NULL,
+    p_apodo_artista VARCHAR(60) DEFAULT NULL
+)
+RETURNS TABLE (
+    id_artista NUMERIC,
+    nombre_artista VARCHAR,
+    apellido_artista VARCHAR,
+    fecha_nacimiento DATE,
+    apodo_artista VARCHAR,
+    fecha_muerte DATE,
+    descripcion_estilo_tecnicas VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        a.id_artista,
+        a.nombre_artista,
+        a.apellido_artista,
+        a.fecha_nacimiento,
+        a.apodo_artista,
+        a.fecha_muerte,
+        a.descripcion_estilo_tecnicas
+    FROM
+        artista a
+    WHERE
+        (p_id_artista IS NULL OR a.id_artista = p_id_artista) AND
+        (p_nombre_artista IS NULL OR a.nombre_artista ILIKE '%' || p_nombre_artista || '%') AND
+        (p_apellido_artista IS NULL OR a.apellido_artista ILIKE '%' || p_apellido_artista || '%') AND
+        (p_apodo_artista IS NULL OR a.apodo_artista ILIKE '%' || p_apodo_artista || '%');
+END;
+$$ LANGUAGE plpgsql;
+
+-- 9.3. Gestión de la relación Artista-Obra (art_obra)
+
+-- SP_AsignarObraArtista: Asocia una obra a un artista
+CREATE OR REPLACE FUNCTION SP_AsignarObraArtista(
+    p_id_artista NUMERIC,
+    p_id_obra NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que el artista existe
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+        RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
+    END IF;
+
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    -- Prevenir duplicados
+    IF EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista AND id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'La obra % ya está asociada al artista %.', p_id_obra, p_id_artista;
+    END IF;
+
+    INSERT INTO art_obra (id_artista, id_obra)
+    VALUES (p_id_artista, p_id_obra);
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarObraArtista: Elimina la asociación entre una obra y un artista
+CREATE OR REPLACE FUNCTION SP_EliminarObraArtista(
+    p_id_artista NUMERIC,
+    p_id_obra NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la asociación existe
+    IF NOT EXISTS (SELECT 1 FROM art_obra WHERE id_artista = p_id_artista AND id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Asociación de obra % con artista % no encontrada.', p_id_obra, p_id_artista;
+    END IF;
+
+    DELETE FROM art_obra
+    WHERE id_artista = p_id_artista AND id_obra = p_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerObrasPorArtista: Obtiene todas las obras asociadas a un artista
+CREATE OR REPLACE FUNCTION SP_ObtenerObrasPorArtista(
+    p_id_artista NUMERIC
+)
+RETURNS TABLE (
+    id_obra NUMERIC,
+    nombre_obra VARCHAR,
+    tipo_obra VARCHAR,
+    fecha_periodo VARCHAR
+) AS $$
+BEGIN
+    -- Validar que el artista existe
+    IF NOT EXISTS (SELECT 1 FROM artista WHERE id_artista = p_id_artista) THEN
+        RAISE EXCEPTION 'Artista con ID % no encontrado.', p_id_artista;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        ao.id_obra,
+        o.nombre_obra,
+        o.tipo_obra,
+        o.fecha_periodo
+    FROM
+        art_obra ao, obra o
+    WHERE
+        ao.id_obra = o.id_obra AND
+        ao.id_artista = p_id_artista;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerArtistasPorObra: Obtiene todos los artistas asociados a una obra
+CREATE OR REPLACE FUNCTION SP_ObtenerArtistasPorObra(
+    p_id_obra NUMERIC
+)
+RETURNS TABLE (
+    id_artista NUMERIC,
+    nombre_artista VARCHAR,
+    apellido_artista VARCHAR,
+    apodo_artista VARCHAR
+) AS $$
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        ao.id_artista,
+        a.nombre_artista,
+        a.apellido_artista,
+        a.apodo_artista
+    FROM
+        art_obra ao, artista a
+    WHERE
+        ao.id_artista = a.id_artista AND
+        ao.id_obra = p_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 9.4. Gestión de Colecciones Permanentes (coleccion_permanente)
+
+-- SP_InsertarColeccionPermanente: Inserta una nueva colección permanente
+CREATE OR REPLACE FUNCTION SP_InsertarColeccionPermanente(
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_nombre_coleccion VARCHAR(80),
+    p_descripcion_caracteristica VARCHAR(300),
+    p_palabra_clave VARCHAR(50),
+    p_orden_recorrido NUMERIC
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_coleccion NUMERIC;
+BEGIN
+    -- Validar que la estructura organizacional existe y pertenece al museo
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada. No se puede crear la colección.', p_id_estructura_org, p_id_museo;
+    END IF;
+
+    INSERT INTO coleccion_permanente (
+        id_museo,
+        id_estructura_org,
+        nombre_coleccion,
+        descripcion_caracteristica,
+        palabra_clave,
+        orden_recorrido
+    ) VALUES (
+        p_id_museo,
+        p_id_estructura_org,
+        p_nombre_coleccion,
+        p_descripcion_caracteristica,
+        p_palabra_clave,
+        p_orden_recorrido
+    ) RETURNING id_coleccion INTO v_id_coleccion;
+
+    RETURN v_id_coleccion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarColeccionPermanente: Actualiza los datos de una colección permanente
+CREATE OR REPLACE FUNCTION SP_ActualizarColeccionPermanente(
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_id_coleccion NUMERIC,
+    p_nombre_coleccion VARCHAR(80) DEFAULT NULL,
+    p_descripcion_caracteristica VARCHAR(300) DEFAULT NULL,
+    p_palabra_clave VARCHAR(50) DEFAULT NULL,
+    p_orden_recorrido NUMERIC DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la colección existe
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
+    END IF;
+
+    UPDATE coleccion_permanente
+    SET
+        nombre_coleccion = COALESCE(p_nombre_coleccion, nombre_coleccion),
+        descripcion_caracteristica = COALESCE(p_descripcion_caracteristica, descripcion_caracteristica),
+        palabra_clave = COALESCE(p_palabra_clave, palabra_clave),
+        orden_recorrido = COALESCE(p_orden_recorrido, orden_recorrido)
+    WHERE
+        id_museo = p_id_museo AND
+        id_estructura_org = p_id_estructura_org AND
+        id_coleccion = p_id_coleccion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarColeccionPermanente: Elimina una colección permanente
+-- NOTA: Se debe considerar las dependencias en 'col_sal' y 'historico_obra_movimiento'.
+CREATE OR REPLACE FUNCTION SP_EliminarColeccionPermanente(
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_id_coleccion NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la colección existe
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
+    END IF;
+
+    -- Comprobar dependencias en col_sal
+    IF EXISTS (SELECT 1 FROM col_sal WHERE id_museo_coleccion = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'No se puede eliminar la colección % porque está asociada a una o más salas de exposición. Elimine las asociaciones primero.', p_id_coleccion;
+    END IF;
+
+    -- Comprobar dependencias en historico_obra_movimiento
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_museo_coleccion = p_id_museo AND id_estructura_org_coleccion = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'No se puede eliminar la colección % porque tiene obras de arte asociadas en su historial de movimiento. Reasigne las obras o finalice sus movimientos primero.', p_id_coleccion;
+    END IF;
+
+    DELETE FROM coleccion_permanente
+    WHERE
+        id_museo = p_id_museo AND
+        id_estructura_org = p_id_estructura_org AND
+        id_coleccion = p_id_coleccion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerColeccionPermanente: Obtiene información de una o varias colecciones permanentes
+CREATE OR REPLACE FUNCTION SP_ObtenerColeccionPermanente(
+    p_id_museo NUMERIC DEFAULT NULL,
+    p_id_estructura_org NUMERIC DEFAULT NULL,
+    p_id_coleccion NUMERIC DEFAULT NULL,
+    p_nombre_coleccion VARCHAR(80) DEFAULT NULL,
+    p_palabra_clave VARCHAR(50) DEFAULT NULL
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_estructura_org NUMERIC,
+    id_coleccion NUMERIC,
+    nombre_coleccion VARCHAR,
+    descripcion_caracteristica VARCHAR,
+    palabra_clave VARCHAR,
+    orden_recorrido NUMERIC,
+    nombre_estructura_organizacional VARCHAR -- Nombre de la estructura organizacional a la que pertenece
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        cp.id_museo,
+        cp.id_estructura_org,
+        cp.id_coleccion,
+        cp.nombre_coleccion,
+        cp.descripcion_caracteristica,
+        cp.palabra_clave,
+        cp.orden_recorrido,
+        eo.nombre AS nombre_estructura_organizacional
+    FROM
+        coleccion_permanente cp, estructura_organizacional eo
+    WHERE
+        cp.id_museo = eo.id_museo AND cp.id_estructura_org = eo.id_estructura_org AND
+        (p_id_museo IS NULL OR cp.id_museo = p_id_museo) AND
+        (p_id_estructura_org IS NULL OR cp.id_estructura_org = p_id_estructura_org) AND
+        (p_id_coleccion IS NULL OR cp.id_coleccion = p_id_coleccion) AND
+        (p_nombre_coleccion IS NULL OR cp.nombre_coleccion ILIKE '%' || p_nombre_coleccion || '%') AND
+        (p_palabra_clave IS NULL OR cp.palabra_clave ILIKE '%' || p_palabra_clave || '%')
+    ORDER BY
+        cp.id_museo, cp.nombre_coleccion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 9.5. Gestión de la relación Colección-Sala (col_sal)
+
+-- SP_AsociarColeccionSala: Asocia una colección a una sala de exposición
+CREATE OR REPLACE FUNCTION SP_AsociarColeccionSala(
+    p_id_museo_sala NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_sala NUMERIC,
+    p_id_museo_coleccion NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_id_coleccion NUMERIC,
+    p_orden_recorrido NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que la sala de exposición existe
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+        RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
+    END IF;
+
+    -- Validar que la colección permanente existe
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo_coleccion;
+    END IF;
+
+    -- Prevenir duplicados
+    IF EXISTS (
+        SELECT 1 FROM col_sal
+        WHERE
+            id_museo_sala = p_id_museo_sala AND
+            id_estructura_fisica = p_id_estructura_fisica AND
+            id_sala = p_id_sala AND
+            id_museo_coleccion = p_id_museo_coleccion AND
+            id_estructura_org = p_id_estructura_org AND
+            id_coleccion = p_id_coleccion
+    ) THEN
+        RAISE EXCEPTION 'La colección % ya está asociada a la sala %.', p_id_coleccion, p_id_sala;
+    END IF;
+
+    INSERT INTO col_sal (
+        id_museo_sala,
+        id_estructura_fisica,
+        id_sala,
+        id_museo_coleccion,
+        id_estructura_org,
+        id_coleccion,
+        orden_recorrido
+    ) VALUES (
+        p_id_museo_sala,
+        p_id_estructura_fisica,
+        p_id_sala,
+        p_id_museo_coleccion,
+        p_id_estructura_org,
+        p_id_coleccion,
+        p_orden_recorrido
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_DesasociarColeccionSala: Desasocia una colección de una sala de exposición
+CREATE OR REPLACE FUNCTION SP_DesasociarColeccionSala(
+    p_id_museo_sala NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_sala NUMERIC,
+    p_id_museo_coleccion NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_id_coleccion NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la asociación existe
+    IF NOT EXISTS (
+        SELECT 1 FROM col_sal
+        WHERE
+            id_museo_sala = p_id_museo_sala AND
+            id_estructura_fisica = p_id_estructura_fisica AND
+            id_sala = p_id_sala AND
+            id_museo_coleccion = p_id_museo_coleccion AND
+            id_estructura_org = p_id_estructura_org AND
+            id_coleccion = p_id_coleccion
+    ) THEN
+        RAISE EXCEPTION 'Asociación de colección % con sala % no encontrada.', p_id_coleccion, p_id_sala;
+    END IF;
+
+    DELETE FROM col_sal
+    WHERE
+        id_museo_sala = p_id_museo_sala AND
+        id_estructura_fisica = p_id_estructura_fisica AND
+        id_sala = p_id_sala AND
+        id_museo_coleccion = p_id_museo_coleccion AND
+        id_estructura_org = p_id_estructura_org AND
+        id_coleccion = p_id_coleccion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerColeccionesPorSala: Obtiene las colecciones asociadas a una sala de exposición
+CREATE OR REPLACE FUNCTION SP_ObtenerColeccionesPorSala(
+    p_id_museo NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_sala NUMERIC
+)
+RETURNS TABLE (
+    id_museo_coleccion NUMERIC,
+    id_estructura_org NUMERIC,
+    id_coleccion NUMERIC,
+    nombre_coleccion VARCHAR,
+    orden_recorrido_sala NUMERIC
+) AS $$
+BEGIN
+    -- Validar que la sala de exposición existe
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+        RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        cs.id_museo_coleccion,
+        cs.id_estructura_org,
+        cs.id_coleccion,
+        cp.nombre_coleccion,
+        cs.orden_recorrido
+    FROM
+        col_sal cs, coleccion_permanente cp
+    WHERE
+        cs.id_museo_coleccion = cp.id_museo AND cs.id_estructura_org = cp.id_estructura_org AND cs.id_coleccion = cp.id_coleccion AND
+        cs.id_museo_sala = p_id_museo AND
+        cs.id_estructura_fisica = p_id_estructura_fisica AND
+        cs.id_sala = p_id_sala
+    ORDER BY
+        cs.orden_recorrido;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerSalasPorColeccion: Obtiene las salas de exposición donde se muestra una colección
+CREATE OR REPLACE FUNCTION SP_ObtenerSalasPorColeccion(
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_id_coleccion NUMERIC
+)
+RETURNS TABLE (
+    id_museo_sala NUMERIC,
+    id_estructura_fisica NUMERIC,
+    id_sala NUMERIC,
+    nombre_sala VARCHAR,
+    nombre_estructura_fisica VARCHAR,
+    orden_recorrido_coleccion NUMERIC
+) AS $$
+BEGIN
+    -- Validar que la colección permanente existe
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org, p_id_museo;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        cs.id_museo_sala,
+        cs.id_estructura_fisica,
+        cs.id_sala,
+        se.nombre_sala,
+        ef.nombre AS nombre_estructura_fisica,
+        cs.orden_recorrido
+    FROM
+        col_sal cs, sala_exposicion se, estructura_fisica ef
+    WHERE
+        cs.id_museo_sala = se.id_museo AND cs.id_estructura_fisica = se.id_estructura_fisica AND cs.id_sala = se.id_sala AND
+        se.id_museo = ef.id_museo AND se.id_estructura_fisica = ef.id_estructura_fisica AND
+        cs.id_museo_coleccion = p_id_museo AND
+        cs.id_estructura_org = p_id_estructura_org AND
+        cs.id_coleccion = p_id_coleccion
+    ORDER BY
+        cs.orden_recorrido;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 9.6. Gestión del Historial de Movimiento de Obras (historico_obra_movimiento)
+
+-- SP_RegistrarMovimientoObra: Registra un nuevo movimiento de obra
+CREATE OR REPLACE FUNCTION SP_RegistrarMovimientoObra(
+    p_id_obra NUMERIC,
+    p_fecha_inicio DATE,
+    p_tipo_obtencion VARCHAR,
+    p_destacada VARCHAR(2),
+    p_id_museo_sala NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_sala NUMERIC,
+    p_id_museo_coleccion NUMERIC,
+    p_id_estructura_org_coleccion NUMERIC,
+    p_id_coleccion NUMERIC,
+    p_id_museo_empleado NUMERIC,
+    p_id_estructura_org_empleado NUMERIC,
+    p_id_empleado NUMERIC,
+    p_fecha_inicio_empleado DATE,
+    p_fecha_fin DATE DEFAULT NULL,
+    p_valor_obra NUMERIC,
+    p_orden_recomendado NUMERIC DEFAULT NULL
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_historico_obra_movimiento NUMERIC;
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    -- Validar que la sala de exposición existe
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+        RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
+    END IF;
+
+    -- Validar que la colección permanente existe
+    IF NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org_coleccion AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org_coleccion, p_id_museo_coleccion;
+    END IF;
+
+    -- Validar que el historial de empleado existe
+    IF NOT EXISTS (SELECT 1 FROM historico_empleado WHERE id_museo = p_id_museo_empleado AND id_estructura_org = p_id_estructura_org_empleado AND id_empleado = p_id_empleado AND fecha_inicio = p_fecha_inicio_empleado) THEN
+        RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo_empleado, p_id_estructura_org_empleado, p_fecha_inicio_empleado;
+    END IF;
+
+    -- Validar el tipo de obtención
+    IF p_tipo_obtencion NOT IN ('comprado', 'donado', 'comprado a otro museo', 'donado de otro museo') THEN
+        RAISE EXCEPTION 'El tipo de obtención debe ser "comprado", "donado", "comprado a otro museo" o "donado de otro museo".';
+    END IF;
+
+    -- Validar si es destacada
+    IF p_destacada NOT IN ('si', 'no') THEN
+        RAISE EXCEPTION 'El valor para "destacada" debe ser "si" o "no".';
+    END IF;
+
+    -- Validar que fecha_fin sea mayor o igual a fecha_inicio si se proporciona
+    IF p_fecha_fin IS NOT NULL AND p_fecha_fin < p_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_fecha_fin, p_fecha_inicio;
+    END IF;
+
+    INSERT INTO historico_obra_movimiento (
+        id_obra,
+        fecha_inicio,
+        tipo_obtencion,
+        destacada,
+        id_museo_sala,
+        id_estructura_fisica,
+        id_sala,
+        id_museo_coleccion,
+        id_estructura_org_coleccion,
+        id_coleccion,
+        id_museo_empleado,
+        id_estructura_org_empleado,
+        id_empleado,
+        fecha_inicio_empleado,
+        fecha_fin,
+        valor_obra,
+        orden_recomendado
+    ) VALUES (
+        p_id_obra,
+        p_fecha_inicio,
+        p_tipo_obtencion,
+        p_destacada,
+        p_id_museo_sala,
+        p_id_estructura_fisica,
+        p_id_sala,
+        p_id_museo_coleccion,
+        p_id_estructura_org_coleccion,
+        p_id_coleccion,
+        p_id_museo_empleado,
+        p_id_estructura_org_empleado,
+        p_id_empleado,
+        p_fecha_inicio_empleado,
+        p_fecha_fin,
+        p_valor_obra,
+        p_orden_recomendado
+    ) RETURNING id_historico_obra_movimiento INTO v_id_historico_obra_movimiento;
+
+    RETURN v_id_historico_obra_movimiento;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarMovimientoObra: Actualiza un registro de movimiento de obra existente
+CREATE OR REPLACE FUNCTION SP_ActualizarMovimientoObra(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_fecha_inicio DATE DEFAULT NULL,
+    p_tipo_obtencion VARCHAR DEFAULT NULL,
+    p_destacada VARCHAR(2) DEFAULT NULL,
+    p_id_museo_sala NUMERIC DEFAULT NULL,
+    p_id_estructura_fisica NUMERIC DEFAULT NULL,
+    p_id_sala NUMERIC DEFAULT NULL,
+    p_id_museo_coleccion NUMERIC DEFAULT NULL,
+    p_id_estructura_org_coleccion NUMERIC DEFAULT NULL,
+    p_id_coleccion NUMERIC DEFAULT NULL,
+    p_fecha_fin DATE DEFAULT NULL,
+    p_valor_obra NUMERIC DEFAULT NULL,
+    p_orden_recomendado NUMERIC DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro de movimiento existe
+    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+        RAISE EXCEPTION 'Registro de movimiento de obra con ID_Obra % y ID_HistMov % no encontrado.', p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Validar que la sala de exposición existe si se proporciona
+    IF p_id_museo_sala IS NOT NULL AND p_id_estructura_fisica IS NOT NULL AND p_id_sala IS NOT NULL AND
+       NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo_sala AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+        RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo_sala;
+    END IF;
+
+    -- Validar que la colección permanente existe si se proporciona
+    IF p_id_museo_coleccion IS NOT NULL AND p_id_estructura_org_coleccion IS NOT NULL AND p_id_coleccion IS NOT NULL AND
+       NOT EXISTS (SELECT 1 FROM coleccion_permanente WHERE id_museo = p_id_museo_coleccion AND id_estructura_org = p_id_estructura_org_coleccion AND id_coleccion = p_id_coleccion) THEN
+        RAISE EXCEPTION 'Colección permanente con ID % en estructura % del museo % no encontrada.', p_id_coleccion, p_id_estructura_org_coleccion, p_id_museo_coleccion;
+    END IF;
+
+    -- Validar el tipo de obtención si se proporciona
+    IF p_tipo_obtencion IS NOT NULL AND p_tipo_obtencion NOT IN ('comprado', 'donado', 'comprado a otro museo', 'donado de otro museo') THEN
+        RAISE EXCEPTION 'El tipo de obtención debe ser "comprado", "donado", "comprado a otro museo" o "donado de otro museo".';
+    END IF;
+
+    -- Validar si es destacada si se proporciona
+    IF p_destacada IS NOT NULL AND p_destacada NOT IN ('si', 'no') THEN
+        RAISE EXCEPTION 'El valor para "destacada" debe ser "si" o "no".';
+    END IF;
+
+    -- Validar que fecha_fin sea mayor o igual a fecha_inicio si se proporciona
+    IF p_fecha_fin IS NOT NULL AND p_fecha_inicio IS NOT NULL AND p_fecha_fin < p_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_fecha_fin, p_fecha_inicio;
+    END IF;
+
+    UPDATE historico_obra_movimiento
+    SET
+        fecha_inicio = COALESCE(p_fecha_inicio, fecha_inicio),
+        tipo_obtencion = COALESCE(p_tipo_obtencion, tipo_obtencion),
+        destacada = COALESCE(p_destacada, destacada),
+        id_museo_sala = COALESCE(p_id_museo_sala, id_museo_sala),
+        id_estructura_fisica = COALESCE(p_id_estructura_fisica, id_estructura_fisica),
+        id_sala = COALESCE(p_id_sala, id_sala),
+        id_museo_coleccion = COALESCE(p_id_museo_coleccion, id_museo_coleccion),
+        id_estructura_org_coleccion = COALESCE(p_id_estructura_org_coleccion, id_estructura_org_coleccion),
+        id_coleccion = COALESCE(p_id_coleccion, id_coleccion),
+        fecha_fin = COALESCE(p_fecha_fin, fecha_fin),
+        valor_obra = COALESCE(p_valor_obra, valor_obra),
+        orden_recomendado = COALESCE(p_orden_recomendado, orden_recomendado)
+    WHERE
+        id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- SP_ObtenerMovimientosObra: Obtiene el historial de movimientos de una obra
+CREATE OR REPLACE FUNCTION SP_ObtenerMovimientosObra(
+    p_id_obra NUMERIC
+)
+RETURNS TABLE (
+    id_historico_obra_movimiento NUMERIC,
+    fecha_inicio DATE,
+    tipo_obtencion VARCHAR,
+    destacada VARCHAR,
+    nombre_sala VARCHAR,
+    nombre_coleccion VARCHAR,
+    nombre_empleado_registro VARCHAR,
+    rol_empleado_registro VARCHAR,
+    fecha_fin DATE,
+    valor_obra NUMERIC,
+    orden_recomendado NUMERIC
+) AS $$
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        hom.id_historico_obra_movimiento,
+        hom.fecha_inicio,
+        hom.tipo_obtencion,
+        hom.destacada,
+        se.nombre_sala,
+        cp.nombre_coleccion,
+        (ep.primer_nombre || ' ' || ep.primer_apellido)::VARCHAR AS nombre_empleado_registro,
+        he.rol_empleado,
+        hom.fecha_fin,
+        hom.valor_obra,
+        hom.orden_recomendado
+    FROM
+        historico_obra_movimiento hom,
+        sala_exposicion se,
+        coleccion_permanente cp,
+        historico_empleado he,
+        empleado_profesional ep
+    WHERE
+        hom.id_museo_sala = se.id_museo AND hom.id_estructura_fisica = se.id_estructura_fisica AND hom.id_sala = se.id_sala AND
+        hom.id_museo_coleccion = cp.id_museo AND hom.id_estructura_org_coleccion = cp.id_estructura_org AND hom.id_coleccion = cp.id_coleccion AND
+        hom.id_museo_empleado = he.id_museo AND hom.id_estructura_org_empleado = he.id_estructura_org AND hom.id_empleado = he.id_empleado AND hom.fecha_inicio_empleado = he.fecha_inicio AND
+        he.id_empleado = ep.id_empleado_prof AND
+        hom.id_obra = p_id_obra
+    ORDER BY
+        hom.fecha_inicio DESC;
+END;
+$$ LANGUAGE plpgsql;

@@ -1,0 +1,1108 @@
+--------------------------------------------------------------------------------
+-- 1. Gestión de Empleados Profesionales (empleado_profesional)
+--------------------------------------------------------------------------------
+
+-- SP_InsertarEmpleadoProfesional: Inserta un nuevo empleado profesional
+CREATE OR REPLACE FUNCTION SP_InsertarEmpleadoProfesional(
+    p_primer_nombre VARCHAR(20),
+    p_primer_apellido VARCHAR(20),
+    p_segundo_apellido VARCHAR(20),
+    p_fecha_nacimiento DATE,
+    p_doc_identidad NUMERIC,
+    p_dato_contacto VARCHAR(100) DEFAULT NULL,
+    p_segundo_nombre VARCHAR(20) DEFAULT NULL
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_empleado_prof NUMERIC;
+BEGIN
+    -- Validar que el documento de identidad no esté ya registrado
+    IF EXISTS (SELECT 1 FROM empleado_profesional WHERE doc_identidad = p_doc_identidad) THEN
+        RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado.', p_doc_identidad;
+    END IF;
+
+    INSERT INTO empleado_profesional (
+        primer_nombre,
+        primer_apellido,
+        segundo_apellido,
+        fecha_nacimiento,
+        doc_identidad,
+        dato_contacto,
+        segundo_nombre
+    ) VALUES (
+        p_primer_nombre,
+        p_primer_apellido,
+        p_segundo_apellido,
+        p_fecha_nacimiento,
+        p_doc_identidad,
+        p_dato_contacto,
+        p_segundo_nombre
+    ) RETURNING id_empleado_prof INTO v_id_empleado_prof;
+
+    RETURN v_id_empleado_prof;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarEmpleadoProfesional: Actualiza los datos de un empleado profesional existente
+CREATE OR REPLACE FUNCTION SP_ActualizarEmpleadoProfesional(
+    p_id_empleado_prof NUMERIC,
+    p_primer_nombre VARCHAR(20) DEFAULT NULL,
+    p_primer_apellido VARCHAR(20) DEFAULT NULL,
+    p_segundo_apellido VARCHAR(20) DEFAULT NULL,
+    p_fecha_nacimiento DATE DEFAULT NULL,
+    p_doc_identidad NUMERIC DEFAULT NULL,
+    p_dato_contacto VARCHAR(100) DEFAULT NULL,
+    p_segundo_nombre VARCHAR(20) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el empleado existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
+    END IF;
+
+    -- Validar si el nuevo documento de identidad ya está en uso por otro empleado
+    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_profesional WHERE doc_identidad = p_doc_identidad AND id_empleado_prof <> p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado.', p_doc_identidad;
+    END IF;
+
+    UPDATE empleado_profesional
+    SET
+        primer_nombre = COALESCE(p_primer_nombre, primer_nombre),
+        primer_apellido = COALESCE(p_primer_apellido, primer_apellido),
+        segundo_apellido = COALESCE(p_segundo_apellido, segundo_apellido),
+        fecha_nacimiento = COALESCE(p_fecha_nacimiento, fecha_nacimiento),
+        doc_identidad = COALESCE(p_doc_identidad, doc_identidad),
+        dato_contacto = COALESCE(p_dato_contacto, dato_contacto),
+        segundo_nombre = COALESCE(p_segundo_nombre, segundo_nombre)
+    WHERE id_empleado_prof = p_id_empleado_prof;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerEmpleadosProfesionales: Obtiene uno o varios empleados profesionales
+CREATE OR REPLACE FUNCTION SP_ObtenerEmpleadosProfesionales(
+    p_id_empleado_prof NUMERIC DEFAULT NULL,
+    p_primer_nombre VARCHAR(20) DEFAULT NULL,
+    p_primer_apellido VARCHAR(20) DEFAULT NULL,
+    p_doc_identidad NUMERIC DEFAULT NULL
+)
+RETURNS TABLE (
+    id_empleado_prof NUMERIC,
+    primer_nombre VARCHAR,
+    segundo_nombre VARCHAR,
+    primer_apellido VARCHAR,
+    segundo_apellido VARCHAR,
+    fecha_nacimiento DATE,
+    doc_identidad NUMERIC,
+    dato_contacto VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        ep.id_empleado_prof,
+        ep.primer_nombre,
+        ep.segundo_nombre,
+        ep.primer_apellido,
+        ep.segundo_apellido,
+        ep.fecha_nacimiento,
+        ep.doc_identidad,
+        ep.dato_contacto
+    FROM
+        empleado_profesional ep
+    WHERE
+        (p_id_empleado_prof IS NULL OR ep.id_empleado_prof = p_id_empleado_prof) AND
+        (p_primer_nombre IS NULL OR ep.primer_nombre ILIKE '%' || p_primer_nombre || '%') AND
+        (p_primer_apellido IS NULL OR ep.primer_apellido ILIKE '%' || p_primer_apellido || '%') AND
+        (p_doc_identidad IS NULL OR ep.doc_identidad = p_doc_identidad);
+END;
+$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------
+-- 2. Gestión de Formación Profesional (formacion_profesional)
+--------------------------------------------------------------------------------
+
+-- SP_InsertarFormacionProfesional: Inserta una nueva formación profesional para un empleado
+CREATE OR REPLACE FUNCTION SP_InsertarFormacionProfesional(
+    p_id_empleado_prof NUMERIC,
+    p_nombre_titulo VARCHAR(100),
+    p_ano DATE,
+    p_descripcion_especialidad VARCHAR(200)
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_formacion NUMERIC;
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
+    END IF;
+
+    INSERT INTO formacion_profesional (
+        id_empleado_prof,
+        nombre_titulo,
+        ano,
+        descripcion_especialidad
+    ) VALUES (
+        p_id_empleado_prof,
+        p_nombre_titulo,
+        p_ano,
+        p_descripcion_especialidad
+    ) RETURNING id_formacion INTO v_id_formacion;
+
+    RETURN v_id_formacion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarFormacionProfesional: Actualiza una formación profesional existente
+CREATE OR REPLACE FUNCTION SP_ActualizarFormacionProfesional(
+    p_id_empleado_prof NUMERIC,
+    p_id_formacion NUMERIC,
+    p_nombre_titulo VARCHAR(100) DEFAULT NULL,
+    p_ano DATE DEFAULT NULL,
+    p_descripcion_especialidad VARCHAR(200) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la formación existe para el empleado dado
+    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion) THEN
+        RAISE EXCEPTION 'Formación con ID % para el empleado % no encontrada.', p_id_formacion, p_id_empleado_prof;
+    END IF;
+
+    UPDATE formacion_profesional
+    SET
+        nombre_titulo = COALESCE(p_nombre_titulo, nombre_titulo),
+        ano = COALESCE(p_ano, ano),
+        descripcion_especialidad = COALESCE(p_descripcion_especialidad, descripcion_especialidad)
+    WHERE
+        id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarFormacionProfesional: Elimina una formación profesional de un empleado
+CREATE OR REPLACE FUNCTION SP_EliminarFormacionProfesional(
+    p_id_empleado_prof NUMERIC,
+    p_id_formacion NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la formación existe para el empleado dado
+    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion) THEN
+        RAISE EXCEPTION 'Formación con ID % para el empleado % no encontrada.', p_id_formacion, p_id_empleado_prof;
+    END IF;
+
+    DELETE FROM formacion_profesional
+    WHERE id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerFormacionPorEmpleado: Obtiene todas las formaciones de un empleado
+CREATE OR REPLACE FUNCTION SP_ObtenerFormacionPorEmpleado(
+    p_id_empleado_prof NUMERIC
+)
+RETURNS TABLE (
+    id_formacion NUMERIC,
+    nombre_titulo VARCHAR,
+    ano DATE,
+    descripcion_especialidad VARCHAR
+) AS $$
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        fp.id_formacion,
+        fp.nombre_titulo,
+        fp.ano,
+        fp.descripcion_especialidad
+    FROM
+        formacion_profesional fp
+    WHERE
+        fp.id_empleado_prof = p_id_empleado_prof;
+END;
+$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------
+-- 3. Gestión de Idiomas de Empleados (emp_idi)
+--------------------------------------------------------------------------------
+
+-- SP_AsignarIdiomaEmpleado: Asigna un idioma a un empleado profesional
+CREATE OR REPLACE FUNCTION SP_AsignarIdiomaEmpleado(
+    p_id_idioma NUMERIC,
+    p_id_empleado_prof NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
+    END IF;
+
+    -- Validar que el idioma existe
+    IF NOT EXISTS (SELECT 1 FROM idioma WHERE id_idioma = p_id_idioma) THEN
+        RAISE EXCEPTION 'Idioma con ID % no encontrado.', p_id_idioma;
+    END IF;
+
+    -- Prevenir duplicados
+    IF EXISTS (SELECT 1 FROM emp_idi WHERE id_idioma = p_id_idioma AND id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'El empleado % ya tiene asignado el idioma %.', p_id_empleado_prof, p_id_idioma;
+    END IF;
+
+    INSERT INTO emp_idi (id_idioma, id_empleado_prof)
+    VALUES (p_id_idioma, p_id_empleado_prof);
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarIdiomaEmpleado: Elimina la asignación de un idioma a un empleado
+CREATE OR REPLACE FUNCTION SP_EliminarIdiomaEmpleado(
+    p_id_idioma NUMERIC,
+    p_id_empleado_prof NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la asignación existe
+    IF NOT EXISTS (SELECT 1 FROM emp_idi WHERE id_idioma = p_id_idioma AND id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Asignación de idioma % a empleado % no encontrada.', p_id_idioma, p_id_empleado_prof;
+    END IF;
+
+    DELETE FROM emp_idi
+    WHERE id_idioma = p_id_idioma AND id_empleado_prof = p_id_empleado_prof;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerIdiomasPorEmpleado: Obtiene todos los idiomas de un empleado profesional
+CREATE OR REPLACE FUNCTION SP_ObtenerIdiomasPorEmpleado(
+    p_id_empleado_prof NUMERIC
+)
+RETURNS TABLE (
+    id_idioma NUMERIC,
+    nombre_idioma VARCHAR
+) AS $$
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        ei.id_idioma,
+        i.nombre AS nombre_idioma
+    FROM
+        emp_idi ei, idioma i
+    WHERE
+        ei.id_idioma = i.id_idioma AND
+        ei.id_empleado_prof = p_id_empleado_prof;
+END;
+$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------
+-- 4. Historial de Trabajo de Empleados (historico_empleado)
+--------------------------------------------------------------------------------
+
+-- SP_AsignarRolEmpleado: Registra un nuevo rol o asignación para un empleado en una estructura organizacional
+CREATE OR REPLACE FUNCTION SP_AsignarRolEmpleado(
+    p_id_empleado NUMERIC,
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_fecha_inicio DATE,
+    p_rol_empleado VARCHAR(70)
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado;
+    END IF;
+
+    -- Validar que el museo existe
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+        RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
+    END IF;
+
+    -- Validar que la estructura organizacional existe
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada.', p_id_estructura_org, p_id_museo;
+    END IF;
+
+    -- Verificar que no haya un rol activo duplicado con la misma fecha de inicio exacta
+    IF EXISTS (SELECT 1 FROM historico_empleado WHERE id_empleado = p_id_empleado AND id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND fecha_inicio = p_fecha_inicio) THEN
+        RAISE EXCEPTION 'Ya existe un rol asignado para el empleado % en la estructura % del museo % con la fecha de inicio %.', p_id_empleado, p_id_estructura_org, p_id_museo, p_fecha_inicio;
+    END IF;
+
+    INSERT INTO historico_empleado (
+        id_empleado,
+        id_museo,
+        id_estructura_org,
+        fecha_inicio,
+        rol_empleado,
+        fecha_fin
+    ) VALUES (
+        p_id_empleado,
+        p_id_museo,
+        p_id_estructura_org,
+        p_fecha_inicio,
+        p_rol_empleado,
+        NULL -- Rol activo, sin fecha de fin
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_FinalizarRolEmpleado: Establece la fecha de fin para un rol de empleado en el historial
+CREATE OR REPLACE FUNCTION SP_FinalizarRolEmpleado(
+    p_id_empleado NUMERIC,
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_fecha_inicio DATE,
+    p_fecha_fin DATE
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que el registro de historial existe
+    IF NOT EXISTS (
+        SELECT 1 FROM historico_empleado
+        WHERE
+            id_empleado = p_id_empleado AND
+            id_museo = p_id_museo AND
+            id_estructura_org = p_id_estructura_org AND
+            fecha_inicio = p_fecha_inicio
+    ) THEN
+        RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo, p_id_estructura_org, p_fecha_inicio;
+    END IF;
+
+    -- Validar que fecha_fin sea mayor o igual a fecha_inicio
+    IF p_fecha_fin IS NOT NULL AND p_fecha_fin < p_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_fecha_fin, p_fecha_inicio;
+    END IF;
+
+    UPDATE historico_empleado
+    SET fecha_fin = p_fecha_fin
+    WHERE
+        id_empleado = p_id_empleado AND
+        id_museo = p_id_museo AND
+        id_estructura_org = p_id_estructura_org AND
+        fecha_inicio = p_fecha_inicio;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerHistorialEmpleado: Obtiene todo el historial de roles de un empleado
+CREATE OR REPLACE FUNCTION SP_ObtenerHistorialEmpleado(
+    p_id_empleado NUMERIC
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_estructura_org NUMERIC,
+    nombre_museo VARCHAR,
+    nombre_estructura_org VARCHAR,
+    fecha_inicio DATE,
+    rol_empleado VARCHAR,
+    fecha_fin DATE
+) AS $$
+BEGIN
+    -- Validar que el empleado profesional existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado) THEN
+        RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        he.id_museo,
+        he.id_estructura_org,
+        m.nombre AS nombre_museo,
+        eo.nombre AS nombre_estructura_org,
+        he.fecha_inicio,
+        he.rol_empleado,
+        he.fecha_fin
+    FROM
+        historico_empleado he, museo m, estructura_organizacional eo
+    WHERE
+        he.id_museo = m.id_museo AND
+        he.id_museo = eo.id_museo AND he.id_estructura_org = eo.id_estructura_org AND
+        he.id_empleado = p_id_empleado
+    ORDER BY
+        he.fecha_inicio DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerEmpleadosPorRol: Lista los empleados que actualmente tienen un rol específico
+CREATE OR REPLACE FUNCTION SP_ObtenerEmpleadosPorRol(
+    p_rol_empleado VARCHAR(70)
+)
+RETURNS TABLE (
+    id_empleado NUMERIC,
+    primer_nombre VARCHAR,
+    segundo_nombre VARCHAR,
+    primer_apellido VARCHAR,
+    segundo_apellido VARCHAR,
+    nombre_museo VARCHAR,
+    nombre_estructura_org VARCHAR,
+    fecha_inicio_rol DATE
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        ep.id_empleado_prof,
+        ep.primer_nombre,
+        ep.segundo_nombre,
+        ep.primer_apellido,
+        ep.segundo_apellido,
+        m.nombre AS nombre_museo,
+        eo.nombre AS nombre_estructura_org,
+        he.fecha_inicio AS fecha_inicio_rol
+    FROM
+        empleado_profesional ep, historico_empleado he, museo m, estructura_organizacional eo
+    WHERE
+        ep.id_empleado_prof = he.id_empleado AND
+        he.id_museo = m.id_museo AND
+        he.id_museo = eo.id_museo AND he.id_estructura_org = eo.id_estructura_org AND
+        he.rol_empleado = p_rol_empleado AND he.fecha_fin IS NULL; -- Solo roles activos
+END;
+$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------
+-- 5. Gestión de Empleados de Mantenimiento y Vigilancia
+-- (empleado_mantenimiento_vigilancia)
+--------------------------------------------------------------------------------
+
+-- SP_InsertarEmpleadoMV: Inserta un nuevo empleado de mantenimiento o vigilancia
+CREATE OR REPLACE FUNCTION SP_InsertarEmpleadoMV(
+    p_nombre_empleado_mv VARCHAR(20),
+    p_apellido_empleado_mv VARCHAR(20),
+    p_doc_identidad NUMERIC,
+    p_tipo VARCHAR(20)
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_empleado_mv NUMERIC;
+BEGIN
+    -- Validar que el tipo sea válido según el CHECK constraint
+    IF p_tipo NOT IN ('vigilancia', 'mantenimiento') THEN
+        RAISE EXCEPTION 'El tipo de empleado debe ser "vigilancia" o "mantenimiento".';
+    END IF;
+
+    -- Validar que el documento de identidad no esté ya registrado
+    IF EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE doc_identidad = p_doc_identidad) THEN
+        RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado de Mantenimiento/Vigilancia.', p_doc_identidad;
+    END IF;
+
+    INSERT INTO empleado_mantenimiento_vigilancia (
+        nombre_empleado_mv,
+        apellido_empleado_mv,
+        doc_identidad,
+        tipo
+    ) VALUES (
+        p_nombre_empleado_mv,
+        p_apellido_empleado_mv,
+        p_doc_identidad,
+        p_tipo
+    ) RETURNING id_empleado_mantenimiento_vigilancia INTO v_id_empleado_mv;
+
+    RETURN v_id_empleado_mv;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarEmpleadoMV: Actualiza los datos de un empleado de mantenimiento o vigilancia
+CREATE OR REPLACE FUNCTION SP_ActualizarEmpleadoMV(
+    p_id_empleado_mantenimiento_vigilancia NUMERIC,
+    p_nombre_empleado_mv VARCHAR(20) DEFAULT NULL,
+    p_apellido_empleado_mv VARCHAR(20) DEFAULT NULL,
+    p_doc_identidad NUMERIC DEFAULT NULL,
+    p_tipo VARCHAR(20) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el empleado existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+        RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
+    END IF;
+
+    -- Validar el nuevo tipo si se proporciona
+    IF p_tipo IS NOT NULL AND p_tipo NOT IN ('vigilancia', 'mantenimiento') THEN
+        RAISE EXCEPTION 'El tipo de empleado debe ser "vigilancia" o "mantenimiento".';
+    END IF;
+
+    -- Validar si el nuevo documento de identidad ya está en uso por otro empleado MV
+    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE doc_identidad = p_doc_identidad AND id_empleado_mantenimiento_vigilancia <> p_id_empleado_mantenimiento_vigilancia) THEN
+        RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado de Mantenimiento/Vigilancia.', p_doc_identidad;
+    END IF;
+
+    UPDATE empleado_mantenimiento_vigilancia
+    SET
+        nombre_empleado_mv = COALESCE(p_nombre_empleado_mv, nombre_empleado_mv),
+        apellido_empleado_mv = COALESCE(p_apellido_empleado_mv, apellido_empleado_mv),
+        doc_identidad = COALESCE(p_doc_identidad, doc_identidad),
+        tipo = COALESCE(p_tipo, tipo)
+    WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerEmpleadosMV: Obtiene uno o varios empleados de mantenimiento/vigilancia
+CREATE OR REPLACE FUNCTION SP_ObtenerEmpleadosMV(
+    p_id_empleado_mantenimiento_vigilancia NUMERIC DEFAULT NULL,
+    p_nombre_empleado_mv VARCHAR(20) DEFAULT NULL,
+    p_apellido_empleado_mv VARCHAR(20) DEFAULT NULL,
+    p_tipo VARCHAR(20) DEFAULT NULL
+)
+RETURNS TABLE (
+    id_empleado_mantenimiento_vigilancia NUMERIC,
+    nombre_empleado_mv VARCHAR,
+    apellido_empleado_mv VARCHAR,
+    doc_identidad NUMERIC,
+    tipo VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        emv.id_empleado_mantenimiento_vigilancia,
+        emv.nombre_empleado_mv,
+        emv.apellido_empleado_mv,
+        emv.doc_identidad,
+        emv.tipo
+    FROM
+        empleado_mantenimiento_vigilancia emv
+    WHERE
+        (p_id_empleado_mantenimiento_vigilancia IS NULL OR emv.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) AND
+        (p_nombre_empleado_mv IS NULL OR emv.nombre_empleado_mv ILIKE '%' || p_nombre_empleado_mv || '%') AND
+        (p_apellido_empleado_mv IS NULL OR emv.apellido_empleado_mv ILIKE '%' || p_apellido_empleado_mv || '%') AND
+        (p_tipo IS NULL OR emv.tipo = p_tipo);
+END;
+$$ LANGUAGE plpgsql;
+
+
+--------------------------------------------------------------------------------
+-- 6. Asignaciones Mensuales (asignacion_mensual)
+--------------------------------------------------------------------------------
+
+-- SP_AsignarPersonalMV: Realiza una nueva asignación mensual de personal de mantenimiento/vigilancia
+CREATE OR REPLACE FUNCTION SP_AsignarPersonalMV(
+    p_id_museo NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_empleado_mantenimiento_vigilancia NUMERIC,
+    p_mes_ano DATE,
+    p_turno VARCHAR(15) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar que el empleado de mantenimiento/vigilancia existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+        RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
+    END IF;
+
+    -- Validar que el museo existe
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+        RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
+    END IF;
+    
+    -- Validar que la estructura física existe (se asume que la tabla 'estructura_fisica' está definida y tiene su clave primaria compuesta)
+    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+        RAISE EXCEPTION 'Estructura física con ID % en museo % no encontrada.', p_id_estructura_fisica, p_id_museo;
+    END IF;
+
+    -- Validar el turno si se proporciona
+    IF p_turno IS NOT NULL AND p_turno NOT IN ('matutino', 'vesperino', 'nocturno') THEN
+        RAISE EXCEPTION 'El turno debe ser "matutino", "vesperino" o "nocturno".';
+    END IF;
+
+    -- Prevenir duplicados (una asignación única por empleado, estructura y mes/año)
+    IF EXISTS (
+        SELECT 1 FROM asignacion_mensual
+        WHERE
+            id_museo = p_id_museo AND
+            id_estructura_fisica = p_id_estructura_fisica AND
+            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            mes_ano = p_mes_ano
+    ) THEN
+        RAISE EXCEPTION 'Ya existe una asignación para el empleado %, en la estructura % del museo % para el mes/año %.', p_id_empleado_mantenimiento_vigilancia, p_id_estructura_fisica, p_id_museo, p_mes_ano;
+    END IF;
+
+    INSERT INTO asignacion_mensual (
+        id_museo,
+        id_estructura_fisica,
+        id_empleado_mantenimiento_vigilancia,
+        mes_ano,
+        turno
+    ) VALUES (
+        p_id_museo,
+        p_id_estructura_fisica,
+        p_id_empleado_mantenimiento_vigilancia,
+        p_mes_ano,
+        p_turno
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarAsignacionMV: Modifica el turno de una asignación mensual existente
+CREATE OR REPLACE FUNCTION SP_ActualizarAsignacionMV(
+    p_id_museo NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_empleado_mantenimiento_vigilancia NUMERIC,
+    p_mes_ano DATE,
+    p_nuevo_turno VARCHAR(15)
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la asignación existe
+    IF NOT EXISTS (
+        SELECT 1 FROM asignacion_mensual
+        WHERE
+            id_museo = p_id_museo AND
+            id_estructura_fisica = p_id_estructura_fisica AND
+            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            mes_ano = p_mes_ano
+    ) THEN
+        RAISE EXCEPTION 'Asignación mensual no encontrada para los parámetros dados.';
+    END IF;
+
+    -- Validar el nuevo turno
+    IF p_nuevo_turno IS NOT NULL AND p_nuevo_turno NOT IN ('matutino', 'vesperino', 'nocturno') THEN
+        RAISE EXCEPTION 'El turno debe ser "matutino", "vesperino" o "nocturno".';
+    END IF;
+
+    UPDATE asignacion_mensual
+    SET turno = p_nuevo_turno
+    WHERE
+        id_museo = p_id_museo AND
+        id_estructura_fisica = p_id_estructura_fisica AND
+        id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+        mes_ano = p_mes_ano;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarAsignacionMV: Elimina una asignación mensual
+CREATE OR REPLACE FUNCTION SP_EliminarAsignacionMV(
+    p_id_museo NUMERIC,
+    p_id_estructura_fisica NUMERIC,
+    p_id_empleado_mantenimiento_vigilancia NUMERIC,
+    p_mes_ano DATE
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la asignación existe
+    IF NOT EXISTS (
+        SELECT 1 FROM asignacion_mensual
+        WHERE
+            id_museo = p_id_museo AND
+            id_estructura_fisica = p_id_estructura_fisica AND
+            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            mes_ano = p_mes_ano
+    ) THEN
+        RAISE EXCEPTION 'Asignación mensual no encontrada para los parámetros dados.';
+    END IF;
+
+    DELETE FROM asignacion_mensual
+    WHERE
+        id_museo = p_id_museo AND
+        id_estructura_fisica = p_id_estructura_fisica AND
+        id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+        mes_ano = p_mes_ano;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerAsignacionesPorMes: Lista las asignaciones para un mes y año específicos
+CREATE OR REPLACE FUNCTION SP_ObtenerAsignacionesPorMes(
+    p_mes_ano DATE
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_estructura_fisica NUMERIC,
+    nombre_estructura_fisica VARCHAR, -- Nombre de la estructura
+    id_empleado_mantenimiento_vigilancia NUMERIC,
+    nombre_empleado_mv VARCHAR,
+    apellido_empleado_mv VARCHAR,
+    tipo_empleado_mv VARCHAR,
+    mes_ano DATE,
+    turno VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        am.id_museo,
+        am.id_estructura_fisica,
+        ef.nombre AS nombre_estructura_fisica,
+        am.id_empleado_mantenimiento_vigilancia,
+        emv.nombre_empleado_mv,
+        emv.apellido_empleado_mv,
+        emv.tipo AS tipo_empleado_mv,
+        am.mes_ano,
+        am.turno
+    FROM
+        asignacion_mensual am, estructura_fisica ef, empleado_mantenimiento_vigilancia emv
+    WHERE
+        am.id_museo = ef.id_museo AND am.id_estructura_fisica = ef.id_estructura_fisica AND
+        am.id_empleado_mantenimiento_vigilancia = emv.id_empleado_mantenimiento_vigilancia AND
+        am.mes_ano = p_mes_ano;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerAsignacionesPorEmpleadoMV: Muestra las asignaciones de un empleado de mantenimiento/vigilancia
+CREATE OR REPLACE FUNCTION SP_ObtenerAsignacionesPorEmpleadoMV(
+    p_id_empleado_mantenimiento_vigilancia NUMERIC
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_estructura_fisica NUMERIC,
+    nombre_estructura_fisica VARCHAR,
+    mes_ano DATE,
+    turno VARCHAR
+) AS $$
+BEGIN
+    -- Validar que el empleado de mantenimiento/vigilancia existe
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+        RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        am.id_museo,
+        am.id_estructura_fisica,
+        ef.nombre AS nombre_estructura_fisica,
+        am.mes_ano,
+        am.turno
+    FROM
+        asignacion_mensual am, estructura_fisica ef
+    WHERE
+        am.id_museo = ef.id_museo AND am.id_estructura_fisica = ef.id_estructura_fisica AND
+        am.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia
+    ORDER BY
+        am.mes_ano DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+
+--------------------------------------------------------------------------------
+-- 7. Programa de Mantenimiento de Obras de Arte (mantenimiento_obra) y
+--    Registro de Mantenimientos Realizados (historico_mantenimiento_realizado)
+--------------------------------------------------------------------------------
+
+-- SP_DefinirMantenimientoObra: Establece una nueva actividad de mantenimiento planificada para una obra
+CREATE OR REPLACE FUNCTION SP_DefinirMantenimientoObra(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_actividad VARCHAR(250),
+    p_frecuencia NUMERIC,
+    p_tipo_responsable VARCHAR(15) DEFAULT NULL
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_mantenimiento_obra NUMERIC;
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    -- Validar que el historial de movimiento de la obra existe
+    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+        RAISE EXCEPTION 'Historial de movimiento de obra con ID_Obra % y ID_HistMov % no encontrado.', p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Validar el tipo de responsable
+    IF p_tipo_responsable IS NOT NULL AND p_tipo_responsable NOT IN ('curador', 'restaurador', 'otro') THEN
+        RAISE EXCEPTION 'El tipo de responsable debe ser "curador", "restaurador" o "otro".';
+    END IF;
+
+    INSERT INTO mantenimiento_obra (
+        id_obra,
+        id_historico_obra_movimiento,
+        actividad,
+        frecuencia,
+        tipo_resposable
+    ) VALUES (
+        p_id_obra,
+        p_id_historico_obra_movimiento,
+        p_actividad,
+        p_frecuencia,
+        p_tipo_responsable
+    ) RETURNING id_mantenimiento_obra INTO v_id_mantenimiento_obra;
+
+    RETURN v_id_mantenimiento_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarMantenimientoObra: Modifica los detalles de una actividad de mantenimiento planificada
+CREATE OR REPLACE FUNCTION SP_ActualizarMantenimientoObra(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_id_mantenimiento_obra NUMERIC,
+    p_actividad VARCHAR(250) DEFAULT NULL,
+    p_frecuencia NUMERIC DEFAULT NULL,
+    p_tipo_responsable VARCHAR(15) DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro de mantenimiento existe
+    IF NOT EXISTS (
+        SELECT 1 FROM mantenimiento_obra
+        WHERE
+            id_obra = p_id_obra AND
+            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            id_mantenimiento_obra = p_id_mantenimiento_obra
+    ) THEN
+        RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Validar el tipo de responsable si se proporciona
+    IF p_tipo_responsable IS NOT NULL AND p_tipo_responsable NOT IN ('curador', 'restaurador', 'otro') THEN
+        RAISE EXCEPTION 'El tipo de responsable debe ser "curador", "restaurador" o "otro".';
+    END IF;
+
+    UPDATE mantenimiento_obra
+    SET
+        actividad = COALESCE(p_actividad, actividad),
+        frecuencia = COALESCE(p_frecuencia, frecuencia),
+        tipo_resposable = COALESCE(p_tipo_responsable, tipo_resposable)
+    WHERE
+        id_obra = p_id_obra AND
+        id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+        id_mantenimiento_obra = p_id_mantenimiento_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarMantenimientoObra: Elimina una actividad de mantenimiento planificada
+CREATE OR REPLACE FUNCTION SP_EliminarMantenimientoObra(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_id_mantenimiento_obra NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro de mantenimiento existe
+    IF NOT EXISTS (
+        SELECT 1 FROM mantenimiento_obra
+        WHERE
+            id_obra = p_id_obra AND
+            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            id_mantenimiento_obra = p_id_mantenimiento_obra
+    ) THEN
+        RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Considerar la dependencia de historico_mantenimiento_realizado.
+    -- Si hay registros en historico_mantenimiento_realizado, esta eliminación fallará por FK.
+    -- Podrías necesitar eliminar primero los registros de historico_mantenimiento_realizado o marcar como "finalizado".
+    DELETE FROM mantenimiento_obra
+    WHERE
+        id_obra = p_id_obra AND
+        id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+        id_mantenimiento_obra = p_id_mantenimiento_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerMantenimientosObra: Obtiene todas las actividades de mantenimiento planificadas para una obra
+CREATE OR REPLACE FUNCTION SP_ObtenerMantenimientosObra(
+    p_id_obra NUMERIC
+)
+RETURNS TABLE (
+    id_historico_obra_movimiento NUMERIC,
+    id_mantenimiento_obra NUMERIC,
+    actividad VARCHAR,
+    frecuencia NUMERIC,
+    tipo_responsable VARCHAR
+) AS $$
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        mo.id_historico_obra_movimiento,
+        mo.id_mantenimiento_obra,
+        mo.actividad,
+        mo.frecuencia,
+        mo.tipo_resposable
+    FROM
+        mantenimiento_obra mo
+    WHERE
+        mo.id_obra = p_id_obra;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_RegistrarMantenimientoRealizado: Registra la ejecución de una actividad de mantenimiento
+CREATE OR REPLACE FUNCTION SP_RegistrarMantenimientoRealizado(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_id_mantenimiento_obra NUMERIC,
+    p_fecha_inicio DATE,
+    p_observaciones VARCHAR(250),
+    p_id_empleado NUMERIC,
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC,
+    p_fecha_inicio_hist_empleado DATE,
+    p_fecha_fin DATE DEFAULT NULL
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_historico_mant_re NUMERIC;
+BEGIN
+    -- Validar que la actividad de mantenimiento planificada existe
+    IF NOT EXISTS (
+        SELECT 1 FROM mantenimiento_obra
+        WHERE
+            id_obra = p_id_obra AND
+            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            id_mantenimiento_obra = p_id_mantenimiento_obra
+    ) THEN
+        RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
+    END IF;
+
+    -- Validar que el empleado y su rol en el historial existen
+    IF NOT EXISTS (
+        SELECT 1 FROM historico_empleado
+        WHERE
+            id_empleado = p_id_empleado AND
+            id_museo = p_id_museo AND
+            id_estructura_org = p_id_estructura_org AND
+            fecha_inicio = p_fecha_inicio_hist_empleado
+    ) THEN
+        RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo, p_id_estructura_org, p_fecha_inicio_hist_empleado;
+    END IF;
+
+    -- Validar que fecha_fin sea mayor o igual a fecha_inicio si se proporciona
+    IF p_fecha_fin IS NOT NULL AND p_fecha_fin < p_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_fecha_fin, p_fecha_inicio;
+    END IF;
+
+    INSERT INTO historico_mantenimiento_realizado (
+        id_obra,
+        id_historico_obra_movimiento,
+        id_mantenimiento_obra,
+        fecha_inicio,
+        observaciones,
+        id_empleado,
+        id_museo,
+        id_estructura_org,
+        fecha_inicio_hist_empleado,
+        fecha_fin
+    ) VALUES (
+        p_id_obra,
+        p_id_historico_obra_movimiento,
+        p_id_mantenimiento_obra,
+        p_fecha_inicio,
+        p_observaciones,
+        p_id_empleado,
+        p_id_museo,
+        p_id_estructura_org,
+        p_fecha_inicio_hist_empleado,
+        p_fecha_fin
+    ) RETURNING id_historico_mant_re INTO v_id_historico_mant_re;
+
+    RETURN v_id_historico_mant_re;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ActualizarHistMantenimientoRealizado: Actualiza un registro de mantenimiento realizado
+CREATE OR REPLACE FUNCTION SP_ActualizarHistMantenimientoRealizado(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_id_mantenimiento_obra NUMERIC,
+    p_id_historico_mant_re NUMERIC,
+    p_fecha_inicio DATE DEFAULT NULL,
+    p_observaciones VARCHAR(250) DEFAULT NULL,
+    p_fecha_fin DATE DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro existe
+    IF NOT EXISTS (
+        SELECT 1 FROM historico_mantenimiento_realizado
+        WHERE
+            id_obra = p_id_obra AND
+            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            id_mantenimiento_obra = p_id_mantenimiento_obra AND
+            id_historico_mant_re = p_id_historico_mant_re
+    ) THEN
+        RAISE EXCEPTION 'Registro de mantenimiento realizado con ID % para la obra % y mov. % y mant. % no encontrado.', p_id_historico_mant_re, p_id_obra, p_id_historico_obra_movimiento, p_id_mantenimiento_obra;
+    END IF;
+
+    -- Validar que fecha_fin sea mayor o igual a fecha_inicio si se actualizan ambas
+    IF p_fecha_inicio IS NOT NULL AND p_fecha_fin IS NOT NULL AND p_fecha_fin < p_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_fecha_fin, p_fecha_inicio;
+    END IF;
+
+    UPDATE historico_mantenimiento_realizado
+    SET
+        fecha_inicio = COALESCE(p_fecha_inicio, fecha_inicio),
+        observaciones = COALESCE(p_observaciones, observaciones),
+        fecha_fin = COALESCE(p_fecha_fin, fecha_fin)
+    WHERE
+        id_obra = p_id_obra AND
+        id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+        id_mantenimiento_obra = p_id_mantenimiento_obra AND
+        id_historico_mant_re = p_id_historico_mant_re;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarHistMantenimientoRealizado: Elimina un registro de mantenimiento realizado
+CREATE OR REPLACE FUNCTION SP_EliminarHistMantenimientoRealizado(
+    p_id_obra NUMERIC,
+    p_id_historico_obra_movimiento NUMERIC,
+    p_id_mantenimiento_obra NUMERIC,
+    p_id_historico_mant_re NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el registro existe
+    IF NOT EXISTS (
+        SELECT 1 FROM historico_mantenimiento_realizado
+        WHERE
+            id_obra = p_id_obra AND
+            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            id_mantenimiento_obra = p_id_mantenimiento_obra AND
+            id_historico_mant_re = p_id_historico_mant_re
+    ) THEN
+        RAISE EXCEPTION 'Registro de mantenimiento realizado con ID % para la obra % y mov. % y mant. % no encontrado.', p_id_historico_mant_re, p_id_obra, p_id_historico_obra_movimiento, p_id_mantenimiento_obra;
+    END IF;
+
+    DELETE FROM historico_mantenimiento_realizado
+    WHERE
+        id_obra = p_id_obra AND
+        id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+        id_mantenimiento_obra = p_id_mantenimiento_obra AND
+        id_historico_mant_re = p_id_historico_mant_re;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerHistorialMantenimientoRealizadoObra: Obtiene el historial de mantenimientos realizados para una obra
+CREATE OR REPLACE FUNCTION SP_ObtenerHistorialMantenimientoRealizadoObra(
+    p_id_obra NUMERIC
+)
+RETURNS TABLE (
+    id_historico_obra_movimiento NUMERIC,
+    id_mantenimiento_obra NUMERIC,
+    id_historico_mant_re NUMERIC,
+    fecha_inicio DATE,
+    observaciones VARCHAR,
+    nombre_empleado VARCHAR, -- Nombre del empleado que lo realizó
+    rol_empleado VARCHAR, -- Rol del empleado
+    fecha_fin DATE
+) AS $$
+BEGIN
+    -- Validar que la obra existe
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+        RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
+    END IF;
+
+    RETURN QUERY
+    SELECT
+        hmr.id_historico_obra_movimiento,
+        hmr.id_mantenimiento_obra,
+        hmr.id_historico_mant_re,
+        hmr.fecha_inicio,
+        hmr.observaciones,
+        (ep.primer_nombre || ' ' || ep.primer_apellido)::VARCHAR AS nombre_empleado, -- Se une con empleado_profesional
+        he.rol_empleado, -- Se une con historico_empleado
+        hmr.fecha_fin
+    FROM
+        historico_mantenimiento_realizado hmr, historico_empleado he, empleado_profesional ep
+    WHERE
+        hmr.id_empleado = he.id_empleado AND hmr.id_museo = he.id_museo AND hmr.id_estructura_org = he.id_estructura_org AND hmr.fecha_inicio_hist_empleado = he.fecha_inicio AND
+        he.id_empleado = ep.id_empleado_prof AND
+        hmr.id_obra = p_id_obra
+    ORDER BY
+        hmr.fecha_inicio DESC;
+END;
+$$ LANGUAGE plpgsql;
