@@ -18,7 +18,7 @@ DECLARE
     v_id_evento NUMERIC;
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
@@ -72,7 +72,7 @@ BEGIN
     SELECT fecha_inicio_evento, fecha_fin_evento
     INTO v_current_fecha_inicio, v_current_fecha_fin
     FROM evento
-    WHERE id_museo = p_id_museo AND id_evento = p_id_evento;
+    WHERE evento.id_museo = p_id_museo AND evento.id_evento = p_id_evento;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'Evento con ID % en museo % no encontrado.', p_id_evento, p_id_museo;
@@ -106,7 +106,7 @@ CREATE OR REPLACE FUNCTION SP_EliminarEvento(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el evento existe
-    IF NOT EXISTS (SELECT 1 FROM evento WHERE id_museo = p_id_museo AND id_evento = p_id_evento) THEN
+    IF NOT EXISTS (SELECT 1 FROM evento WHERE evento.id_museo = p_id_museo AND evento.id_evento = p_id_evento) THEN
         RAISE EXCEPTION 'Evento con ID % en museo % no encontrado.', p_id_evento, p_id_museo;
     END IF;
 
@@ -119,6 +119,52 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- SP_ObtenerEventos: Obtiene información de uno o varios eventos
+CREATE OR REPLACE FUNCTION SP_ObtenerEventos(
+    p_id_museo NUMERIC DEFAULT NULL,
+    p_id_evento NUMERIC DEFAULT NULL,
+    p_nombre_evento VARCHAR(150) DEFAULT NULL,
+    p_fecha_inicio_desde DATE DEFAULT NULL,
+    p_fecha_inicio_hasta DATE DEFAULT NULL
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_evento NUMERIC,
+    fecha_inicio_evento DATE,
+    fecha_fin_evento DATE,
+    nombre_evento VARCHAR,
+    institucion_educativa VARCHAR,
+    cantidad_asistentes NUMERIC,
+    lugar_exposicion VARCHAR,
+    costo_persona NUMERIC,
+    nombre_museo VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        e.id_museo,
+        e.id_evento,
+        e.fecha_inicio_evento,
+        e.fecha_fin_evento,
+        e.nombre_evento,
+        e.institucion_educativa,
+        e.cantidad_asistentes,
+        e.lugar_exposicion,
+        e.costo_persona,
+        m.nombre AS nombre_museo
+    FROM
+        evento e, museo m
+    WHERE
+        e.id_museo = m.id_museo AND
+        (p_id_museo IS NULL OR e.id_museo = p_id_museo) AND
+        (p_id_evento IS NULL OR e.id_evento = p_id_evento) AND
+        (p_nombre_evento IS NULL OR e.nombre_evento ILIKE '%' || p_nombre_evento || '%') AND
+        (p_fecha_inicio_desde IS NULL OR e.fecha_inicio_evento >= p_fecha_inicio_desde) AND
+        (p_fecha_inicio_hasta IS NULL OR e.fecha_inicio_evento <= p_fecha_inicio_hasta)
+    ORDER BY
+        e.fecha_inicio_evento DESC;
+END;
+$$ LANGUAGE plpgsql;
 
 --------------------------------------------------------------------------------
 -- 2.4. Administración de Ingresos
@@ -128,50 +174,6 @@ $$ LANGUAGE plpgsql;
 
 -- SP_InsertarTicket: Inserta un nuevo ticket de entrada
 CREATE OR REPLACE FUNCTION SP_InsertarTicket(
-    p_id_museo NUMERIC,
-    p_tipo_ticket VARCHAR(20)
-)
-RETURNS NUMERIC AS $$
-DECLARE
-    v_id_ticket NUMERIC;
-    v_precio_ticket NUMERIC;
-BEGIN
-    -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
-        RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
-    END IF;
-
-    -- Validar el tipo de ticket
-    IF p_tipo_ticket NOT IN ('niño', 'adulto', 'tercera edad') THEN
-        RAISE EXCEPTION 'El tipo de ticket debe ser "niño", "adulto" o "tercera edad".';
-    END IF;
-
-    -- Obtener el precio actual del tipo de ticket
-    SELECT precio INTO v_precio_ticket
-    FROM tipo_ticket_historico
-    WHERE id_museo = p_id_museo AND tipo_ticket = p_tipo_ticket AND fecha_fin IS NULL;
-
-    IF v_precio_ticket IS NULL THEN
-        RAISE EXCEPTION 'No se encontró un precio activo para el tipo de ticket "%" en el museo %.', p_tipo_ticket, p_id_museo;
-    END IF;
-
-    INSERT INTO ticket (
-        id_museo,
-        precio,
-        tipo_ticket,
-        fecha_hora_ticket
-    ) VALUES (
-        p_id_museo,
-        v_precio_ticket, -- Usar el precio obtenido del historial
-        p_tipo_ticket,
-        CURRENT_DATE -- Se genera automáticamente con la fecha actual
-    ) RETURNING id_ticket INTO v_id_ticket;
-
-    RETURN v_id_ticket;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION SP_InsertarVariosTicket(
     p_id_museo NUMERIC,
     p_tipo_ticket VARCHAR(20),
     p_cantidad NUMERIC DEFAULT 1
@@ -224,6 +226,96 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- SP_ActualizarTicket: Actualiza los datos de un ticket existente
+-- NOTA: Se asume que el ID del ticket y el museo al que pertenece son la clave para actualizar.
+-- No se permite cambiar el id_museo o el id_ticket en una actualización, solo sus atributos.
+CREATE OR REPLACE FUNCTION SP_ActualizarTicket(
+    p_id_museo NUMERIC,
+    p_id_ticket NUMERIC,
+    p_precio NUMERIC DEFAULT NULL,
+    p_tipo_ticket VARCHAR(20) DEFAULT NULL,
+    p_fecha_hora_ticket DATE DEFAULT NULL
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el ticket existe
+    IF NOT EXISTS (SELECT 1 FROM ticket WHERE ticket.id_museo = p_id_museo AND ticket.id_ticket = p_id_ticket) THEN
+        RAISE EXCEPTION 'Ticket con ID % en museo % no encontrado.', p_id_ticket, p_id_museo;
+    END IF;
+
+    -- Validar el tipo de ticket si se proporciona
+    IF p_tipo_ticket IS NOT NULL AND p_tipo_ticket NOT IN ('niño', 'adulto', 'tercera edad') THEN
+        RAISE EXCEPTION 'El tipo de ticket debe ser "niño", "adulto" o "tercera edad".';
+    END IF;
+
+    -- Validar que el precio sea positivo si se proporciona
+    IF p_precio IS NOT NULL AND p_precio <= 0 THEN
+        RAISE EXCEPTION 'El precio del ticket debe ser un valor positivo.';
+    END IF;
+
+    UPDATE ticket
+    SET
+        precio = COALESCE(p_precio, precio),
+        tipo_ticket = COALESCE(p_tipo_ticket, tipo_ticket),
+        fecha_hora_ticket = COALESCE(p_fecha_hora_ticket, fecha_hora_ticket)
+    WHERE
+        id_museo = p_id_museo AND id_ticket = p_id_ticket;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_EliminarTicket: Elimina un ticket
+CREATE OR REPLACE FUNCTION SP_EliminarTicket(
+    p_id_museo NUMERIC,
+    p_id_ticket NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si el ticket existe
+    IF NOT EXISTS (SELECT 1 FROM ticket WHERE ticket.id_museo = p_id_museo AND ticket.id_ticket = p_id_ticket) THEN
+        RAISE EXCEPTION 'Ticket con ID % en museo % no encontrado.', p_id_ticket, p_id_museo;
+    END IF;
+
+    DELETE FROM ticket
+    WHERE id_museo = p_id_museo AND id_ticket = p_id_ticket;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SP_ObtenerTickets: Obtiene información de uno o varios tickets
+CREATE OR REPLACE FUNCTION SP_ObtenerTickets(
+    p_id_museo NUMERIC DEFAULT NULL,
+    p_id_ticket NUMERIC DEFAULT NULL,
+    p_tipo_ticket VARCHAR(20) DEFAULT NULL,
+    p_fecha_desde DATE DEFAULT NULL,
+    p_fecha_hasta DATE DEFAULT NULL
+)
+RETURNS TABLE (
+    id_museo NUMERIC,
+    id_ticket NUMERIC,
+    precio NUMERIC,
+    tipo_ticket VARCHAR,
+    fecha_hora_ticket DATE
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        t.id_museo,
+        t.id_ticket,
+        t.precio,
+        t.tipo_ticket,
+        t.fecha_hora_ticket
+    FROM
+        ticket t
+    WHERE
+        (p_id_museo IS NULL OR t.id_museo = p_id_museo) AND
+        (p_id_ticket IS NULL OR t.id_ticket = p_id_ticket) AND
+        (p_tipo_ticket IS NULL OR t.tipo_ticket = p_tipo_ticket) AND
+        (p_fecha_desde IS NULL OR t.fecha_hora_ticket >= p_fecha_desde) AND
+        (p_fecha_hasta IS NULL OR t.fecha_hora_ticket <= p_fecha_hasta)
+    ORDER BY
+        t.fecha_hora_ticket DESC;
+END;
+$$ LANGUAGE plpgsql;
+
 -- 2.4.2. Historial de Precios de Tipos de Ticket (tipo_ticket_historico)
 
 -- SP_RegistrarPrecioHistoricoTicket: Registra un nuevo precio histórico para un tipo de ticket.
@@ -238,7 +330,7 @@ CREATE OR REPLACE FUNCTION SP_RegistrarPrecioHistoricoTicket(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
@@ -256,10 +348,10 @@ BEGIN
     UPDATE tipo_ticket_historico
     SET fecha_fin = p_fecha_inicio - INTERVAL '1 day' -- Se establece la fecha de fin un día antes del nuevo inicio
     WHERE
-        id_museo = p_id_museo AND
-        tipo_ticket = p_tipo_ticket AND
-        fecha_fin IS NULL AND
-        fecha_inicio < p_fecha_inicio; -- Solo si el inicio es anterior al nuevo inicio
+        tipo_ticket_historico.id_museo = p_id_museo AND
+        tipo_ticket_historico.tipo_ticket = p_tipo_ticket AND
+        tipo_ticket_historico.fecha_fin IS NULL AND
+        tipo_ticket_historico.fecha_inicio < p_fecha_inicio; -- Solo si el inicio es anterior al nuevo inicio
 
     INSERT INTO tipo_ticket_historico (
         id_museo,
@@ -277,7 +369,47 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- SP_ActualizarPrecioHistoricoTicket: Actualiza la fecha de fin o el precio de un registro histórico existente.
+-- Generalmente se usa para finalizar un precio actual o corregir datos.
+CREATE OR REPLACE FUNCTION SP_ActualizarPrecioHistoricoTicket(
+    p_id_museo NUMERIC,
+    p_fecha_inicio DATE, -- Clave primaria para identificar el registro
+    p_nuevo_precio NUMERIC DEFAULT NULL,
+    p_nueva_fecha_fin DATE DEFAULT NULL
+)
+RETURNS VOID AS $$
+DECLARE
+    v_current_fecha_inicio DATE;
+    v_current_tipo_ticket VARCHAR(15);
+BEGIN
+    -- Validar si el registro existe y obtener datos actuales
+    SELECT tth.fecha_inicio, tth.tipo_ticket
+    INTO v_current_fecha_inicio, v_current_tipo_ticket
+    FROM tipo_ticket_historico tth
+    WHERE tth.id_museo = p_id_museo AND tth.fecha_inicio = p_fecha_inicio;
 
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Registro histórico de precio para el museo % iniciado en % no encontrado.', p_id_museo, p_fecha_inicio;
+    END IF;
+
+    -- Validar que la nueva fecha de fin no sea anterior a la fecha de inicio
+    IF p_nueva_fecha_fin IS NOT NULL AND p_nueva_fecha_fin < v_current_fecha_inicio THEN
+        RAISE EXCEPTION 'La nueva fecha de fin (%) no puede ser anterior a la fecha de inicio (%).', p_nueva_fecha_fin, v_current_fecha_inicio;
+    END IF;
+
+    -- Validar que el nuevo precio sea positivo si se proporciona
+    IF p_nuevo_precio IS NOT NULL AND p_nuevo_precio <= 0 THEN
+        RAISE EXCEPTION 'El nuevo precio debe ser un valor positivo.';
+    END IF;
+
+    UPDATE tipo_ticket_historico
+    SET
+        precio = COALESCE(p_nuevo_precio, precio),
+        fecha_fin = COALESCE(p_nueva_fecha_fin, fecha_fin)
+    WHERE
+        id_museo = p_id_museo AND fecha_inicio = p_fecha_inicio;
+END;
+$$ LANGUAGE plpgsql;
 
 -- SP_ObtenerHistoricoPreciosTicket: Obtiene el historial de precios para un tipo de ticket o para todos.
 CREATE OR REPLACE FUNCTION SP_ObtenerHistoricoPreciosTicket(
@@ -330,7 +462,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
