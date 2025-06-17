@@ -73,7 +73,7 @@ CREATE SEQUENCE seq_evento START WITH 1 INCREMENT BY 1;
 CREATE TABLE evento(
     id_museo NUMERIC NOT NULL,
     id_evento NUMERIC DEFAULT nextval('seq_evento') NOT NULL,
-    fecha_inicio_evento DATE,
+    fecha_inicio_evento DATE NOT NULL,
     fecha_fin_evento DATE NOT NULL, 
     nombre_evento VARCHAR(150) NOT NULL,
     institucion_educativa VARCHAR(150), 
