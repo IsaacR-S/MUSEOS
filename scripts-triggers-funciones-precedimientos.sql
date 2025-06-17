@@ -1,7 +1,173 @@
 ------------------------------------------------------------------------------------TIGGERS---------------------------------------------------------------------------------------
 
+---------------------------------------------------------------------------------------------------------Historico_obra_mivimiento-------------------------------------------------------------------------------------------------------------
+
+-- Función trigger modificada para desplazar orden_recomendado dentro del mismo id_museo_coleccion
+CREATE OR REPLACE FUNCTION verificar_fecha_inicio_obra_movimiento()
+RETURNS TRIGGER AS $$
+DECLARE
+    ultima_fecha_inicio DATE;
+    existe_conflicto BOOLEAN;
+    registro_conflicto RECORD;
+    max_orden NUMERIC;
+BEGIN
+    -- Prohibir orden_recomendado si fecha_fin está especificada
+    IF NEW.fecha_fin IS NOT NULL AND NEW.orden_recomendado IS NOT NULL THEN
+        RAISE EXCEPTION 'No se permite ingresar orden_recomendado si se especifica fecha_fin.';
+    END IF;
+
+    -- Validar fecha_fin si se proporciona
+    IF NEW.fecha_fin IS NOT NULL THEN
+        IF NEW.fecha_fin <= NEW.fecha_inicio THEN
+            RAISE EXCEPTION 'La fecha_fin debe ser mayor que la fecha_inicio.';
+        END IF;
+    END IF;
+
+    -- Obtener la última fecha_inicio para el id_obra
+    SELECT MAX(fecha_inicio) INTO ultima_fecha_inicio
+    FROM historico_obra_movimiento
+    WHERE id_obra = NEW.id_obra;
+
+    -- Comprobar que la nueva fecha_inicio sea mayor que la última
+    IF ultima_fecha_inicio IS NOT NULL AND NEW.fecha_inicio <= ultima_fecha_inicio THEN
+        RAISE EXCEPTION 'La fecha_inicio debe ser mayor que la última fecha de inicio para esta obra.';
+    END IF;
+
+    -- Obtener máximo orden_recomendado actual para el mismo id_museo_coleccion
+    SELECT MAX(orden_recomendado) INTO max_orden
+    FROM historico_obra_movimiento
+    WHERE id_museo_coleccion = NEW.id_museo_coleccion;
+
+    -- Si el orden_recomendado proporcionado es mayor que el máximo, ajustar a max + 1
+    IF NEW.orden_recomendado IS NOT NULL AND (max_orden IS NOT NULL AND NEW.orden_recomendado > max_orden) THEN
+        NEW.orden_recomendado := max_orden + 1;
+    ELSIF max_orden IS NULL THEN
+        -- Si no hay registros previos, y orden_recomendado es NULL, lo inicializamos a 1
+        IF NEW.orden_recomendado IS NULL THEN
+            NEW.orden_recomendado := 1;
+        END IF;
+    END IF;
+
+    -- Actualizar la fecha_fin y orden_recomendado (a NULL) del último registro con fecha_fin NULL para el mismo id_obra
+    UPDATE historico_obra_movimiento
+    SET fecha_fin = NEW.fecha_inicio,
+        orden_recomendado = NULL
+    WHERE id_obra = NEW.id_obra AND fecha_fin IS NULL;
+
+    -- Si se especifica orden_recomendado, validar conflictos y desplazar si corresponde
+    IF NEW.orden_recomendado IS NOT NULL THEN
+
+        -- Buscar registro con mismo id_obra y orden_recomendado
+        SELECT id_historico_obra_movimiento INTO registro_conflicto 
+        FROM historico_obra_movimiento
+        WHERE id_obra = NEW.id_obra
+          AND orden_recomendado = NEW.orden_recomendado
+        LIMIT 1;
+
+        -- Si existe otro registro con el mismo id_obra y orden_recomendado distinto al nuevo
+        IF registro_conflicto IS NOT NULL THEN
+            -- Como es INSERT, id_historico_obra_movimiento del NEW es diferente,
+            -- por tanto hay conflicto real y se debe desplazar los registros conflictivos del id_obra
+            WITH RECURSIVE desplazamientos AS (
+                SELECT id_obra, id_historico_obra_movimiento, orden_recomendado
+                FROM historico_obra_movimiento
+                WHERE id_obra = NEW.id_obra
+                  AND orden_recomendado = NEW.orden_recomendado
+
+                UNION ALL
+
+                SELECT h.id_obra, h.id_historico_obra_movimiento, h.orden_recomendado
+                FROM historico_obra_movimiento h
+                INNER JOIN desplazamientos d 
+                  ON h.id_obra = d.id_obra AND h.orden_recomendado = d.orden_recomendado + 1
+            )
+            UPDATE historico_obra_movimiento AS h
+            SET orden_recomendado = h.orden_recomendado + 1
+            FROM desplazamientos d
+            WHERE h.id_obra = d.id_obra
+              AND h.id_historico_obra_movimiento = d.id_historico_obra_movimiento;
+
+            -- Desplazar registros con mismo id_museo_coleccion desde NEW.orden_recomendado hacia adelante,
+            -- excluyendo registros con id_obra y orden_recomendado igual al nuevo insertado para no repetir
+            UPDATE historico_obra_movimiento
+            SET orden_recomendado = orden_recomendado + 1
+            WHERE id_museo_coleccion = NEW.id_museo_coleccion
+              AND orden_recomendado >= NEW.orden_recomendado
+              AND NOT (id_obra = NEW.id_obra AND orden_recomendado = NEW.orden_recomendado);
+        END IF;
+
+        -- Si registro_conflicto es nulo, no hay conflicto y no se desplaza nada
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger para el insert en historico_obra_movimiento
+DROP TRIGGER IF EXISTS trg_verificar_fecha_inicio ON historico_obra_movimiento;
+
+CREATE TRIGGER trg_verificar_fecha_inicio_obra_movimiento
+BEFORE INSERT ON historico_obra_movimiento
+FOR EACH ROW
+EXECUTE FUNCTION verificar_fecha_inicio_obra_movimiento();
+
+-- Trigger function para ordenar secuencialmente el orden_recomendado,
+-- asegurando que no se sobrepase el máximo valor y ajustando los valores si es necesario.
+CREATE OR REPLACE FUNCTION reordenar_orden_recomendado_al_insertar()
+RETURNS TRIGGER AS $$
+DECLARE
+    registros RECORD;
+    nuevo_orden NUMERIC := 1;
+    max_orden_actual NUMERIC;
+BEGIN
+    -- Obtener el máximo orden_recomendado actual para el id_museo_coleccion
+    SELECT MAX(orden_recomendado) INTO max_orden_actual
+    FROM historico_obra_movimiento
+    WHERE id_museo_coleccion = NEW.id_museo_coleccion;
+
+    -- En caso que no haya registros previos, iniciar max_orden_actual en 0
+    IF max_orden_actual IS NULL THEN
+        max_orden_actual := 0;
+    END IF;
+
+    -- Cursor para recorrer todos los registros del mismo id_museo_coleccion ordenados por orden_recomendado
+    FOR registros IN
+        SELECT id_obra, id_historico_obra_movimiento, orden_recomendado
+        FROM historico_obra_movimiento
+        WHERE id_museo_coleccion = NEW.id_museo_coleccion
+        ORDER BY orden_recomendado NULLS LAST, id_historico_obra_movimiento
+    LOOP
+        -- Si el nuevo_orden supera el máximo actual, mantenerse en max_orden_actual + 1
+        IF nuevo_orden > max_orden_actual THEN
+            nuevo_orden := max_orden_actual + 1;
+        END IF;
+
+        -- Si el orden_recomendado no coincide con la secuencia esperada, actualizarlo
+        IF registros.orden_recomendado IS NULL OR registros.orden_recomendado <> nuevo_orden THEN
+            UPDATE historico_obra_movimiento
+            SET orden_recomendado = nuevo_orden
+            WHERE id_obra = registros.id_obra
+              AND id_historico_obra_movimiento = registros.id_historico_obra_movimiento;
+        END IF;
+
+        nuevo_orden := nuevo_orden + 1;
+    END LOOP;
+
+    RETURN NULL; -- Trigger AFTER, no modificar row
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger AFTER INSERT que llame esta función
+DROP TRIGGER IF EXISTS trg_reordenar_orden_recomendado ON historico_obra_movimiento;
+
+CREATE TRIGGER trg_reordenar_orden_recomendado
+AFTER INSERT ON historico_obra_movimiento
+FOR EACH ROW
+EXECUTE FUNCTION reordenar_orden_recomendado_al_insertar();
+---------------------------------------------------------------------------------------------------------Historico_obra_mivimiento-------------------------------------------------------------------------------------------------------------
+
 -- Función para actualizar orden_recorrido antes de insertar un nuevo registro
-CREATE OR REPLACE FUNCTION actualizar_orden_recorrido()
+CREATE OR REPLACE FUNCTION actualizar_orden_recorrido_coleccion()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Verificar si existe algún registro con el mismo id_museo y orden_recorrido mayor o igual
@@ -28,7 +194,7 @@ DROP TRIGGER IF EXISTS before_insert_coleccion ON coleccion_permanente;
 CREATE TRIGGER before_insert_coleccion
 BEFORE INSERT ON coleccion_permanente
 FOR EACH ROW
-EXECUTE FUNCTION actualizar_orden_recorrido();
+EXECUTE FUNCTION actualizar_orden_recorrido_coleccion();
 
 -- Valida la insercion de la estructura organizacional
 CREATE OR REPLACE FUNCTION validar_jerarquia_organizacional()
