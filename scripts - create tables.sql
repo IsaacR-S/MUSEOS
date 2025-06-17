@@ -60,7 +60,7 @@ CREATE TABLE resumen_hist(
 
 CREATE TABLE tipo_ticket_historico(
     id_museo NUMERIC NOT NULL,
-    fecha_inicio DATE NOT NULL,
+    fecha_inicio TIMESTAMP NOT NULL,
     precio NUMERIC NOT NULL, 
     tipo_ticket VARCHAR(15) NOT NULL,
     fecha_fin DATE,
