@@ -385,26 +385,30 @@ const ObraForm: React.FC<Props> = ({ obra, onCancel, onSuccess }) => {
                   onChange={e => setNuevoArtista({ ...nuevoArtista, apellido_artista: e.target.value })}
                   className="museum-input"
                 />
-                <input
-                  type="date"
-                  placeholder="Fecha nacimiento"
-                  value={nuevoArtista.fecha_nacimiento || ''}
-                  onChange={e => setNuevoArtista({ ...nuevoArtista, fecha_nacimiento: e.target.value })}
-                  className="museum-input"
-                />
+                <div>
+                  <label className="block text-xs text-[#2C3639] mb-1">Fecha de nacimiento</label>
+                  <input
+                    type="date"
+                    value={nuevoArtista.fecha_nacimiento || ''}
+                    onChange={e => setNuevoArtista({ ...nuevoArtista, fecha_nacimiento: e.target.value })}
+                    className="museum-input"
+                  />
+                </div>
                 <input
                   placeholder="Apodo"
                   value={nuevoArtista.apodo_artista || ''}
                   onChange={e => setNuevoArtista({ ...nuevoArtista, apodo_artista: e.target.value })}
                   className="museum-input"
                 />
-                <input
-                  type="date"
-                  placeholder="Fecha muerte"
-                  value={nuevoArtista.fecha_muerte || ''}
-                  onChange={e => setNuevoArtista({ ...nuevoArtista, fecha_muerte: e.target.value })}
-                  className="museum-input"
-                />
+                <div>
+                  <label className="block text-xs text-[#2C3639] mb-1">Fecha de muerte</label>
+                  <input
+                    type="date"
+                    value={nuevoArtista.fecha_muerte || ''}
+                    onChange={e => setNuevoArtista({ ...nuevoArtista, fecha_muerte: e.target.value })}
+                    className="museum-input"
+                  />
+                </div>
                 <input
                   placeholder="Descripción estilo/técnicas"
                   value={nuevoArtista.descripcion_estilo_tecnicas || ''}
@@ -456,15 +460,6 @@ const ObraForm: React.FC<Props> = ({ obra, onCancel, onSuccess }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#2C3639]">Museo (colección)</label>
-              <select name="id_museo_coleccion" value={movimiento.id_museo_coleccion} onChange={handleMovimientoChange} className="museum-input w-full">
-                <option value="">Seleccione un museo</option>
-                {museos.map(m => (
-                  <option key={m.id_museo} value={m.id_museo}>{m.nombre}</option>
-                ))}
-              </select>
-            </div>
-            <div>
               <label className="block text-sm font-medium text-[#2C3639]">Estructura Org. (colección)</label>
               <select name="id_estructura_org_coleccion" value={movimiento.id_estructura_org_coleccion} onChange={handleMovimientoChange} className="museum-input w-full">
                 <option value="">Seleccione una estructura organizacional</option>
@@ -479,15 +474,6 @@ const ObraForm: React.FC<Props> = ({ obra, onCancel, onSuccess }) => {
                 <option value="">Seleccione una colección</option>
                 {colecciones.map(c => (
                   <option key={c.id_coleccion} value={c.id_coleccion}>{c.nombre_coleccion}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-[#2C3639]">Museo (empleado)</label>
-              <select name="id_museo_empleado" value={movimiento.id_museo_empleado} onChange={handleMovimientoChange} className="museum-input w-full">
-                <option value="">Seleccione un museo</option>
-                {museos.map(m => (
-                  <option key={m.id_museo} value={m.id_museo}>{m.nombre}</option>
                 ))}
               </select>
             </div>
@@ -548,10 +534,20 @@ const ObraForm: React.FC<Props> = ({ obra, onCancel, onSuccess }) => {
               <label className="block text-sm font-medium text-[#2C3639]">Valor de la Obra</label>
               <input type="number" name="valor_obra" value={movimiento.valor_obra} onChange={handleMovimientoChange} className="museum-input w-full" />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-[#2C3639]">Orden Recomendado</label>
-              <input type="number" name="orden_recomendado" value={movimiento.orden_recomendado} onChange={handleMovimientoChange} className="museum-input w-full" min={1} />
-            </div>
+            {/* Orden Recomendado solo si destacada es 'si' */}
+            {movimiento.destacada === 'si' && (
+              <div>
+                <label className="block text-sm font-medium text-[#2C3639]">Orden Recomendado</label>
+                <input
+                  type="number"
+                  name="orden_recomendado"
+                  value={movimiento.orden_recomendado}
+                  onChange={handleMovimientoChange}
+                  className="museum-input w-full"
+                  min={1}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
