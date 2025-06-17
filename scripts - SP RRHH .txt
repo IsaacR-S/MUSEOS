@@ -17,7 +17,7 @@ DECLARE
     v_id_empleado_prof NUMERIC;
 BEGIN
     -- Validar que el documento de identidad no esté ya registrado
-    IF EXISTS (SELECT 1 FROM empleado_profesional WHERE doc_identidad = p_doc_identidad) THEN
+    IF EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.doc_identidad = p_doc_identidad) THEN
         RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado.', p_doc_identidad;
     END IF;
 
@@ -57,12 +57,12 @@ CREATE OR REPLACE FUNCTION SP_ActualizarEmpleadoProfesional(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el empleado existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
     END IF;
 
     -- Validar si el nuevo documento de identidad ya está en uso por otro empleado
-    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_profesional WHERE doc_identidad = p_doc_identidad AND id_empleado_prof <> p_id_empleado_prof) THEN
+    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.doc_identidad = p_doc_identidad AND empleado_profesional.id_empleado_prof <> p_id_empleado_prof) THEN
         RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado.', p_doc_identidad;
     END IF;
 
@@ -133,7 +133,7 @@ DECLARE
     v_id_formacion NUMERIC;
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
     END IF;
 
@@ -164,7 +164,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarFormacionProfesional(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la formación existe para el empleado dado
-    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion) THEN
+    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE formacion_profesional.id_empleado_prof = p_id_empleado_prof AND formacion_profesional.id_formacion = p_id_formacion) THEN
         RAISE EXCEPTION 'Formación con ID % para el empleado % no encontrada.', p_id_formacion, p_id_empleado_prof;
     END IF;
 
@@ -186,7 +186,7 @@ CREATE OR REPLACE FUNCTION SP_EliminarFormacionProfesional(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la formación existe para el empleado dado
-    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE id_empleado_prof = p_id_empleado_prof AND id_formacion = p_id_formacion) THEN
+    IF NOT EXISTS (SELECT 1 FROM formacion_profesional WHERE formacion_profesional.id_empleado_prof = p_id_empleado_prof AND formacion_profesional.id_formacion = p_id_formacion) THEN
         RAISE EXCEPTION 'Formación con ID % para el empleado % no encontrada.', p_id_formacion, p_id_empleado_prof;
     END IF;
 
@@ -207,7 +207,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
     END IF;
 
@@ -236,17 +236,17 @@ CREATE OR REPLACE FUNCTION SP_AsignarIdiomaEmpleado(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
     END IF;
 
     -- Validar que el idioma existe
-    IF NOT EXISTS (SELECT 1 FROM idioma WHERE id_idioma = p_id_idioma) THEN
+    IF NOT EXISTS (SELECT 1 FROM idioma WHERE idioma.id_idioma = p_id_idioma) THEN
         RAISE EXCEPTION 'Idioma con ID % no encontrado.', p_id_idioma;
     END IF;
 
     -- Prevenir duplicados
-    IF EXISTS (SELECT 1 FROM emp_idi WHERE id_idioma = p_id_idioma AND id_empleado_prof = p_id_empleado_prof) THEN
+    IF EXISTS (SELECT 1 FROM emp_idi WHERE emp_idi.id_idioma = p_id_idioma AND emp_idi.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'El empleado % ya tiene asignado el idioma %.', p_id_empleado_prof, p_id_idioma;
     END IF;
 
@@ -263,7 +263,7 @@ CREATE OR REPLACE FUNCTION SP_EliminarIdiomaEmpleado(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la asignación existe
-    IF NOT EXISTS (SELECT 1 FROM emp_idi WHERE id_idioma = p_id_idioma AND id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM emp_idi WHERE emp_idi.id_idioma = p_id_idioma AND emp_idi.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Asignación de idioma % a empleado % no encontrada.', p_id_idioma, p_id_empleado_prof;
     END IF;
 
@@ -282,7 +282,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado_prof) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado_prof) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado_prof;
     END IF;
 
@@ -313,22 +313,22 @@ CREATE OR REPLACE FUNCTION SP_AsignarRolEmpleado(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado;
     END IF;
 
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
     -- Validar que la estructura organizacional existe
-    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_estructura_org) THEN
         RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada.', p_id_estructura_org, p_id_museo;
     END IF;
 
     -- Verificar que no haya un rol activo duplicado con la misma fecha de inicio exacta
-    IF EXISTS (SELECT 1 FROM historico_empleado WHERE id_empleado = p_id_empleado AND id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org AND fecha_inicio = p_fecha_inicio) THEN
+    IF EXISTS (SELECT 1 FROM historico_empleado WHERE historico_empleado.id_empleado = p_id_empleado AND historico_empleado.id_museo = p_id_museo AND historico_empleado.id_estructura_org = p_id_estructura_org AND historico_empleado.fecha_inicio = p_fecha_inicio) THEN
         RAISE EXCEPTION 'Ya existe un rol asignado para el empleado % en la estructura % del museo % con la fecha de inicio %.', p_id_empleado, p_id_estructura_org, p_id_museo, p_fecha_inicio;
     END IF;
 
@@ -364,10 +364,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM historico_empleado
         WHERE
-            id_empleado = p_id_empleado AND
-            id_museo = p_id_museo AND
-            id_estructura_org = p_id_estructura_org AND
-            fecha_inicio = p_fecha_inicio
+            historico_empleado.id_empleado = p_id_empleado AND
+            historico_empleado.id_museo = p_id_museo AND
+            historico_empleado.id_estructura_org = p_id_estructura_org AND
+            historico_empleado.fecha_inicio = p_fecha_inicio
     ) THEN
         RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo, p_id_estructura_org, p_fecha_inicio;
     END IF;
@@ -402,7 +402,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el empleado profesional existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE id_empleado_prof = p_id_empleado) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_profesional WHERE empleado_profesional.id_empleado_prof = p_id_empleado) THEN
         RAISE EXCEPTION 'Empleado profesional con ID % no encontrado.', p_id_empleado;
     END IF;
 
@@ -483,7 +483,7 @@ BEGIN
     END IF;
 
     -- Validar que el documento de identidad no esté ya registrado
-    IF EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE doc_identidad = p_doc_identidad) THEN
+    IF EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE empleado_mantenimiento_vigilancia.doc_identidad = p_doc_identidad) THEN
         RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado de Mantenimiento/Vigilancia.', p_doc_identidad;
     END IF;
 
@@ -514,7 +514,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarEmpleadoMV(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si el empleado existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE empleado_mantenimiento_vigilancia.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
         RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
     END IF;
 
@@ -524,7 +524,7 @@ BEGIN
     END IF;
 
     -- Validar si el nuevo documento de identidad ya está en uso por otro empleado MV
-    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE doc_identidad = p_doc_identidad AND id_empleado_mantenimiento_vigilancia <> p_id_empleado_mantenimiento_vigilancia) THEN
+    IF p_doc_identidad IS NOT NULL AND EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE empleado_mantenimiento_vigilancia.doc_identidad = p_doc_identidad AND empleado_mantenimiento_vigilancia.id_empleado_mantenimiento_vigilancia <> p_id_empleado_mantenimiento_vigilancia) THEN
         RAISE EXCEPTION 'El documento de identidad % ya está registrado para otro empleado de Mantenimiento/Vigilancia.', p_doc_identidad;
     END IF;
 
@@ -586,17 +586,17 @@ CREATE OR REPLACE FUNCTION SP_AsignarPersonalMV(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el empleado de mantenimiento/vigilancia existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE empleado_mantenimiento_vigilancia.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
         RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
     END IF;
 
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
     
     -- Validar que la estructura física existe (se asume que la tabla 'estructura_fisica' está definida y tiene su clave primaria compuesta)
-    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'Estructura física con ID % en museo % no encontrada.', p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -609,10 +609,10 @@ BEGIN
     IF EXISTS (
         SELECT 1 FROM asignacion_mensual
         WHERE
-            id_museo = p_id_museo AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
-            mes_ano = p_mes_ano
+            asignacion_mensual.id_museo = p_id_museo AND
+            asignacion_mensual.id_estructura_fisica = p_id_estructura_fisica AND
+            asignacion_mensual.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            asignacion_mensual.mes_ano = p_mes_ano
     ) THEN
         RAISE EXCEPTION 'Ya existe una asignación para el empleado %, en la estructura % del museo % para el mes/año %.', p_id_empleado_mantenimiento_vigilancia, p_id_estructura_fisica, p_id_museo, p_mes_ano;
     END IF;
@@ -647,10 +647,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM asignacion_mensual
         WHERE
-            id_museo = p_id_museo AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
-            mes_ano = p_mes_ano
+            asignacion_mensual.id_museo = p_id_museo AND
+            asignacion_mensual.id_estructura_fisica = p_id_estructura_fisica AND
+            asignacion_mensual.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            asignacion_mensual.mes_ano = p_mes_ano
     ) THEN
         RAISE EXCEPTION 'Asignación mensual no encontrada para los parámetros dados.';
     END IF;
@@ -683,10 +683,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM asignacion_mensual
         WHERE
-            id_museo = p_id_museo AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
-            mes_ano = p_mes_ano
+            asignacion_mensual.id_museo = p_id_museo AND
+            asignacion_mensual.id_estructura_fisica = p_id_estructura_fisica AND
+            asignacion_mensual.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia AND
+            asignacion_mensual.mes_ano = p_mes_ano
     ) THEN
         RAISE EXCEPTION 'Asignación mensual no encontrada para los parámetros dados.';
     END IF;
@@ -749,7 +749,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el empleado de mantenimiento/vigilancia existe
-    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
+    IF NOT EXISTS (SELECT 1 FROM empleado_mantenimiento_vigilancia WHERE empleado_mantenimiento_vigilancia.id_empleado_mantenimiento_vigilancia = p_id_empleado_mantenimiento_vigilancia) THEN
         RAISE EXCEPTION 'Empleado de Mantenimiento/Vigilancia con ID % no encontrado.', p_id_empleado_mantenimiento_vigilancia;
     END IF;
 
@@ -789,12 +789,12 @@ DECLARE
     v_id_mantenimiento_obra NUMERIC;
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
     -- Validar que el historial de movimiento de la obra existe
-    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_obra = p_id_obra AND id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
+    IF NOT EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_obra = p_id_obra AND historico_obra_movimiento.id_historico_obra_movimiento = p_id_historico_obra_movimiento) THEN
         RAISE EXCEPTION 'Historial de movimiento de obra con ID_Obra % y ID_HistMov % no encontrado.', p_id_obra, p_id_historico_obra_movimiento;
     END IF;
 
@@ -836,9 +836,9 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM mantenimiento_obra
         WHERE
-            id_obra = p_id_obra AND
-            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
-            id_mantenimiento_obra = p_id_mantenimiento_obra
+            mantenimiento_obra.id_obra = p_id_obra AND
+            mantenimiento_obra.id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            mantenimiento_obra.id_mantenimiento_obra = p_id_mantenimiento_obra
     ) THEN
         RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
     END IF;
@@ -872,9 +872,9 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM mantenimiento_obra
         WHERE
-            id_obra = p_id_obra AND
-            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
-            id_mantenimiento_obra = p_id_mantenimiento_obra
+            mantenimiento_obra.id_obra = p_id_obra AND
+            mantenimiento_obra.id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            mantenimiento_obra.id_mantenimiento_obra = p_id_mantenimiento_obra
     ) THEN
         RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
     END IF;
@@ -903,7 +903,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
@@ -942,9 +942,9 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM mantenimiento_obra
         WHERE
-            id_obra = p_id_obra AND
-            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
-            id_mantenimiento_obra = p_id_mantenimiento_obra
+            mantenimiento_obra.id_obra = p_id_obra AND
+            mantenimiento_obra.id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            mantenimiento_obra.id_mantenimiento_obra = p_id_mantenimiento_obra
     ) THEN
         RAISE EXCEPTION 'Actividad de mantenimiento con ID % para la obra % y mov. % no encontrada.', p_id_mantenimiento_obra, p_id_obra, p_id_historico_obra_movimiento;
     END IF;
@@ -953,10 +953,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM historico_empleado
         WHERE
-            id_empleado = p_id_empleado AND
-            id_museo = p_id_museo AND
-            id_estructura_org = p_id_estructura_org AND
-            fecha_inicio = p_fecha_inicio_hist_empleado
+            historico_empleado.id_empleado = p_id_empleado AND
+            historico_empleado.id_museo = p_id_museo AND
+            historico_empleado.id_estructura_org = p_id_estructura_org AND
+            historico_empleado.fecha_inicio = p_fecha_inicio_hist_empleado
     ) THEN
         RAISE EXCEPTION 'Historial de empleado no encontrado para el empleado %, museo %, estructura % y fecha de inicio %.', p_id_empleado, p_id_museo, p_id_estructura_org, p_fecha_inicio_hist_empleado;
     END IF;
@@ -1010,10 +1010,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM historico_mantenimiento_realizado
         WHERE
-            id_obra = p_id_obra AND
-            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
-            id_mantenimiento_obra = p_id_mantenimiento_obra AND
-            id_historico_mant_re = p_id_historico_mant_re
+            historico_mantenimiento_realizado.id_obra = p_id_obra AND
+            historico_mantenimiento_realizado.id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            historico_mantenimiento_realizado.id_mantenimiento_obra = p_id_mantenimiento_obra AND
+            historico_mantenimiento_realizado.id_historico_mant_re = p_id_historico_mant_re
     ) THEN
         RAISE EXCEPTION 'Registro de mantenimiento realizado con ID % para la obra % y mov. % y mant. % no encontrado.', p_id_historico_mant_re, p_id_obra, p_id_historico_obra_movimiento, p_id_mantenimiento_obra;
     END IF;
@@ -1049,10 +1049,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM historico_mantenimiento_realizado
         WHERE
-            id_obra = p_id_obra AND
-            id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
-            id_mantenimiento_obra = p_id_mantenimiento_obra AND
-            id_historico_mant_re = p_id_historico_mant_re
+            historico_mantenimiento_realizado.id_obra = p_id_obra AND
+            historico_mantenimiento_realizado.id_historico_obra_movimiento = p_id_historico_obra_movimiento AND
+            historico_mantenimiento_realizado.id_mantenimiento_obra = p_id_mantenimiento_obra AND
+            historico_mantenimiento_realizado.id_historico_mant_re = p_id_historico_mant_re
     ) THEN
         RAISE EXCEPTION 'Registro de mantenimiento realizado con ID % para la obra % y mov. % y mant. % no encontrado.', p_id_historico_mant_re, p_id_obra, p_id_historico_obra_movimiento, p_id_mantenimiento_obra;
     END IF;
@@ -1082,7 +1082,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la obra existe
-    IF NOT EXISTS (SELECT 1 FROM obra WHERE id_obra = p_id_obra) THEN
+    IF NOT EXISTS (SELECT 1 FROM obra WHERE obra.id_obra = p_id_obra) THEN
         RAISE EXCEPTION 'Obra con ID % no encontrada.', p_id_obra;
     END IF;
 
