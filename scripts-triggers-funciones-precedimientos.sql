@@ -523,6 +523,34 @@ CREATE TRIGGER trg_check_rol_responsable
 BEFORE INSERT ON historico_mantenimiento_realizado
 FOR EACH ROW
 EXECUTE FUNCTION check_rol_responsable_before_insert();
+
+CREATE OR REPLACE FUNCTION check_fecha_muerte_gt_nacimiento()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Only check if fecha_muerte is not null
+  IF NEW.fecha_muerte IS NOT NULL THEN
+    IF NEW.fecha_nacimiento IS NULL THEN
+      RAISE EXCEPTION 'Fecha de nacimiento no puede ser nula si se proporciona fecha de muerte';
+    END IF;
+
+    IF NEW.fecha_muerte <= NEW.fecha_nacimiento THEN
+      RAISE EXCEPTION 'Fecha de muerte debe ser mayor que fecha de nacimiento';
+    END IF;
+  END IF;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger on artista table before insert or update
+DROP TRIGGER IF EXISTS trg_check_fecha_muerte ON artista;
+
+CREATE TRIGGER trg_check_fecha_muerte
+BEFORE INSERT OR UPDATE OF fecha_muerte, fecha_nacimiento ON artista
+FOR EACH ROW
+EXECUTE FUNCTION check_fecha_muerte_gt_nacimiento();
+
+
 -----------------------------------------------------------------------------------------------------------FUNCIONES------------------------------------------------------------------------------------------------------------
 --Calcular rotacion
 
