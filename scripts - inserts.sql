@@ -688,6 +688,32 @@ insert into TICKET (precio, tipo_ticket, fecha_hora_ticket, id_museo) values
 (15, 'adulto', '2012-03-03 09:25:00', 7),
 (0, 'niño', '2020-02-10 12:50:00', 8);
 
+INSERT INTO tipo_ticket_historico (id_museo, fecha_inicio, precio, tipo_ticket, fecha_fin) VALUES
+
+(1, '2022-01-01 09:00:00', 0.00, 'niño', '2023-12-31'), 
+(1, '2024-01-01 09:00:00', 10.00, 'tercera edad', NULL),
+(1, '2023-01-01 09:00:00', 15.00, 'adulto', NULL),   
+(2, '2021-06-01 10:00:00', 15.00, 'adulto', '2024-05-31'), 
+(2, '2024-06-01 10:00:00', 5.00, 'niño', NULL),
+(2, '2025-01-01 09:00:00', 10.00, 'tercera edad', NULL),   
+(3, '2020-01-01 08:00:00', 8.00, 'tercera edad', '2023-06-30'), 
+(3, '2023-07-01 08:00:00', 20.00, 'adulto', NULL),
+(3, '2024-01-01 09:00:00', 10.00, 'niño', NULL),   
+(4, '2022-03-15 09:30:00', 22.00, 'adulto', '2024-02-29'), 
+(4, '2024-03-01 09:30:00', 0.00,  'niño', NULL),
+(4, '2021-03-01 09:30:00', 15.00,  'tercera edad', NULL),  
+(5, '2020-11-20 11:00:00', 7.50, 'tercera edad', '2023-10-31'), 
+(5, '2023-11-01 11:00:00', 25.00, 'adulto', NULL),
+(5, '2024-03-01 09:30:00', 0.00,  'niño', NULL),  
+(6, '2019-05-01 09:00:00', 5.00, 'niño', '2022-12-31'), 
+(6, '2023-01-01 09:00:00', 12.00, 'tercera edad', NULL),
+(6, '2024-03-01 09:30:00', 18.00,  'adulto', NULL), 
+(7, '2021-02-01 10:30:00', 18.00, 'adulto', '2023-08-31'), 
+(7, '2023-09-01 10:30:00', 0.00,  'niño', NULL),
+(7, '2024-09-01 10:30:00', 0.00,  'tercera edad', NULL), 
+(8, '2022-07-20 12:00:00', 9.00, 'tercera edad', '2024-06-30'), 
+(8, '2024-07-01 12:00:00', 30.00, 'adulto', NULL),
+(8, '2023-07-01 12:00:00', 00.00, 'niño', NULL);
 
 insert into FORMACION_PROFESIONAL (id_empleado_prof, nombre_titulo, ano, descripcion_especialidad) values 
 (1, 'Conservación de Obras de Arte', '12/12/2020', 'Especialización en técnicas de conservación y restauración de pinturas al óleo en museos de arte clásico'),
