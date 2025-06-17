@@ -2,6 +2,38 @@
 -- 8. Administración General del Museo - Mantenimiento de la Información General
 --------------------------------------------------------------------------------
 
+-- SP_InsertarMuseo: Inserta un nuevo museo
+CREATE OR REPLACE FUNCTION SP_InsertarMuseo(
+    p_nombre VARCHAR(50),
+    p_mision VARCHAR(350),
+    p_fecha_fundacion DATE,
+    p_id_lugar NUMERIC
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_museo NUMERIC;
+BEGIN
+    -- Validar que el lugar existe (asumiendo tabla 'lugar')
+    IF NOT EXISTS (SELECT 1 FROM lugar WHERE lugar.id_lugar = p_id_lugar) THEN
+        RAISE EXCEPTION 'Lugar con ID % no encontrado. No se puede crear el museo.', p_id_lugar;
+    END IF;
+
+    INSERT INTO museo (
+        nombre,
+        mision,
+        fecha_fundacion,
+        id_lugar
+    ) VALUES (
+        p_nombre,
+        p_mision,
+        p_fecha_fundacion,
+        p_id_lugar
+    ) RETURNING id_museo INTO v_id_museo;
+
+    RETURN v_id_museo;
+END;
+$$ LANGUAGE plpgsql;
+
 -- SP_ActualizarInfoMuseo: Actualiza la información general del museo
 -- Se asume que solo hay un registro de museo o que el ID_MUSEO es conocido/gestionado.
 -- No se incluye INSERT ni DELETE para 'museo' ya que típicamente es una entidad única o central.
@@ -15,12 +47,12 @@ CREATE OR REPLACE FUNCTION SP_ActualizarInfoMuseo(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
     -- Validar que el lugar existe si se proporciona (asumiendo tabla 'lugar')
-    IF p_id_lugar IS NOT NULL AND NOT EXISTS (SELECT 1 FROM lugar WHERE id_lugar = p_id_lugar) THEN
+    IF p_id_lugar IS NOT NULL AND NOT EXISTS (SELECT 1 FROM lugar WHERE lugar.id_lugar = p_id_lugar) THEN
         RAISE EXCEPTION 'Lugar con ID % no encontrado.', p_id_lugar;
     END IF;
 
@@ -48,7 +80,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
@@ -85,14 +117,14 @@ DECLARE
     v_id_estructura_org NUMERIC;
 BEGIN
     -- Validar que el museo existe
-    IF NOT EXISTS (SELECT 1 FROM museo WHERE id_museo = p_id_museo) THEN
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
         RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
     END IF;
 
     -- Validar si la jerarquía padre existe y pertenece al mismo museo
     IF p_id_jerarquia_estructura IS NOT NULL AND NOT EXISTS (
         SELECT 1 FROM estructura_organizacional
-        WHERE id_museo = p_id_museo AND id_estructura_org = p_id_jerarquia_estructura
+        WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_jerarquia_estructura
     ) THEN
         RAISE EXCEPTION 'La estructura organizacional padre con ID % no existe en el museo %.', p_id_jerarquia_estructura, p_id_museo;
     END IF;
@@ -129,14 +161,14 @@ CREATE OR REPLACE FUNCTION SP_ActualizarEstructuraOrganizacional(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la estructura organizacional existe
-    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_estructura_org) THEN
         RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada.', p_id_estructura_org, p_id_museo;
     END IF;
 
     -- Validar si la nueva jerarquía padre existe y pertenece al mismo museo
     IF p_id_nueva_jerarquia_estructura IS NOT NULL AND NOT EXISTS (
         SELECT 1 FROM estructura_organizacional
-        WHERE id_museo = p_id_museo AND id_estructura_org = p_id_nueva_jerarquia_structure
+        WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_nueva_jerarquia_estructura
     ) THEN
         RAISE EXCEPTION 'La nueva estructura organizacional padre con ID % no existe en el museo %.', p_id_nueva_jerarquia_estructura, p_id_museo;
     END IF;
@@ -162,7 +194,41 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- SP_EliminarEstructuraOrganizacional: Elimina una unidad de la estructura organizacional
+-- NOTA: La eliminación real dependerá de las restricciones ON DELETE de las FKs.
+-- Si hay dependencias (ej. historico_empleado, coleccion_permanente), esta operación puede fallar
+-- o propagarse (DELETE CASCADE) si así está definido. Se recomienda una eliminación lógica en muchos casos.
+CREATE OR REPLACE FUNCTION SP_EliminarEstructuraOrganizacional(
+    p_id_museo NUMERIC,
+    p_id_estructura_org NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Validar si la estructura organizacional existe
+    IF NOT EXISTS (SELECT 1 FROM estructura_organizacional WHERE estructura_organizacional.id_museo = p_id_museo AND estructura_organizacional.id_estructura_org = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'Estructura organizacional con ID % en museo % no encontrada.', p_id_estructura_org, p_id_museo;
+    END IF;
 
+    -- Comprobar si hay sub-estructuras que dependen de esta
+    IF EXISTS (SELECT 1 FROM estructura_organizacional WHERE estructura_organizacional.id_jerarquia_museo = p_id_museo AND estructura_organizacional.id_jerarquia_estructura = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'No se puede eliminar la estructura organizacional % porque tiene sub-estructuras dependientes. Reasigne las sub-estructuras primero.', p_id_estructura_org;
+    END IF;
+
+    -- Comprobar si hay empleados asociados a esta estructura (si historico_empleado usa esta FK)
+    -- Asumiendo ON DELETE RESTRICT o NO ACTION. Si es CASCADE, se borrarán en cascada.
+    IF EXISTS (SELECT 1 FROM historico_empleado WHERE historico_empleado.id_museo = p_id_museo AND historico_empleado.id_estructura_org = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'No se puede eliminar la estructura organizacional % porque tiene historial de empleados asociado. Reasigne o finalice los historiales primero.', p_id_estructura_org;
+    END IF;
+
+    -- Comprobar si hay colecciones asociadas (si coleccion_permanente usa esta FK)
+    IF EXISTS (SELECT 1 FROM coleccion_permanente WHERE coleccion_permanente.id_museo = p_id_museo AND coleccion_permanente.id_estructura_org = p_id_estructura_org) THEN
+        RAISE EXCEPTION 'No se puede eliminar la estructura organizacional % porque tiene colecciones permanentes asociadas. Reasigne las colecciones primero.', p_id_estructura_org;
+    END IF;
+
+    DELETE FROM estructura_organizacional
+    WHERE id_museo = p_id_museo AND id_estructura_org = p_id_estructura_org;
+END;
+$$ LANGUAGE plpgsql;
 
 -- SP_ObtenerEstructuraOrganizacional: Obtiene unidades de la estructura organizacional
 CREATE OR REPLACE FUNCTION SP_ObtenerEstructuraOrganizacional(
@@ -191,7 +257,7 @@ BEGIN
         eo.nivel,
         eo.tipo,
         eo.id_jerarquia_estructura AS id_jerarquia_estructura_padre,
-        eo_padre.nombre AS nombre_estructura_padre -- Alias para la estructura padre
+        eo_padre.nombre AS nombre_estructura_padre
     FROM
         estructura_organizacional eo
     LEFT JOIN
@@ -212,6 +278,58 @@ $$ LANGUAGE plpgsql;
 -- 8.2. Mantenimiento de la Estructura Física (estructura_fisica)
 --------------------------------------------------------------------------------
 
+-- SP_InsertarEstructuraFisica: Inserta una nueva unidad en la estructura física
+CREATE OR REPLACE FUNCTION SP_InsertarEstructuraFisica(
+    p_id_museo NUMERIC,
+    p_nombre VARCHAR(50),
+    p_tipo_estructura VARCHAR(15) DEFAULT NULL,
+    p_descripcion VARCHAR(150) DEFAULT NULL,
+    p_direccion VARCHAR(250) DEFAULT NULL,
+    p_id_jerarquia_estructura NUMERIC DEFAULT NULL -- ID de la estructura física padre
+)
+RETURNS NUMERIC AS $$
+DECLARE
+    v_id_estructura_fisica NUMERIC;
+BEGIN
+    -- Validar que el museo existe
+    IF NOT EXISTS (SELECT 1 FROM museo WHERE museo.id_museo = p_id_museo) THEN
+        RAISE EXCEPTION 'Museo con ID % no encontrado.', p_id_museo;
+    END IF;
+
+    -- Validar el tipo de estructura
+    IF p_tipo_estructura IS NOT NULL AND p_tipo_estructura NOT IN ('edificio', 'piso', 'area seccion') THEN
+        RAISE EXCEPTION 'El tipo de estructura debe ser "edificio", "piso" o "area seccion".';
+    END IF;
+
+    -- Validar si la jerarquía padre existe y pertenece al mismo museo
+    IF p_id_jerarquia_estructura IS NOT NULL AND NOT EXISTS (
+        SELECT 1 FROM estructura_fisica
+        WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_jerarquia_estructura
+    ) THEN
+        RAISE EXCEPTION 'La estructura física padre con ID % no existe en el museo %.', p_id_jerarquia_estructura, p_id_museo;
+    END IF;
+
+    INSERT INTO estructura_fisica (
+        id_museo,
+        nombre,
+        tipo_estructura,
+        descripcion,
+        direccion,
+        id_jerarquia_museo,
+        id_jerarquia_estructura
+    ) VALUES (
+        p_id_museo,
+        p_nombre,
+        p_tipo_estructura,
+        p_descripcion,
+        p_direccion,
+        CASE WHEN p_id_jerarquia_estructura IS NOT NULL THEN p_id_museo ELSE NULL END,
+        p_id_jerarquia_estructura
+    ) RETURNING id_estructura_fisica INTO v_id_estructura_fisica;
+
+    RETURN v_id_estructura_fisica;
+END;
+$$ LANGUAGE plpgsql;
 
 -- SP_ActualizarEstructuraFisica: Actualiza los datos de una unidad física
 CREATE OR REPLACE FUNCTION SP_ActualizarEstructuraFisica(
@@ -226,7 +344,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarEstructuraFisica(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la estructura física existe
-    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'Estructura física con ID % en museo % no encontrada.', p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -238,7 +356,7 @@ BEGIN
     -- Validar si la nueva jerarquía padre existe y pertenece al mismo museo
     IF p_id_nueva_jerarquia_estructura IS NOT NULL AND NOT EXISTS (
         SELECT 1 FROM estructura_fisica
-        WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_nueva_jerarquia_estructura
+        WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_nueva_jerarquia_estructura
     ) THEN
         RAISE EXCEPTION 'La nueva estructura física padre con ID % no existe en el museo %.', p_id_nueva_jerarquia_estructura, p_id_museo;
     END IF;
@@ -273,22 +391,22 @@ CREATE OR REPLACE FUNCTION SP_EliminarEstructuraFisica(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la estructura física existe
-    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'Estructura física con ID % en museo % no encontrada.', p_id_estructura_fisica, p_id_museo;
     END IF;
 
     -- Comprobar si hay sub-estructuras que dependen de esta
-    IF EXISTS (SELECT 1 FROM estructura_fisica WHERE id_jerarquia_museo = p_id_museo AND id_jerarquia_estructura = p_id_estructura_fisica) THEN
+    IF EXISTS (SELECT 1 FROM estructura_fisica WHERE estructura_fisica.id_jerarquia_museo = p_id_museo AND estructura_fisica.id_jerarquia_estructura = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'No se puede eliminar la estructura física % porque tiene sub-estructuras dependientes. Reasigne las sub-estructuras primero.', p_id_estructura_fisica;
     END IF;
 
     -- Comprobar si hay salas de exposición asociadas
-    IF EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'No se puede eliminar la estructura física % porque tiene salas de exposición asociadas. Reasigne o elimine las salas primero.', p_id_estructura_fisica;
     END IF;
 
     -- Comprobar si hay asignaciones mensuales asociadas
-    IF EXISTS (SELECT 1 FROM asignacion_mensual WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF EXISTS (SELECT 1 FROM asignacion_mensual WHERE asignacion_mensual.id_museo = p_id_museo AND asignacion_mensual.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'No se puede eliminar la estructura física % porque tiene asignaciones mensuales de personal asociadas. Elimine las asignaciones primero.', p_id_estructura_fisica;
     END IF;
 
@@ -357,7 +475,7 @@ DECLARE
     v_id_sala NUMERIC;
 BEGIN
     -- Validar que la estructura física existe y pertenece al museo
-    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica) THEN
+    IF NOT EXISTS (SELECT 1 FROM estructura_fisica WHERE estructura_fisica.id_museo = p_id_museo AND estructura_fisica.id_estructura_fisica = p_id_estructura_fisica) THEN
         RAISE EXCEPTION 'Estructura física con ID % en museo % no encontrada. No se puede crear la sala.', p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -388,7 +506,7 @@ CREATE OR REPLACE FUNCTION SP_ActualizarSalaExposicion(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -413,24 +531,24 @@ CREATE OR REPLACE FUNCTION SP_EliminarSalaExposicion(
 RETURNS VOID AS $$
 BEGIN
     -- Validar si la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo;
     END IF;
 
     -- Comprobar dependencias en hist_cierre
-    IF EXISTS (SELECT 1 FROM hist_cierre WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF EXISTS (SELECT 1 FROM hist_cierre WHERE hist_cierre.id_museo = p_id_museo AND hist_cierre.id_estructura_fisica = p_id_estructura_fisica AND hist_cierre.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'No se puede eliminar la sala de exposición % porque tiene registros en su historial de cierres. Elimine los historiales de cierres primero.', p_id_sala;
     END IF;
 
     -- Comprobar dependencias en historico_obra_movimiento
-    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE id_museo_sala = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF EXISTS (SELECT 1 FROM historico_obra_movimiento WHERE historico_obra_movimiento.id_museo_sala = p_id_museo AND historico_obra_movimiento.id_estructura_fisica = p_id_estructura_fisica AND historico_obra_movimiento.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'No se puede eliminar la sala de exposición % porque tiene obras de arte asociadas en su historial de movimiento. Reasigne las obras o finalice sus movimientos primero.', p_id_sala;
     END IF;
 
     -- Comprobar dependencias en col_sal (si existe esta tabla y aplica)
-    -- IF EXISTS (SELECT 1 FROM col_sal WHERE id_museo_sala = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
-    --     RAISE EXCEPTION 'No se puede eliminar la sala de exposición % porque tiene colecciones asociadas. Elimine las asociaciones primero.', p_id_sala;
-    -- END IF;
+    IF EXISTS (SELECT 1 FROM col_sal WHERE col_sal.id_museo_sala = p_id_museo AND col_sal.id_estructura_fisica = p_id_estructura_fisica AND col_sal.id_sala = p_id_sala) THEN
+        RAISE EXCEPTION 'No se puede eliminar la sala de exposición % porque tiene colecciones asociadas. Elimine las asociaciones primero.', p_id_sala;
+    END IF;
 
     DELETE FROM sala_exposicion
     WHERE
@@ -491,7 +609,7 @@ CREATE OR REPLACE FUNCTION SP_RegistrarCierreSala(
 RETURNS VOID AS $$
 BEGIN
     -- Validar que la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada. No se puede registrar el cierre.', p_id_sala, p_id_estructura_fisica, p_id_museo;
     END IF;
 
@@ -499,10 +617,10 @@ BEGIN
     IF EXISTS (
         SELECT 1 FROM hist_cierre
         WHERE
-            id_museo = p_id_museo AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_sala = p_id_sala AND
-            fecha_fin IS NULL -- Cierre aún activo
+            hist_cierre.id_museo = p_id_museo AND
+            hist_cierre.id_estructura_fisica = p_id_estructura_fisica AND
+            hist_cierre.id_sala = p_id_sala AND
+            hist_cierre.fecha_fin IS NULL -- Cierre aún activo
     ) THEN
         RAISE EXCEPTION 'La sala % ya tiene un cierre activo. Finalice el cierre actual antes de registrar uno nuevo.', p_id_sala;
     END IF;
@@ -537,10 +655,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM hist_cierre
         WHERE
-            id_museo = p_id_museo AND
-            id_estructura_fisica = p_id_estructura_fisica AND
-            id_sala = p_id_sala AND
-            fecha_ini = p_fecha_ini
+            hist_cierre.id_museo = p_id_museo AND
+            hist_cierre.id_estructura_fisica = p_id_estructura_fisica AND
+            hist_cierre.id_sala = p_id_sala AND
+            hist_cierre.fecha_ini = p_fecha_ini
     ) THEN
         RAISE EXCEPTION 'Registro de cierre para la sala % (iniciado en %) no encontrado.', p_id_sala, p_fecha_ini;
     END IF;
@@ -574,7 +692,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     -- Validar que la sala de exposición existe
-    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE id_museo = p_id_museo AND id_estructura_fisica = p_id_estructura_fisica AND id_sala = p_id_sala) THEN
+    IF NOT EXISTS (SELECT 1 FROM sala_exposicion WHERE sala_exposicion.id_museo = p_id_museo AND sala_exposicion.id_estructura_fisica = p_id_estructura_fisica AND sala_exposicion.id_sala = p_id_sala) THEN
         RAISE EXCEPTION 'Sala de exposición con ID % en estructura % del museo % no encontrada.', p_id_sala, p_id_estructura_fisica, p_id_museo;
     END IF;
 
