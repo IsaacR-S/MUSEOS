@@ -218,7 +218,7 @@ BEGIN
             p_id_museo,
             v_precio_ticket, -- Usar el precio obtenido del historial
             p_tipo_ticket,
-            CURRENT_DATE -- Se genera automáticamente con la fecha actual
+            CURRENT_TIMESTAMP -- Se genera automáticamente con la fecha y hora actuales. Si la columna 'fecha_hora_ticket' es de tipo DATE, la parte de la hora se truncará automáticamente. Para almacenar la hora, la columna debe ser TIMESTAMP.
         );
         i := i + 1;
     END LOOP;
